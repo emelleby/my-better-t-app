@@ -24,14 +24,20 @@ apps/web/
 │   ├── components/         # React components
 │   │   ├── ui/            # shadcn/ui components
 │   │   ├── header.tsx     # App header
-│   │   ├── providers.tsx  # Context providers
-│   │   └── theme-provider.tsx
+│   │   ├── providers.tsx  # Context providers (TanStack Query, Theme)
+│   │   ├── theme-provider.tsx # Dark/light theme provider
+│   │   ├── mode-toggle.tsx # Theme toggle component
+│   │   └── loader.tsx     # Loading component
 │   ├── lib/               # Utility functions
-│   │   └── utils.ts       # Common utilities
-│   └── index.css          # Global styles
+│   │   └── utils.ts       # Common utilities (cn function)
+│   ├── hooks/             # Custom React hooks (future)
+│   └── index.css          # Global styles (TailwindCSS)
 ├── .next/                 # Next.js build output
 ├── next.config.ts         # Next.js configuration
 ├── components.json        # shadcn/ui configuration
+├── postcss.config.mjs     # PostCSS configuration
+├── .env                   # Environment variables
+├── .env.example           # Environment template
 └── tsconfig.json          # TypeScript config
 ```
 
@@ -39,14 +45,17 @@ apps/web/
 ```
 apps/server/
 ├── src/
-│   ├── index.ts           # Server entry point
-│   └── routers/           # API route handlers
+│   ├── index.ts           # Server entry point (Hono app)
+│   ├── routers/           # API route handlers (future)
+│   └── lib/               # Utility functions (future)
 ├── prisma/
 │   ├── schema/
 │   │   └── schema.prisma  # Database schema
 │   ├── generated/         # Generated Prisma client
 │   └── index.ts           # Prisma client export
 ├── dist/                  # Build output
+├── .env                   # Environment variables
+├── .env.example           # Environment template
 └── tsconfig.json          # TypeScript config
 ```
 

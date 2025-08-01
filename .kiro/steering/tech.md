@@ -64,6 +64,14 @@ bun check            # Run Biome linting and formatting
 
 ## Configuration Files
 - `turbo.json`: Turborepo task configuration
-- `biome.json`: Code formatting and linting rules
+- `biome.json`: Code formatting and linting rules (extends ultracite)
 - `tsconfig.json`: TypeScript compiler options
-- `prisma/schema.prisma`: Database schema definition
+- `apps/server/prisma/schema/schema.prisma`: Database schema definition
+- `apps/web/components.json`: shadcn/ui configuration
+- `apps/web/next.config.ts`: Next.js configuration
+- `bunfig.toml`: Bun runtime configuration
+
+## Environment Files
+- `apps/web/.env`: Frontend environment variables
+- `apps/server/.env`: Backend environment variables
+- Both apps have `.env.example` files as templates
