@@ -1,5 +1,7 @@
 "use client"
 
+import { AuthDemo } from "@/components/auth-demo";
+
 const TITLE_TEXT = `
  ██████╗ ███████╗████████╗████████╗███████╗██████╗
  ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗
@@ -24,6 +26,9 @@ export default function Home() {
       <div className="grid gap-6">
         <section className="rounded-lg border p-4">
           <h2 className="mb-2 font-medium">API Status</h2>
+        </section>
+        <section>
+          <AuthDemo />
         </section>
       </div>
     </div>
