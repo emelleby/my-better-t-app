@@ -1,0 +1,121 @@
+# T-Fullstack Project Rules for Windsurf
+
+## Project Overview
+Modern full-stack TypeScript application with Next.js 15, Hono backend, MongoDB, and strict Ultracite code quality standards.
+
+## Technology Stack
+- **Runtime**: Bun v1.2.19+ (primary), Node.js (compatible) 
+- **Frontend**: Next.js 15.3.0, React 19, TailwindCSS 4.1.11, shadcn/ui, Radix UI
+- **Backend**: Hono 4.8.10, Prisma 6.13.0, MongoDB, Zod validation
+- **Quality**: Biome linter/formatter, Ultracite config, TypeScript strict mode
+- **State Management**: TanStack Query, TanStack Form
+- **Build System**: Turborepo monorepo with caching
+
+## Essential Commands
+```bash
+bun dev              # Start all applications
+bun dev:web          # Frontend only (port 3001)
+bun dev:server       # Backend only (port 3000)
+bun check            # Biome lint and format
+bun check-types      # TypeScript type checking
+bun build            # Build all applications
+bun db:push          # Push Prisma schema changes
+bun db:studio        # Open Prisma Studio
+bun db:generate      # Generate Prisma client
+```
+
+## Code Quality Standards
+
+### TypeScript Rules
+- Strict mode enforced, zero tolerance for `any` types
+- Use `import type` for type imports, `export type` for type exports
+- No TypeScript enums, namespaces, or non-null assertions (`!`)
+- Prefer `T[]` over `Array<T>`, use `as const` for literal types
+- All functions must have proper return type annotations
+
+### React & Next.js Best Practices
+- Functional components with hooks only - no class components
+- Never define components inside other components
+- Proper dependency arrays in useEffect and other hooks
+- Always include keys in mapped JSX elements
+- Use `<>...</>` instead of `<React.Fragment>`
+- Next.js Image component for all images - never use `<img>` tags
+- Follow App Router patterns in `apps/web/src/app/`
+
+### Accessibility Requirements (Non-negotiable)
+- Use semantic HTML elements wherever possible
+- Include proper ARIA attributes when needed
+- No positive tabIndex values - use 0 or -1 only
+- Always include `type` attribute on button elements
+- Pair onClick handlers with onKeyUp/onKeyDown/onKeyPress
+- Pair onMouseOver/onMouseOut with onFocus/onBlur
+- Ensure screen reader compatibility and keyboard navigation
+
+### File Organization & Naming
+```
+apps/
+├── server/          # Hono API routes in src/routers/
+└── web/             # Next.js components in src/components/
+```
+
+**Naming Conventions:**
+- Files: `kebab-case` (user-profile.tsx)
+- Components: `PascalCase` (UserProfile)  
+- Functions: `camelCase` (getUserProfile)
+- Constants: `SCREAMING_SNAKE_CASE` (API_BASE_URL)
+- Types/Interfaces: `PascalCase` (UserProfile, ApiResponse)
+
+### Import Organization (Strict Order)
+1. External libraries (React, Next.js, Hono, etc.)
+2. Internal utilities and components
+3. Relative imports (./components, ../utils)
+4. Type-only imports (always use `import type`)
+
+### Database & API Development
+- Use Prisma for ALL database operations with proper error handling
+- Hono routers for all API endpoints with consistent patterns
+- Zod validation for all request/response data
+- Proper HTTP status codes (200, 201, 400, 401, 404, 500)
+- Consistent error response format across all endpoints
+
+### Security & Environment
+- Never hardcode secrets, API keys, or sensitive data
+- Use environment variables for all configuration
+- Input validation with Zod for all user inputs
+- Never use console.log in production code
+- HTTPS in production, proper CORS configuration
+
+### Performance Guidelines
+- Use Next.js Image component with proper sizing
+- Implement loading states for all async operations
+- React.memo for expensive components that re-render frequently
+- Dynamic imports for code splitting large components
+- Database indexes for frequently queried fields
+- Connection pooling for database connections
+
+### Error Handling Pattern
+```typescript
+try {
+  const result = await operation();
+  return { success: true, data: result };
+} catch (error) {
+  console.error('Operation failed:', error);
+  return { success: false, error: error.message };
+}
+```
+
+## Critical Development Rules
+- Always run `bun check` before committing any code
+- Examine existing patterns in components and routers before creating new ones  
+- Follow established TypeScript configurations strictly
+- Use test-driven development approach when tests exist
+- Leverage Turborepo caching for optimal build performance
+- Never commit .env files - always use .env.example templates
+
+## Environment Setup Requirements
+- MongoDB instance required (local or cloud)
+- Copy .env.example to .env in both apps/web and apps/server
+- Use `bun install` for dependency management
+- Ensure all environment variables are properly configured
+
+Focus on type safety, accessibility compliance, and following established architectural patterns. Always examine existing code structure before implementing new features to maintain consistency across the codebase.

@@ -1,0 +1,60 @@
+---
+description: React Component Development Guidelines
+globs: ["apps/web/src/components/**/*.tsx", "apps/web/src/app/**/*.tsx"]
+alwaysApply: false
+---
+
+# React Component Standards
+
+## Component Patterns
+- Use functional components with hooks only
+- Custom hooks for reusable logic
+- Proper dependency arrays in useEffect
+- No missing keys in lists
+- No components defined inside other components
+- Use `<>...</>` instead of `<React.Fragment>`
+
+## Component Structure
+```typescript
+// Props interface above component
+interface UserProfileProps {
+  userId: string;
+  onUpdate?: (user: User) => void;
+}
+
+// Default export functional component
+export default function UserProfile({ userId, onUpdate }: UserProfileProps) {
+  // Component logic here
+  return (
+    <div>
+      {/* JSX here */}
+    </div>
+  );
+}
+```
+
+## Import Organization
+1. External libraries (React, Next.js, etc.)
+2. Internal utilities and components
+3. Relative imports
+4. Type-only imports (use `import type`)
+
+## shadcn/ui Integration
+- Use existing shadcn/ui components from `src/components/ui/`
+- Follow the established component patterns
+- Extend components using the `cn()` utility for className merging
+
+## Accessibility Requirements
+- Semantic HTML elements preferred
+- Proper ARIA attributes when needed
+- Include `type` attribute for button elements
+- Pair onClick with keyboard handlers
+- Screen reader compatible content
+- No positive tabIndex values
+
+## Error Handling
+- Comprehensive error boundaries
+- Loading and error states for async operations
+- Graceful fallbacks for missing data
+
+Always examine existing components in `apps/web/src/components/` before creating new ones.

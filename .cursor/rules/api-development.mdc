@@ -1,0 +1,70 @@
+---
+description: Backend API Development with Hono and Prisma
+globs: ["apps/server/src/**/*.ts", "apps/server/prisma/**/*"]
+alwaysApply: false
+---
+
+# API Development Standards
+
+## Hono Router Patterns
+- Use Hono router for all API endpoints
+- Organize routes in `apps/server/src/routers/`
+- Follow RESTful conventions where appropriate
+
+## Request/Response Handling
+```typescript
+import { Hono } from 'hono';
+import { z } from 'zod';
+
+const schema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+});
+
+app.post('/users', async (c) => {
+  try {
+    const body = await c.req.json();
+    const validated = schema.parse(body);
+    
+    // Database operation
+    const user = await prisma.user.create({
+      data: validated,
+    });
+    
+    return c.json({ success: true, data: user }, 201);
+  } catch (error) {
+    return c.json({ success: false, error: error.message }, 400);
+  }
+});
+```
+
+## Validation & Security
+- Zod validation for all request/response data
+- Proper HTTP status codes (200, 201, 400, 401, 404, 500)
+- Input sanitization and validation
+- No hardcoded secrets - use environment variables
+- CORS configuration for frontend integration
+
+## Database Operations
+- Use Prisma for all database interactions
+- Proper error handling for database operations
+- Type-safe queries with Prisma client
+- Use transactions for multi-step operations
+- Connection pooling in production
+
+## Error Handling
+```typescript
+// Consistent error response format
+return c.json({
+  success: false,
+  error: 'Descriptive error message',
+  code: 'ERROR_CODE'
+}, statusCode);
+```
+
+## Environment Configuration
+- Separate `.env` files for different environments
+- Validate environment variables at startup
+- Never commit `.env` files to version control
+
+Follow the established patterns in `apps/server/src/routers/` for consistency.

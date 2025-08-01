@@ -1,0 +1,64 @@
+---
+description: T-Fullstack Project Context and Development Standards
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# T-Fullstack Development Standards
+
+## Technology Stack
+- **Runtime**: Bun v1.2.19+ (primary), Node.js (compatible)
+- **Frontend**: Next.js 15.3.0, React 19, TailwindCSS 4.1.11, shadcn/ui
+- **Backend**: Hono 4.8.10, Prisma 6.13.0, MongoDB, Zod validation
+- **Quality**: Biome linter/formatter with Ultracite config
+- **Build**: Turborepo monorepo with caching
+
+## Key Commands
+```bash
+bun dev              # Start all apps
+bun dev:web          # Frontend (port 3001)
+bun dev:server       # Backend (port 3000) 
+bun check            # Biome lint/format
+bun check-types      # TypeScript check
+bun db:push          # Push schema changes
+```
+
+## Code Standards
+
+### TypeScript Rules
+- Strict mode enforced, zero `any` types
+- Use `import type` for types, `export type` for exports
+- No TypeScript enums, namespaces, or non-null assertions
+- Prefer `T[]` over `Array<T>`, use `as const` for literals
+
+### React/Next.js
+- Functional components with hooks only
+- No components inside components, proper hook dependencies
+- Use `<>...</>` instead of `React.Fragment`
+- Next.js Image component for images, no `<img>` tags
+
+### Accessibility (Required)
+- Semantic HTML, proper ARIA attributes
+- No positive tabIndex values, include `type` on buttons
+- Pair onClick with onKeyUp/onKeyDown/onKeyPress
+- Screen reader compatible, keyboard navigable
+
+### File Structure
+```
+apps/
+├── server/          # Hono API routes
+└── web/             # Next.js components
+```
+
+### Naming Conventions
+- Files: `kebab-case` (user-profile.tsx)
+- Components: `PascalCase` (UserProfile)
+- Functions: `camelCase` (getUserProfile)
+- Constants: `SCREAMING_SNAKE_CASE`
+
+### Security & Performance
+- No hardcoded secrets, environment variables only
+- Input validation with Zod, comprehensive error handling
+- Next.js Image component, loading states, React.memo for expensive components
+
+Always run `bun check` before committing and follow existing patterns in the codebase.

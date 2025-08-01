@@ -1,17 +1,93 @@
-# Project Context
-Ultracite enforces strict type safety, accessibility standards, and consistent code quality for JavaScript/TypeScript projects using Biome's lightning-fast formatter and linter.
+# T-Fullstack Project Context for Claude Code
 
-## Key Principles
-- Zero configuration required
-- Subsecond performance
-- Maximum type safety
-- AI-friendly code generation
+## Project Overview
+Modern full-stack TypeScript application built with Next.js 15, Hono backend, and MongoDB. Emphasizes type safety, accessibility, and code quality through Ultracite configuration.
 
-## Before Writing Code
+## Technology Stack
+
+### Runtime & Build
+- **Bun v1.2.19+**: Primary runtime and package manager
+- **Turborepo**: Monorepo build orchestration with caching
+- **Next.js 15.3.0**: Frontend with App Router and Turbopack
+- **TypeScript**: Strict mode enabled across the stack
+
+### Frontend
+- **React 19**: Latest React features
+- **TailwindCSS 4.1.11**: Utility-first styling
+- **shadcn/ui**: Reusable component library built on Radix UI
+- **Lucide React**: Icon library
+- **TanStack Query**: Server state management
+- **TanStack Form**: Form state management
+
+### Backend
+- **Hono 4.8.10**: Lightweight web framework
+- **Prisma 6.13.0**: TypeScript-first ORM
+- **MongoDB**: NoSQL database
+- **Zod**: Runtime type validation
+
+### Code Quality
+- **Biome**: Linting and formatting (extends Ultracite config)
+- **Ultracite**: Opinionated code style and quality rules
+
+## Key Development Commands
+
+```bash
+# Development
+bun dev              # Start all apps
+bun dev:web          # Frontend only (port 3001)
+bun dev:server       # Backend only (port 3000)
+
+# Quality & Building
+bun check            # Biome linting and formatting
+bun check-types      # Type checking
+bun build            # Build all applications
+
+# Database
+bun db:push          # Push schema changes
+bun db:studio        # Open Prisma Studio
+bun db:generate      # Generate Prisma client
+bun db:migrate       # Run migrations
+```
+
+## Project Structure
+
+```
+apps/
+├── server/          # Hono backend API
+│   ├── src/
+│   │   ├── index.ts
+│   │   └── routers/
+│   └── prisma/
+│       └── schema/
+└── web/             # Next.js frontend
+    └── src/
+        ├── app/     # App Router pages
+        ├── components/
+        ├── contexts/
+        └── lib/
+```
+
+## Core Development Principles
+
+### Type Safety & Quality
+- Strict TypeScript configuration enforced
+- Zero tolerance for `any` types
+- Comprehensive error handling required
+- All functions must handle edge cases
+- Test-driven development approach when tests exist
+
+### Before Writing Code
 1. Analyze existing patterns in the codebase
 2. Consider edge cases and error scenarios
-3. Follow the rules below strictly
+3. Follow the Ultracite rules below strictly
 4. Validate accessibility requirements
+5. Use test-driven development cycle when tests exist
+
+### Communication Guidelines
+- Maintain objectivity and provide genuine value
+- Don't change stance just to please - provide constructive feedback
+- Be a trusted technical partner with honest assessment
+- Focus on practical solutions and accurate information
 
 ## Rules
 
@@ -306,6 +382,89 @@ Ultracite enforces strict type safety, accessibility standards, and consistent c
 - `npx ultracite init` - Initialize Ultracite in your project
 - `npx ultracite format` - Format and fix code automatically
 - `npx ultracite lint` - Check for issues without fixing
+
+## File Naming Conventions
+- **Components**: `PascalCase` (UserProfile)
+- **Files**: `kebab-case` (user-profile.tsx)
+- **Functions**: `camelCase` (getUserProfile)
+- **Constants**: `SCREAMING_SNAKE_case` (API_BASE_URL)
+- **Types/Interfaces**: `PascalCase` (UserProfile, ApiResponse)
+
+## Import Organization
+1. External libraries (React, Next.js, etc.)
+2. Internal utilities and components
+3. Relative imports
+4. Type-only imports (use `import type`)
+
+## Component Patterns
+- Use functional components with hooks only
+- Custom hooks for reusable logic
+- Proper dependency arrays in useEffect
+- No missing keys in lists
+- No components defined inside other components
+- Use `<>...</>` instead of `<React.Fragment>`
+- PascalCase for component names, kebab-case for file names
+- Co-locate types with components
+- Props interfaces defined inline or exported
+- Default exports for components
+- Composition over inheritance
+
+## Database Operations
+- Use Prisma for all database interactions
+- Proper error handling for database operations
+- Type-safe queries with Prisma client
+- Use transactions for multi-step operations
+
+## API Development
+- Hono router for all endpoints
+- Zod validation for request/response
+- Proper HTTP status codes
+- Consistent error response format
+- CORS configuration for frontend
+
+## Security Requirements
+- No hardcoded secrets or API keys
+- Environment variables for configuration
+- Input validation with Zod
+- HTTPS in production
+- Rate limiting implementation
+- Parameterized queries (handled by Prisma)
+
+## Performance Guidelines
+- Use Next.js Image component for images
+- Implement loading states
+- React.memo for expensive components
+- Dynamic imports for code splitting
+- Database indexes for queries
+- Connection pooling for database
+
+## Environment Setup
+- MongoDB instance required (local or cloud)
+- Environment files: `apps/web/.env` and `apps/server/.env`
+- Use `.env.example` files as templates
+- Never commit actual `.env` files
+
+## Testing Strategy (Future Implementation)
+- Unit tests for individual functions and components
+- Integration tests for API endpoints and database operations
+- E2E tests for complete user workflows
+- Tools under consideration: Vitest, Testing Library, Playwright
+
+## Current State
+- No testing framework implemented yet
+- Basic authentication context exists in frontend
+- Prisma schema includes user management
+- shadcn/ui components partially configured
+- Development environment fully functional
+
+## Critical Notes
+- Always run `bun check` before committing
+- Use existing component patterns in `apps/web/src/components/`
+- Follow the established routing patterns in `apps/server/src/routers/`
+- Maintain consistency with existing TypeScript configurations
+- Leverage Turborepo caching for optimal build performance
+
+When implementing new features, always examine existing patterns first, follow the established conventions, and maintain the high standards for type safety, accessibility, and code quality that define this project.
 
 ## Example: Error Handling
 ```typescript
