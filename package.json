@@ -20,8 +20,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "turbo": "^2.5.4",
     "@biomejs/biome": "2.1.2",
+    "turbo": "^2.5.5",
     "ultracite": "5.1.1"
   },
   "packageManager": "bun@1.2.19"
