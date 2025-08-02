@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from "./theme-provider";
 import { Toaster } from "./ui/sonner";
-import { AuthProvider } from "@/contexts/auth-context";
+import { AuthProvider } from "@/contexts/mock-auth-context";
 
 export default function Providers({
   children

@@ -23,7 +23,7 @@ const MockAuthContext = createContext<MockAuthContextType | undefined>(undefined
 const MOCK_USER: MockUser = {
   id: 'mock-user-1',
   name: 'John Doe',
-  email: 'john@example.com',
+  email: 'john.doe@vsme-guru.com',
   avatar: 'https://github.com/shadcn.png',
   role: 'user'
 };
@@ -79,13 +79,16 @@ export function useMockAuth() {
 
 // Environment-based auth provider
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  // In development, use mock auth. In production, this would be replaced by Clerk
-  const useMockAuth = process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_USE_MOCK_AUTH === 'true';
+  // Use mock auth when explicitly enabled or in development mode
+  const shouldUseMockAuth = process.env.NEXT_PUBLIC_USE_MOCK_AUTH === 'true' || 
+    (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_USE_MOCK_AUTH !== 'false');
   
-  if (useMockAuth) {
+  if (shouldUseMockAuth) {
     return <MockAuthProvider>{children}</MockAuthProvider>;
   }
   
   // This would be ClerkProvider in the final implementation
+  // For now, return children without auth context (will cause errors if auth is used)
+  console.warn('Mock auth is disabled but no real auth provider is configured');
   return <>{children}</>;
 }

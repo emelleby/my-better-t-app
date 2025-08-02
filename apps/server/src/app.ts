@@ -24,3 +24,6 @@ app.get("/", (c) => {
 });
 
 export default app;
+
+// Export the app type for RPC integration
+export type AppType = typeof app;

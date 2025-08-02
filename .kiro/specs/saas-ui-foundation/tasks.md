@@ -25,15 +25,15 @@
   - **Note**: This task is completed but will be replaced by Clerk integration
   - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-- [ ] 2. Create mock authentication for UI development
-- [ ] 2.1 Set up mock auth context
+- [x] 2. Create mock authentication for UI development
+- [x] 2.1 Set up mock auth context
   - Create simple MockAuthProvider with toggleable auth state
   - Implement mock user data for UI development
   - Add environment variable to enable/disable mock mode
   - Create mock auth hooks (useMockAuth) for components
   - _Requirements: UI development enablement_
 
-- [ ] 2.2 Set up RPC type export and API structure
+- [x] 2.2 Set up RPC type export and API structure
   - Create routes/index.ts for route aggregation
   - Export AppType for frontend RPC integration
   - Ensure full type safety across API surface
