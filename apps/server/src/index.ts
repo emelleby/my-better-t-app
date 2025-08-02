@@ -1,23 +1,10 @@
-import "dotenv/config";
-import { Hono } from "hono";
-import { cors } from "hono/cors";
-import { logger } from "hono/logger";
+import app from "./app";
 
-const app = new Hono();
+const port = Number(process.env.PORT) || 3000;
 
-app.use(logger());
-app.use("/*", cors({
-  origin: process.env.CORS_ORIGIN || "",
-  allowMethods: ["GET", "POST", "OPTIONS"],
-}));
+console.log(`🚀 Server running on http://localhost:${port}`);
 
-
-
-
-
-
-app.get("/", (c) => {
-  return c.text("OK");
-});
-
-export default app;
+export default {
+  port,
+  fetch: app.fetch,
+};

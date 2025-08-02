@@ -1,19 +1,19 @@
 # Implementation Plan
 
-- [ ] 1. Set up backend API foundation
-- [ ] 1.1 Create Hono server structure
+- [x] 1. Set up backend API foundation
+- [x] 1.1 Create Hono server structure
   - Set up modular routing structure in apps/server/src/routes/
   - Create main app.ts with route mounting using app.route()
   - Configure CORS and logging middleware
   - _Requirements: Backend architecture foundation_
 
-- [ ] 1.2 Set up database and validation
+- [x] 1.2 Set up database and validation
   - Configure Prisma with MongoDB for User model
   - Create shared Zod validation schemas in lib/validation.ts
   - Set up database connection and client export
   - _Requirements: Data persistence and validation_
 
-- [ ] 1.3 Implement authentication routes
+- [x] 1.3 Implement authentication routes
   - Create auth.ts router with login, register, logout endpoints
   - Implement JWT token generation and validation
   - Add password hashing with bcrypt
