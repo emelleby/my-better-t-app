@@ -50,6 +50,37 @@ bun db:generate  # Regenerate Prisma client
 bun db:migrate   # Run migrations
 ```
 
+### AI Agent Development Server Testing
+
+**Important**: AI agents should NOT start development servers using `executeBash` as these are long-running processes that will hang the execution.
+
+#### Recommended Testing Approach
+1. **User starts server**: Ask the user to start the development server in their terminal
+2. **Agent tests endpoints**: Use `curl` commands to test API endpoints (these terminate quickly)
+3. **User provides feedback**: Ask user to share any terminal output, errors, or startup issues
+
+#### Testing Commands (AI Agent Safe)
+```bash
+# Test health endpoint
+curl -s http://localhost:3000/
+
+# Test API endpoints
+curl -s -X POST http://localhost:3000/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"testpass123","name":"Test User"}'
+
+# Check compilation without starting server
+bun check-types
+```
+
+#### Commands to Avoid in AI Agent Execution
+```bash
+# These will hang the agent execution:
+bun dev          # Starts all services (long-running)
+bun dev:server   # Starts backend server (long-running)
+bun dev:web      # Starts frontend server (long-running)
+```
+
 ## Project Standards
 
 ### File Organization

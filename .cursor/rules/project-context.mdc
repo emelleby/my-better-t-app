@@ -1,10 +1,13 @@
 ---
-description: T-Fullstack Project Context and Development Standards
+description: VSME Guru SaaS Platform - Project Context and Development Standards
 globs: ["**/*"]
 alwaysApply: true
 ---
 
-# T-Fullstack Development Standards
+# VSME Guru Development Standards
+
+## Project Context
+**VSME Guru** is a sustainability reporting platform for the SME market, conformant to the VSME EU standard and NSRS. Currently implementing foundational SaaS UI structure with marketing page, mock authentication, and dashboard with sidebar navigation.
 
 ## Technology Stack
 - **Runtime**: Bun v1.2.19+ (primary), Node.js (compatible)
@@ -60,5 +63,21 @@ apps/
 - No hardcoded secrets, environment variables only
 - Input validation with Zod, comprehensive error handling
 - Next.js Image component, loading states, React.memo for expensive components
+
+## Current Implementation Status
+Following SaaS UI Foundation spec:
+- [x] Backend API foundation with Hono server structure  
+- [x] Database and validation setup with Prisma and Zod
+- [x] Authentication routes with JWT token generation
+- [ ] User management API routes (in progress)
+- [ ] Frontend authentication foundation (in progress)
+- [ ] Dashboard with sidebar-07 implementation (planned)
+
+## AI Agent Guidelines
+- **Never start dev servers** with executeBash (hangs execution)
+- Ask user to start servers, use `curl` for API testing
+- Check current state documents before implementing features
+- Use shadcn/ui MCP tools: `list_components()`, `get_block()`, `get_component_demo()`
+- Update documentation after implementation, not before
 
 Always run `bun check` before committing and follow existing patterns in the codebase.

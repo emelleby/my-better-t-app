@@ -1,7 +1,7 @@
-# T-Fullstack Project Rules for Windsurf
+# VSME Guru SaaS Platform Rules for Windsurf
 
 ## Project Overview
-Modern full-stack TypeScript application with Next.js 15, Hono backend, MongoDB, and strict Ultracite code quality standards.
+**VSME Guru** is a sustainability reporting platform for the SME market, conformant to the VSME EU standard and NSRS. Modern full-stack TypeScript application implementing foundational SaaS UI structure with marketing page, mock authentication, and dashboard with sidebar navigation.
 
 ## Technology Stack
 - **Runtime**: Bun v1.2.19+ (primary), Node.js (compatible) 
@@ -117,5 +117,44 @@ try {
 - Copy .env.example to .env in both apps/web and apps/server
 - Use `bun install` for dependency management
 - Ensure all environment variables are properly configured
+
+## Current Implementation Status (January 8, 2025)
+
+### Completed Tasks
+- [x] Backend API foundation with Hono server structure
+- [x] Database and validation setup with Prisma and Zod  
+- [x] Authentication routes with JWT token generation
+- [x] Mock authentication context in frontend
+
+### In Progress
+- [ ] User management API routes
+- [ ] Frontend authentication foundation with protected routes
+- [ ] Dashboard with sidebar-07 implementation
+- [ ] Marketing page transformation
+
+### Current State
+- **Frontend**: Basic layout with theme system, no complex UI components yet
+- **Backend**: Authentication endpoints working, user model in Prisma schema
+- **Database**: MongoDB configured, no data models populated yet
+- **Testing**: No testing framework implemented yet
+
+## AI Agent Guidelines
+
+### Server Testing (Critical)
+**Never start development servers** - they hang execution. Instead:
+1. Ask user to start servers in their terminal
+2. Use `curl` commands for API testing (these terminate quickly)
+3. Request user feedback on terminal output and errors
+
+### shadcn/ui Integration Rules
+1. Use `list_components()` and `list_blocks()` to discover available assets
+2. Prioritize blocks for complex patterns (login pages, dashboards, calendars)
+3. Always call `get_component_demo()` before implementing components
+4. Use `get_component()` for single components, `get_block()` for composite blocks
+
+### Documentation Evolution
+- Update steering documents **after** implementing features, not before
+- Use real code examples from actual implementation
+- Check current state documents before starting new features
 
 Focus on type safety, accessibility compliance, and following established architectural patterns. Always examine existing code structure before implementing new features to maintain consistency across the codebase.

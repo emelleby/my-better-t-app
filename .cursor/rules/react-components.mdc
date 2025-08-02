@@ -57,4 +57,17 @@ export default function UserProfile({ userId, onUpdate }: UserProfileProps) {
 - Loading and error states for async operations
 - Graceful fallbacks for missing data
 
+## Current Component State
+- Basic layout components: `layout.tsx`, `header.tsx`, `providers.tsx`
+- Theme system with dark/light mode toggle
+- Authentication context with mock authentication
+- shadcn/ui configured but components not yet implemented
+
+## shadcn/ui Integration
+When building UI components:
+1. Use `list_components()` and `list_blocks()` to discover available assets
+2. Prioritize blocks for complex patterns (dashboards, login forms)
+3. Call `get_component_demo()` before using any component
+4. Use `get_component()` for single components, `get_block()` for composite blocks
+
 Always examine existing components in `apps/web/src/components/` before creating new ones.

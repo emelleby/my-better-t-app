@@ -1,7 +1,7 @@
-# T-Fullstack Project Context for Claude Code
+# VSME Guru SaaS Platform - Project Context for Claude Code
 
 ## Project Overview
-Modern full-stack TypeScript application built with Next.js 15, Hono backend, and MongoDB. Emphasizes type safety, accessibility, and code quality through Ultracite configuration.
+**VSME Guru** is a sustainability reporting platform for the SME market, conformant to the VSME EU standard and NSRS. Built as a modern full-stack TypeScript application with Next.js 15, Hono backend, and MongoDB. Currently implementing foundational UI structure with marketing page, mock authentication, and dashboard with sidebar navigation.
 
 ## Technology Stack
 
@@ -444,29 +444,185 @@ apps/
 - Use `.env.example` files as templates
 - Never commit actual `.env` files
 
+### Required Environment Variables
+```bash
+# apps/server/.env
+DATABASE_URL="mongodb://localhost:27017/vsme_guru_dev"
+JWT_SECRET="your-jwt-secret-key"
+CORS_ORIGIN="http://localhost:3001"
+
+# apps/web/.env  
+NEXT_PUBLIC_API_URL="http://localhost:3000"
+```
+
+## Current Architecture Patterns
+
+### Authentication System
+- Mock authentication context in `apps/web/src/contexts/auth-context.tsx`
+- JWT-based authentication routes in `apps/server/src/routes/auth.ts`
+- User model with bcrypt password hashing
+- localStorage persistence for authentication state
+
+### API Structure
+- Hono routers in `apps/server/src/routes/`
+- Zod validation schemas in `apps/server/src/lib/validation.ts`
+- Prisma database client in `apps/server/src/lib/db.ts`
+- JWT utilities in `apps/server/src/lib/jwt.ts`
+
+### Frontend Structure
+- Next.js App Router in `apps/web/src/app/`
+- Components in `apps/web/src/components/`
+- Contexts in `apps/web/src/contexts/`
+- Utilities in `apps/web/src/lib/`
+
 ## Testing Strategy (Future Implementation)
 - Unit tests for individual functions and components
 - Integration tests for API endpoints and database operations
 - E2E tests for complete user workflows
 - Tools under consideration: Vitest, Testing Library, Playwright
 
-## Current State
-- No testing framework implemented yet
-- Basic authentication context exists in frontend
-- Prisma schema includes user management
-- shadcn/ui components partially configured
-- Development environment fully functional
+## Current State (Last Updated: January 8, 2025)
 
-## Critical Notes
+### What Actually Exists
+- ✅ **Frontend**: Next.js 15.3.0 with App Router, React 19, TailwindCSS 4.1.11
+- ✅ **Theme System**: Dark/light mode toggle with next-themes
+- ✅ **Basic Layout**: Header with navigation and main content area
+- ✅ **shadcn/ui Configuration**: components.json setup (new-york style)
+- ✅ **Backend**: Hono 4.8.10 with basic server setup and CORS
+- ✅ **Database**: Prisma 6.13.0 configured for MongoDB
+- ✅ **Authentication Context**: Mock authentication system with localStorage persistence
+- ✅ **Build System**: Turborepo monorepo with Bun runtime
+
+### What Doesn't Exist Yet
+- ❌ **Database Models**: No models defined in Prisma schema
+- ❌ **API Routes**: Only basic health check endpoint exists
+- ❌ **UI Components**: shadcn/ui components not yet implemented
+- ❌ **Testing Framework**: No testing setup implemented
+- ❌ **Real Authentication**: Currently using mock authentication
+
+### Current Implementation Status
+Following the SaaS UI Foundation spec with these completed tasks:
+- [x] Backend API foundation with Hono server structure
+- [x] Database and validation setup with Prisma and Zod
+- [x] Authentication routes with JWT token generation
+- [ ] User management API routes (in progress)
+- [ ] Frontend authentication foundation (in progress)
+- [ ] Protected route system (planned)
+- [ ] Marketing page transformation (planned)
+- [ ] Dashboard with sidebar-07 implementation (planned)
+
+## Development Guidelines
+
+### AI Agent Server Testing (Important)
+**Never start development servers using executeBash** as these are long-running processes that will hang execution.
+
+**Recommended Testing Approach:**
+1. Ask user to start development server in their terminal
+2. Use `curl` commands to test API endpoints (these terminate quickly)
+3. Ask user to share terminal output, errors, or startup issues
+
+**Safe Testing Commands:**
+```bash
+# Test health endpoint
+curl -s http://localhost:3000/
+
+# Test API endpoints  
+curl -s -X POST http://localhost:3000/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"testpass123","name":"Test User"}'
+
+# Check compilation without starting server
+bun check-types
+```
+
+**Commands to Avoid:**
+```bash
+bun dev          # Hangs execution
+bun dev:server   # Hangs execution  
+bun dev:web      # Hangs execution
+```
+
+### shadcn/ui Integration Rules
+When building UI components:
+
+1. **Discover Assets**: Use `list_components()` and `list_blocks()` to see available assets
+2. **Map Request to Assets**: Analyze requirements and map to available components/blocks
+3. **Prioritize Blocks**: Use blocks (`get_block`) for complex patterns (login, dashboards, calendars)
+4. **Get Demo First**: Always call `get_component_demo(component_name)` before implementation
+5. **Retrieve Code**: Use `get_component()` for single components, `get_block()` for composite blocks
+
+### Documentation Evolution Protocol
+- Documentation should be **reactive to implementation, not predictive**
+- Update steering documents after completing features, not before
+- Use real code examples from actual implementation
+- Remove outdated theoretical patterns that weren't implemented
+
+### Critical Notes
 - Always run `bun check` before committing
 - Use existing component patterns in `apps/web/src/components/`
-- Follow the established routing patterns in `apps/server/src/routers/`
+- Follow established routing patterns in `apps/server/src/routes/`
 - Maintain consistency with existing TypeScript configurations
 - Leverage Turborepo caching for optimal build performance
+- Check current state documents before implementing features
 
 When implementing new features, always examine existing patterns first, follow the established conventions, and maintain the high standards for type safety, accessibility, and code quality that define this project.
 
-## Example: Error Handling
+## Implementation Patterns
+
+### API Route Pattern (Hono)
+```typescript
+import { Hono } from "hono";
+import { z } from "zod";
+import db from "../lib/db";
+import { generateToken } from "../lib/jwt";
+
+const users = new Hono();
+
+users.post("/", async (c) => {
+  try {
+    const body = await c.req.json();
+    const validatedData = userSchema.parse(body);
+    
+    const user = await db.user.create({
+      data: validatedData
+    });
+    
+    return c.json({ success: true, data: user }, 201);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return c.json({ error: "Validation failed", details: error.issues }, 400);
+    }
+    return c.json({ error: "Internal server error" }, 500);
+  }
+});
+
+export default users;
+```
+
+### React Component Pattern
+```typescript
+"use client";
+
+import { useAuth } from "@/contexts/auth-context";
+import { Button } from "@/components/ui/button";
+
+interface ComponentProps {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export default function Component({ className, children }: ComponentProps) {
+  const { isAuthenticated, user } = useAuth();
+  
+  return (
+    <div className={cn("base-styles", className)}>
+      {children}
+    </div>
+  );
+}
+```
+
+### Error Handling Pattern
 ```typescript
 // ✅ Good: Comprehensive error handling
 try {
@@ -484,3 +640,12 @@ try {
   console.log(e);
 }
 ```
+
+## Next Implementation Steps
+Based on the SaaS UI Foundation spec, the next logical steps are:
+1. Complete user management API routes
+2. Implement frontend authentication with protected routes
+3. Install and configure required shadcn/ui components
+4. Implement sidebar-07 block for dashboard layout
+5. Transform marketing page with VSME Guru branding
+6. Apply blue and emerald color scheme
