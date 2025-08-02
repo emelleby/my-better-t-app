@@ -149,8 +149,9 @@ function SidebarProvider({
             </TooltipProvider>
         </SidebarContext.Provider>
     )
-} functio
-n Sidebar({
+}
+
+function Sidebar({
     side = "left",
     variant = "sidebar",
     collapsible = "offcanvas",
@@ -159,8 +160,8 @@ n Sidebar({
     ...props
 }: React.ComponentProps<"div"> & {
     side?: "left" | "right"
-  variant?: "sidebar" | "floating" | "inset"
-  collapsible?: "offcanvas" | "icon" | "none"
+    variant?: "sidebar" | "floating" | "inset"
+    collapsible?: "offcanvas" | "icon" | "none"
 }) {
     const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
 

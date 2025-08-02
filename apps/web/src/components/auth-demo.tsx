@@ -1,10 +1,22 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 
 export function AuthDemo() {
   const { isAuthenticated, user, signIn, signOut, isLoading } = useAuth();
+  const router = useRouter();
+
+  const handleSignIn = () => {
+    signIn();
+    // The redirect will be handled by the home page useEffect
+  };
+
+  const handleSignOut = () => {
+    signOut();
+    // Stay on home page after sign out
+  };
 
   if (isLoading) {
     return (
@@ -17,10 +29,10 @@ export function AuthDemo() {
   return (
     <div className="p-4 border rounded-lg space-y-4">
       <h3 className="text-lg font-semibold">Mock Authentication Demo</h3>
-      
+
       <div className="space-y-2">
         <p><strong>Status:</strong> {isAuthenticated ? "Authenticated" : "Not authenticated"}</p>
-        
+
         {user && (
           <div className="space-y-1">
             <p><strong>User ID:</strong> {user.id}</p>
@@ -34,19 +46,20 @@ export function AuthDemo() {
 
       <div className="flex gap-2">
         {!isAuthenticated ? (
-          <Button onClick={signIn}>
+          <Button onClick={handleSignIn}>
             Sign In (Mock)
           </Button>
         ) : (
-          <Button variant="outline" onClick={signOut}>
+          <Button variant="outline" onClick={handleSignOut}>
             Sign Out
           </Button>
         )}
       </div>
-      
+
       <p className="text-sm text-muted-foreground">
-        This is a mock authentication system for UI development. 
+        This is a mock authentication system for UI development.
         Authentication state persists across page refreshes.
+        {!isAuthenticated && " Click 'Sign In' to be redirected to the dashboard."}
       </p>
     </div>
   );
