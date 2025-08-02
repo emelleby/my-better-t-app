@@ -12,7 +12,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from "../common/mode-toggle";
 
 // Helper function to generate breadcrumbs from pathname
 function generateBreadcrumbs(pathname: string) {

@@ -3,9 +3,9 @@
 import * as React from "react"
 import { useEffect } from "react"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar } from "@/components/navigation"
 import { useMockAuth } from "@/contexts/mock-auth-context"
-import Header from "@/components/header"
+import { Header } from "./index"
 import Link from "next/link"
 
 interface DashboardLayoutProps {

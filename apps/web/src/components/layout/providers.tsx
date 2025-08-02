@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeProvider } from "./theme-provider";
-import { Toaster } from "./ui/sonner";
+import { Toaster } from "../ui/sonner";
 import { AuthProvider } from "@/contexts/mock-auth-context";
 
 export default function Providers({

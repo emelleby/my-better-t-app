@@ -1,7 +1,5 @@
-// Re-export all navigation components
-export { NavMain } from './nav-main'
-export { NavProjects } from './nav-projects'
-export { NavUser } from './nav-user'
-export { TeamSwitcher } from './team-switcher'
-export { AppSidebar } from './app-sidebar'
-export { DashboardLayout } from './dashboard-layout'
+// Re-export components from organized folders
+export * from './layout'
+export * from './navigation'
+export * from './auth'
+export * from './common'

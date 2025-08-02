@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
 import { useMockAuth } from "@/contexts/mock-auth-context"
-import { ModeToggle } from "@/components/mode-toggle"
+import { ModeToggle } from "@/components/common/mode-toggle"
 
 export default function SettingsPage() {
     const { user } = useMockAuth()

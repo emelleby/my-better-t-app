@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { AuthDemo } from "@/components/auth-demo";
-import { ApiStatus } from "@/components/api-status";
+import { AuthDemo } from "@/components/auth";
+import { ApiStatus } from "@/components/common";
 import { useAuth } from "@/hooks/use-auth";
 
 const TITLE_TEXT = `
