@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { DashboardLayout } from "@/components/layout/dashboard-layout"
+import { AppLayout } from "@/components/layout/app-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
@@ -61,9 +61,9 @@ export default function NotFound() {
     // If it's a dashboard route, wrap in dashboard layout
     if (isDashboardRoute) {
         return (
-            <DashboardLayout>
+            <AppLayout>
                 <NotFoundContent />
-            </DashboardLayout>
+            </AppLayout>
         )
     }
 

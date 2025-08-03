@@ -14,7 +14,7 @@ interface DashboardLayoutProps {
 
 
 
-export function DashboardLayout({ children }: DashboardLayoutProps) {
+export function AppLayout({ children }: DashboardLayoutProps) {
     const { isAuthenticated, isLoading } = useMockAuth()
 
     // Redirect to home if not authenticated (this will be handled by Clerk later)
