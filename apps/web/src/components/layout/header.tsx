@@ -19,15 +19,13 @@ function generateBreadcrumbs(pathname: string) {
   const segments = pathname.split('/').filter(Boolean);
   const breadcrumbs = [];
 
-  // Always start with Dashboard
-  breadcrumbs.push({
-    label: 'Dashboard',
-    href: '/dashboard',
-    isLast: segments.length === 1
-  });
+  // Handle different top-level pages
+  if (segments.length === 0 || pathname === '/') {
+    return breadcrumbs;
+  }
 
-  // Add additional segments
-  for (let i = 1; i < segments.length; i++) {
+  // For each segment, create a breadcrumb
+  for (let i = 0; i < segments.length; i++) {
     const segment = segments[i];
     const href = '/' + segments.slice(0, i + 1).join('/');
     const isLast = i === segments.length - 1;

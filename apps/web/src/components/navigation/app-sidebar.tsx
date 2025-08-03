@@ -61,23 +61,23 @@ const data = {
         },
         {
             title: "Projects",
-            url: "/dashboard/projects",
+            url: "/projects",
             icon: FolderOpen,
             items: [
                 {
                     title: "All Projects",
-                    url: "/dashboard/projects",
+                    url: "/projects",
                 },
             ],
         },
         {
             title: "Settings",
-            url: "/dashboard/settings",
+            url: "/settings",
             icon: Settings2,
             items: [
                 {
                     title: "Account Settings",
-                    url: "/dashboard/settings",
+                    url: "/settings",
                 },
             ],
         },
@@ -85,7 +85,7 @@ const data = {
     projects: [
         {
             name: "Current Projects",
-            url: "/dashboard/projects",
+            url: "/projects",
             icon: Frame,
         },
     ],

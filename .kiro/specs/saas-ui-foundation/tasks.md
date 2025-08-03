@@ -80,14 +80,14 @@
   - Set up basic routing structure (authentication will be handled by Clerk)
   - _Requirements: 3.3, 5.5_
 
-- [ ] 6. Transform marketing page
-- [ ] 6.1 Create simple marketing layout
+- [x] 6. Transform marketing page
+- [x] 6.1 Create simple marketing layout
   - Remove current ASCII art and create clean marketing layout
-  - Implement simple hero section with VSME Guru title
+  - Implement simple hero section with VSME Guru title, ask the user for an example picture.
   - Add centered layout with minimal design
   - _Requirements: 1.1, 1.4, 6.1_
 
-- [ ] 6.2 Create sign-in with mock auth
+- [x] 6.2 Create sign-in with mock auth
   - Create SignInButton component that toggles mock auth state
   - Add blue styling and proper visual feedback
   - Implement mock sign-in flow that redirects to dashboard
