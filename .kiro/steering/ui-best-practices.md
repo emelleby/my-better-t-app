@@ -221,11 +221,93 @@ toast.promise(promise, {
 - Ensure all interactive elements are focusable
 - Provide visible focus indicators
 - Support keyboard shortcuts where appropriate
+- Implement focus management for route changes
 
 ### Screen Reader Support
 - Use ARIA labels where needed
 - Provide descriptive text for complex interactions
 - Test with screen readers
+- Hide decorative icons with `aria-hidden="true"`
+
+### Implemented Accessibility Patterns
+
+#### Navigation Accessibility
+```typescript
+// Main navigation with proper ARIA roles
+<SidebarMenu role="navigation" aria-label="Main navigation">
+  <Link 
+    href={item.url}
+    aria-expanded={item.isActive}
+    aria-describedby={item.items?.length ? `${item.title}-submenu` : undefined}
+  >
+    {item.icon && <item.icon aria-hidden="true" />}
+    <span>{item.title}</span>
+  </Link>
+</SidebarMenu>
+
+// User menu with descriptive labels
+<SidebarMenuButton aria-label={`User menu for ${user.name}`}>
+  <Avatar>
+    <AvatarImage alt={`${user.name}'s profile picture`} src={user.avatar} />
+    <AvatarFallback aria-label={`${user.name} initials`}>
+      {initials}
+    </AvatarFallback>
+  </Avatar>
+</SidebarMenuButton>
+```
+
+#### Focus Management
+- Automatic focus management on route changes via `useFocusManagement` hook
+- Skip-to-content link for keyboard users
+- Enhanced focus indicators during keyboard navigation
+- Proper focus restoration without disrupting tab order
+
+#### Mobile Accessibility
+- Minimum 44px touch targets on mobile devices
+- Auto-close mobile sidebar on navigation
+- Enhanced spacing and sizing for touch interactions
+- Mobile-optimized dropdown positioning
+
+#### Screen Reader Support
+- Route change announcements via ARIA live regions
+- Descriptive ARIA labels for all interactive elements
+- Proper semantic markup with landmarks
+- Hidden decorative elements with `aria-hidden="true"`
+
+### CSS Accessibility Classes
+```css
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enhanced focus indicators for keyboard navigation */
+.keyboard-navigation *:focus {
+  @apply outline-2 outline-offset-2 outline-blue-600;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: white;
+  color: black;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+```
 
 ## Performance Optimization Guidelines
 

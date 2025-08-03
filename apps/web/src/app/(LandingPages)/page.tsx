@@ -1,5 +1,7 @@
 'use client'
 
+// Landing page home
+
 import { CheckCircle, Clock } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -33,12 +35,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-blue-100">
-      {/* Header Badge */}
-      <div className="pt-6 pb-4 sm:pt-8 text-center">
-        <div className="inline-block rounded-full bg-blue-100 px-3 py-2 sm:px-4 font-medium text-blue-800 text-xs sm:text-sm" role="banner">
-          EU-standardiseret Bærekraftsrapportering
-        </div>
-      </div>
+
 
       {/* Hero Section */}
       <main className="container mx-auto max-w-6xl px-4 py-8 sm:py-12">
@@ -46,8 +43,14 @@ export default function Home() {
           {/* Left Content */}
           <section className="space-y-6 sm:space-y-8" aria-labelledby="hero-heading">
             <div className="space-y-4">
+              {/* Header Badge */}
+              <div className="flex pt-2 sm:pt-8 text-center w-full justify-items-start">
+                <div className="inline-block rounded-full bg-blue-100 px-3 py-2 sm:px-4 font-medium text-blue-800 text-xs sm:text-sm" role="banner">
+                  EU-standardiseret Bærekraftsrapportering
+                </div>
+              </div>
               <h1 id="hero-heading" className="font-bold text-3xl text-gray-900 leading-tight sm:text-4xl lg:text-5xl">
-                Forenklet{' '}
+                Enkel{' '}
                 <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
                   VSME-rapportering
                 </span>{' '}

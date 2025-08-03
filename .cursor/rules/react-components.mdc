@@ -94,6 +94,31 @@ import { InlineLoader, PageLoader, ButtonLoader } from '@/components/common/load
 </Button>
 ```
 
+### Accessibility Pattern
+```typescript
+// Navigation with proper ARIA roles
+<SidebarMenu role="navigation" aria-label="Main navigation">
+  <Link 
+    href={item.url}
+    aria-expanded={item.isActive}
+    aria-describedby={item.items?.length ? `${item.title}-submenu` : undefined}
+  >
+    {item.icon && <item.icon aria-hidden="true" />}
+    <span>{item.title}</span>
+  </Link>
+</SidebarMenu>
+
+// User menu with descriptive labels
+<SidebarMenuButton aria-label={`User menu for ${user.name}`}>
+  <Avatar>
+    <AvatarImage alt={`${user.name}'s profile picture`} src={user.avatar} />
+    <AvatarFallback aria-label={`${user.name} initials`}>
+      {initials}
+    </AvatarFallback>
+  </Avatar>
+</SidebarMenuButton>
+```
+
 ## shadcn/ui Integration
 When building UI components:
 1. Use `list_components()` and `list_blocks()` to discover available assets

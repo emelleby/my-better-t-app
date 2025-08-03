@@ -131,6 +131,45 @@ import { InlineLoader, PageLoader, ButtonLoader, DashboardLoading } from '@/comp
 if (isLoading) return <PageLoader text="Loading..." />
 ```
 
+### Accessibility Pattern (Required)
+```typescript
+// Navigation with proper ARIA roles
+<SidebarMenu role="navigation" aria-label="Main navigation">
+  <Link 
+    href={item.url}
+    aria-expanded={item.isActive}
+    aria-describedby={item.items?.length ? `${item.title}-submenu` : undefined}
+  >
+    {item.icon && <item.icon aria-hidden="true" />}
+    <span>{item.title}</span>
+  </Link>
+</SidebarMenu>
+
+// User menu with descriptive labels
+<SidebarMenuButton aria-label={`User menu for ${user.name}`}>
+  <Avatar>
+    <AvatarImage alt={`${user.name}'s profile picture`} src={user.avatar} />
+    <AvatarFallback aria-label={`${user.name} initials`}>
+      {initials}
+    </AvatarFallback>
+  </Avatar>
+</SidebarMenuButton>
+
+// Focus management for route changes
+const useFocusManagement = () => {
+  const pathname = usePathname()
+  
+  useEffect(() => {
+    const mainContent = document.querySelector('main')
+    if (mainContent) {
+      mainContent.setAttribute('tabindex', '-1')
+      mainContent.focus()
+      setTimeout(() => mainContent.removeAttribute('tabindex'), 100)
+    }
+  }, [pathname])
+}
+```
+
 ## Critical Development Rules
 - Always run `bun check` before committing any code
 - Examine existing patterns in components and routers before creating new ones  
@@ -158,12 +197,15 @@ if (isLoading) return <PageLoader text="Loading..." />
 - [x] Dashboard layout with responsive sidebar and breadcrumb navigation
 - [x] Complete shadcn/ui component integration with accessibility features
 - [x] API client with error handling, retry logic, and type safety
+- [x] Accessibility implementation (ARIA labels, keyboard navigation, screen reader support)
+- [x] Focus management system for route changes and keyboard navigation
+- [x] Theme system with dark/light mode and system preference detection
 
 ### Ready for Implementation
 - [ ] Real authentication with Clerk integration (spec documented)
 - [ ] Database connection and first models (Prisma ready)
 - [ ] API routes expansion (Hono structure ready)
-- [ ] Testing framework setup (Vitest planned)
+- [ ] Testing framework setup (Vitest, Testing Library, Playwright planned)
 
 ### Current State
 - **Frontend**: Complete layout system with error handling, loading states, responsive design, and theme system
@@ -173,6 +215,7 @@ if (isLoading) return <PageLoader text="Loading..." />
 - **Error Handling**: Production-ready error boundaries, global error pages, and recovery mechanisms
 - **API Integration**: Type-safe client with error handling, retry logic, and network error detection
 - **Authentication**: Mock authentication context with localStorage persistence for development
+- **Accessibility**: Full ARIA support, keyboard navigation, screen reader compatibility, focus management
 - **Testing**: No testing framework implemented yet (Vitest, Testing Library, Playwright planned)
 
 ## AI Agent Guidelines
@@ -199,6 +242,8 @@ if (isLoading) return <PageLoader text="Loading..." />
 2. **Loading States Matter**: Consistent loading experience significantly improves perceived performance  
 3. **Code Quality Tools**: Biome + Ultracite combination provides excellent developer experience
 4. **Documentation Evolution**: Update docs after implementation, not before - use real code examples
+5. **Accessibility First**: ARIA labels, keyboard navigation, and screen reader support implemented from the start
+6. **Focus Management**: Automatic focus management on route changes improves accessibility and UX
 
 ## Established Best Practices (From Real Implementation)
 1. **Always wrap components with error boundaries**
@@ -207,5 +252,8 @@ if (isLoading) return <PageLoader text="Loading..." />
 4. **Follow Next.js App Router conventions for file organization**
 5. **Maintain comprehensive documentation for complex implementations**
 6. **Code style**: No semicolons (configured in Biome with "asNeeded")
+7. **Accessibility**: Include ARIA labels, keyboard navigation, and screen reader support
+8. **Focus management**: Implement automatic focus management for route changes
+9. **Error recovery**: Provide retry mechanisms and graceful fallbacks
 
 Focus on type safety, accessibility compliance, and following established architectural patterns. Always examine existing code structure before implementing new features to maintain consistency across the codebase.

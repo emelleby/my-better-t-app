@@ -76,9 +76,13 @@ Following SaaS UI Foundation spec:
 - [x] Dashboard layout with responsive sidebar and breadcrumb navigation
 - [x] Complete shadcn/ui component integration with accessibility features
 - [x] API client with error handling, retry logic, and type safety
+- [x] Accessibility implementation (ARIA labels, keyboard navigation, screen reader support)
+- [x] Focus management system for route changes and keyboard navigation
+- [x] Theme system with dark/light mode and system preference detection
 - [ ] Real authentication with Clerk (planned - see clerk-integration spec)
 - [ ] Database connection and first models (ready to implement)
 - [ ] API routes expansion (ready to implement)
+- [ ] Testing framework setup (Vitest, Testing Library, Playwright planned)
 
 ## AI Agent Guidelines
 - **Never start dev servers** with executeBash (hangs execution)
@@ -92,6 +96,8 @@ Following SaaS UI Foundation spec:
 2. **Loading States Matter**: Consistent loading experience significantly improves perceived performance
 3. **Code Quality Tools**: Biome + Ultracite combination provides excellent developer experience
 4. **Documentation Evolution**: Update docs after implementation, not before - use real code examples
+5. **Accessibility First**: ARIA labels, keyboard navigation, and screen reader support implemented from the start
+6. **Focus Management**: Automatic focus management on route changes improves accessibility and UX
 
 ## Established Best Practices
 1. **Always wrap components with error boundaries**
@@ -99,5 +105,8 @@ Following SaaS UI Foundation spec:
 3. **Use TypeScript interfaces for all props and API responses**
 4. **Follow Next.js App Router conventions for file organization**
 5. **Code style**: No semicolons (configured in Biome with "asNeeded")
+6. **Accessibility**: Include ARIA labels, keyboard navigation, and screen reader support
+7. **Focus management**: Implement automatic focus management for route changes
+8. **Error recovery**: Provide retry mechanisms and graceful fallbacks
 
 Always run `bun check` before committing and follow existing patterns in the codebase.
