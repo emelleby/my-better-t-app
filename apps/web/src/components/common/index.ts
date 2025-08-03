@@ -11,6 +11,7 @@ export {
   ServerError,
   UnauthorizedError,
 } from './error-display'
+export { FocusManager } from './focus-manager'
 export {
   ButtonLoader,
   default as Loading,

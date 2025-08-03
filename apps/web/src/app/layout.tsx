@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import '../index.css'
 import { ErrorBoundary } from '@/components/common/error-boundary'
-import { Header, Providers } from '@/components/layout'
+import { FocusManager } from '@/components/common/focus-manager'
+import { Providers } from '@/components/layout'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,7 +32,13 @@ export default function RootLayout({
       >
         <ErrorBoundary>
           <Providers>
-            <div className="grid h-svh grid-rows-[auto_1fr]">{children}</div>
+            <FocusManager />
+            <a href="#main-content" className="skip-link">
+              Skip to main content
+            </a>
+            <div className="grid h-svh grid-rows-[auto_1fr]" id="main-content">
+              {children}
+            </div>
           </Providers>
         </ErrorBoundary>
       </body>

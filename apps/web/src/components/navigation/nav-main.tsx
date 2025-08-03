@@ -17,7 +17,9 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from '@/components/ui/sidebar'
+import { cn } from '@/lib/utils'
 
 export function NavMain({
   items,
@@ -33,10 +35,19 @@ export function NavMain({
     }[]
   }[]
 }) {
+  const { isMobile, setOpenMobile } = useSidebar()
+
+  // Close mobile sidebar when navigating
+  const handleNavigation = () => {
+    if (isMobile) {
+      setOpenMobile(false)
+    }
+  }
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>VSME Reporting</SidebarGroupLabel>
-      <SidebarMenu>
+      <SidebarMenu role="navigation" aria-label="Main navigation">
         {items.map((item) => (
           <Collapsible
             asChild
@@ -46,27 +57,60 @@ export function NavMain({
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton asChild tooltip={item.title}>
-                  <Link href={item.url}>
-                    {item.icon && <item.icon />}
+                <SidebarMenuButton
+                  asChild
+                  tooltip={item.title}
+                  className={cn(
+                    // Enhanced touch targets for mobile
+                    isMobile && "min-h-[44px] py-3"
+                  )}
+                >
+                  <Link
+                    href={item.url}
+                    onClick={handleNavigation}
+                    aria-expanded={item.isActive}
+                    aria-describedby={item.items?.length ? `${item.title.replace(/\s+/g, '-').toLowerCase()}-submenu` : undefined}
+                  >
+                    {item.icon && <item.icon aria-hidden="true" />}
                     <span>{item.title}</span>
-                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    {item.items?.length && (
+                      <ChevronRight
+                        className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+                        aria-hidden="true"
+                      />
+                    )}
                   </Link>
                 </SidebarMenuButton>
               </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenuSub>
-                  {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
-                        <Link href={subItem.url}>
-                          <span>{subItem.title}</span>
-                        </Link>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  ))}
-                </SidebarMenuSub>
-              </CollapsibleContent>
+              {item.items?.length && (
+                <CollapsibleContent>
+                  <SidebarMenuSub
+                    role="menu"
+                    aria-label={`${item.title} submenu`}
+                    id={`${item.title.replace(/\s+/g, '-').toLowerCase()}-submenu`}
+                  >
+                    {item.items.map((subItem) => (
+                      <SidebarMenuSubItem key={subItem.title} role="none">
+                        <SidebarMenuSubButton
+                          asChild
+                          className={cn(
+                            // Enhanced touch targets for mobile
+                            isMobile && "min-h-[40px] py-2"
+                          )}
+                        >
+                          <Link
+                            href={subItem.url}
+                            onClick={handleNavigation}
+                            role="menuitem"
+                          >
+                            <span>{subItem.title}</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              )}
             </SidebarMenuItem>
           </Collapsible>
         ))}
