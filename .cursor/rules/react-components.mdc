@@ -58,10 +58,41 @@ export default function UserProfile({ userId, onUpdate }: UserProfileProps) {
 - Graceful fallbacks for missing data
 
 ## Current Component State
-- Basic layout components: `layout.tsx`, `header.tsx`, `providers.tsx`
-- Theme system with dark/light mode toggle
-- Authentication context with mock authentication
-- shadcn/ui configured but components not yet implemented
+- **Layout System**: Root layout, header, sidebar, providers with error boundaries
+- **Error Handling**: Error boundaries, error display, global error pages with recovery
+- **Loading States**: Multiple loading variants (skeleton, inline, page, button loaders)
+- **UI Components**: Complete shadcn/ui integration (Button, Card, Input, Switch, Sidebar, etc.)
+- **Navigation**: App sidebar with collapsible navigation and breadcrumb system
+- **Theme System**: Dark/light mode with system preference detection and persistence
+- **Authentication**: Mock authentication context with localStorage persistence for development
+- **API Integration**: Type-safe API client with error handling and retry logic
+
+## Established Patterns (Required)
+
+### Error Handling Pattern
+```typescript
+import { ErrorBoundary } from '@/components/common/error-boundary'
+
+// Always wrap components
+<ErrorBoundary>
+  <YourComponent />
+</ErrorBoundary>
+
+// API calls with error handling
+const { data, error, isLoading, execute } = useApiCall(apiFunction)
+if (error) return <ErrorDisplay error={error} onRetry={execute} />
+```
+
+### Loading State Pattern
+```typescript
+import { InlineLoader, PageLoader, ButtonLoader } from '@/components/common/loading'
+
+// Button loading
+<Button disabled={isLoading}>
+  {isLoading ? <ButtonLoader className="mr-2" /> : null}
+  Submit
+</Button>
+```
 
 ## shadcn/ui Integration
 When building UI components:

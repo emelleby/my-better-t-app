@@ -19,7 +19,10 @@
       "!**/.source"
     ]
   },
-  "extends": [
-    "ultracite"
-  ]
+  "extends": ["ultracite"],
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded"
+    }
+  }
 }

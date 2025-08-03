@@ -8,14 +8,11 @@
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
-      ,
+      "@/*": ["./src/*"],
       "prisma": ["node_modules/prisma"]
     },
     "outDir": "./dist",
-    "types": [
-      "bun"
-    ],
+    "types": ["bun"],
     "composite": true,
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"

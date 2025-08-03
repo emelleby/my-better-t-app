@@ -8,8 +8,10 @@ my-better-t-app/
 ├── apps/                    # Application packages
 │   ├── web/                # Frontend Next.js application
 │   └── server/             # Backend Hono API server
+├── docs/                   # Project documentation
 ├── packages/               # Shared packages (future)
 ├── .kiro/                  # Kiro AI assistant configuration
+│   └── steering/          # Development guidelines and conventions
 ├── .turbo/                 # Turborepo cache and logs
 └── node_modules/           # Root dependencies
 ```
@@ -19,26 +21,31 @@ my-better-t-app/
 apps/web/
 ├── src/
 │   ├── app/                # Next.js App Router pages
-│   │   ├── layout.tsx      # Root layout component
-│   │   └── page.tsx        # Home page
-│   ├── components/         # React components
-│   │   ├── ui/            # shadcn/ui components
-│   │   ├── header.tsx     # App header
-│   │   ├── providers.tsx  # Context providers (TanStack Query, Theme)
-│   │   ├── theme-provider.tsx # Dark/light theme provider
-│   │   ├── mode-toggle.tsx # Theme toggle component
-│   │   └── loader.tsx     # Loading component
-│   ├── lib/               # Utility functions
-│   │   └── utils.ts       # Common utilities (cn function)
-│   ├── hooks/             # Custom React hooks (future)
-│   └── index.css          # Global styles (TailwindCSS)
-├── .next/                 # Next.js build output
-├── next.config.ts         # Next.js configuration
-├── components.json        # shadcn/ui configuration
-├── postcss.config.mjs     # PostCSS configuration
-├── .env                   # Environment variables
-├── .env.example           # Environment template
-└── tsconfig.json          # TypeScript config
+│   │   ├── (LandingPages)/ # Landing page routes
+│   │   ├── (SignedIn)/    # Authenticated routes
+│   │   ├── layout.tsx     # Root layout component
+│   │   ├── page.tsx       # Home page
+│   │   ├── error.tsx      # Global error boundary
+│   │   └── not-found.tsx  # Custom 404 page
+│   ├── components/        # React components
+│   │   ├── ui/           # shadcn/ui components
+│   │   ├── common/       # Common components (error, loading)
+│   │   ├── layout/       # Layout components (header, providers)
+│   │   ├── navigation/   # Navigation components (sidebar)
+│   │   └── auth/         # Authentication components
+│   ├── contexts/         # React contexts (auth, theme)
+│   ├── hooks/            # Custom React hooks (useAsync, etc.)
+│   ├── lib/              # Utility functions
+│   │   ├── utils.ts      # Common utilities (cn function)
+│   │   └── api.ts        # API client and error handling
+│   └── index.css         # Global styles (TailwindCSS)
+├── .next/                # Next.js build output
+├── next.config.ts        # Next.js configuration
+├── components.json       # shadcn/ui configuration
+├── postcss.config.mjs    # PostCSS configuration
+├── .env                  # Environment variables
+├── .env.example          # Environment template
+└── tsconfig.json         # TypeScript config
 ```
 
 ## Backend Application (`apps/server/`)
@@ -59,10 +66,18 @@ apps/server/
 └── tsconfig.json          # TypeScript config
 ```
 
+## Documentation (`docs/`)
+```
+docs/
+├── README.md                           # Documentation overview
+├── ERROR_HANDLING_IMPLEMENTATION.md   # Error handling implementation guide
+└── ERROR_HANDLING_REVIEW_2024.md     # Best practices review
+```
+
 ## Configuration Files (Root)
 - `package.json`: Workspace configuration and scripts
 - `turbo.json`: Turborepo task definitions
-- `biome.json`: Code formatting and linting rules
+- `biome.json`: Code formatting and linting rules (no semicolons)
 - `tsconfig.json`: Root TypeScript configuration
 - `bunfig.toml`: Bun runtime configuration
 

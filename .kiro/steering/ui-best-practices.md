@@ -263,22 +263,103 @@ const ExpensiveComponent = memo(function ExpensiveComponent({ data }) {
 });
 ```
 
+## Error Handling & Loading States
+
+### Error Boundary Implementation
+Always wrap components with error boundaries for graceful failure handling:
+
+```typescript
+import { ErrorBoundary } from '@/components/common/error-boundary'
+
+// Wrap individual components
+<ErrorBoundary>
+  <YourComponent />
+</ErrorBoundary>
+
+// Or use the HOC pattern
+export default withErrorBoundary(YourComponent)
+```
+
+### Loading State Patterns
+Use consistent loading patterns across the application:
+
+```typescript
+import { InlineLoader, PageLoader, ButtonLoader } from '@/components/common/loading'
+
+// For buttons
+<Button disabled={isLoading}>
+  {isLoading ? <ButtonLoader className="mr-2" /> : null}
+  Submit
+</Button>
+
+// For page-level loading
+if (isLoading) return <PageLoader text="Loading dashboard..." />
+
+// For inline loading
+{isLoading ? <InlineLoader /> : <span>Content loaded</span>}
+```
+
+### Error Display Patterns
+Use the ErrorDisplay component for consistent error messaging:
+
+```typescript
+import { ErrorDisplay } from '@/components/common/error-display'
+
+// Basic error display
+<ErrorDisplay 
+  error={error} 
+  onRetry={handleRetry}
+  variant="minimal" 
+/>
+
+// Specialized error components
+<NetworkError onRetry={handleRetry} />
+<NotFoundError resource="user" />
+```
+
+### Async Operation Patterns
+Use the useAsync hooks for consistent async state management:
+
+```typescript
+import { useApiCall, useAsyncSubmit } from '@/hooks/use-async'
+
+// For API calls
+const { data, error, isLoading, execute } = useApiCall(apiFunction)
+
+// For form submissions
+const { submit, isLoading, error } = useAsyncSubmit(submitFunction)
+```
+
 ## Component Organization Guidelines
 
 ### File Structure
 - Components in `apps/web/src/components/`
 - UI components in `apps/web/src/components/ui/`
+- Common components in `apps/web/src/components/common/`
+- Layout components in `apps/web/src/components/layout/`
+- Navigation components in `apps/web/src/components/navigation/`
 - Pages in `apps/web/src/app/` (App Router)
 - Utilities in `apps/web/src/lib/`
+- Custom hooks in `apps/web/src/hooks/`
 
 ### Naming Conventions
 - **Files**: kebab-case (e.g., `user-profile.tsx`)
 - **Components**: PascalCase (e.g., `UserProfile`)
 - **Props Interfaces**: PascalCase with Props suffix (e.g., `UserProfileProps`)
+- **Hooks**: camelCase starting with 'use' (e.g., `useApiCall`)
 
 ### Export Patterns
 - Export components as default
 - Use named exports for utilities and types
 - Co-locate types with components when possible
+- Export multiple related components from index files
 
-*Note: These are guidelines to follow when implementing UI components. Update this document with real patterns as they emerge from actual implementation.*
+### Established Patterns
+These patterns are currently implemented and should be followed:
+
+1. **Error Boundaries**: All major components wrapped with error boundaries
+2. **Loading States**: Consistent loading indicators across all async operations
+3. **Type Safety**: All components have proper TypeScript interfaces
+4. **Accessibility**: ARIA labels and keyboard navigation implemented
+5. **Responsive Design**: Mobile-first approach with Tailwind breakpoints
+6. **Theme Support**: All components support dark/light mode

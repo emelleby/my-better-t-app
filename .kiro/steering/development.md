@@ -85,9 +85,14 @@ bun dev:web      # Starts frontend server (long-running)
 
 ### File Organization
 - **Components**: Place in `apps/web/src/components/`
+  - UI components: `apps/web/src/components/ui/`
+  - Common components: `apps/web/src/components/common/`
+  - Layout components: `apps/web/src/components/layout/`
+  - Navigation components: `apps/web/src/components/navigation/`
 - **Pages**: Use Next.js App Router in `apps/web/src/app/`
 - **API Routes**: Place in `apps/server/src/routers/`
 - **Utilities**: Place in respective `lib/` directories
+- **Hooks**: Place in `apps/web/src/hooks/`
 - **Types**: Co-locate with components or in dedicated `types/` directories
 
 ### Naming Conventions
@@ -96,6 +101,7 @@ bun dev:web      # Starts frontend server (long-running)
 - **Functions**: camelCase (e.g., `getUserProfile`)
 - **Constants**: SCREAMING_SNAKE_CASE (e.g., `API_BASE_URL`)
 - **Types/Interfaces**: PascalCase (e.g., `UserProfile`, `ApiResponse`)
+- **Hooks**: camelCase starting with 'use' (e.g., `useApiCall`)
 
 ### Import Order
 1. External libraries (React, Next.js, etc.)
@@ -109,6 +115,19 @@ bun dev:web      # Starts frontend server (long-running)
 - Extract custom hooks for reusable logic
 - Use TypeScript interfaces for props
 - Export components as default from their files
+- **Always wrap components with error boundaries**
+- **Implement loading states for all async operations**
+- **Use consistent error handling patterns**
+
+### Established Best Practices
+Based on current implementation:
+
+1. **Error Handling**: All components should be wrapped with error boundaries
+2. **Loading States**: Use consistent loading patterns across the application
+3. **Type Safety**: All props, API responses, and hooks should be properly typed
+4. **Accessibility**: Include ARIA labels and keyboard navigation
+5. **Code Style**: No semicolons (configured in Biome)
+6. **Client Components**: Mark interactive components with `"use client"`
 
 ## Testing Strategy (Future)
 

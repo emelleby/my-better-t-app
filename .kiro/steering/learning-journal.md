@@ -38,6 +38,47 @@
 
 ---
 
+## 2025-01-08 - Error Handling Implementation Success
+
+**Context**: Implemented comprehensive error handling and loading states system for the application.
+
+**Discovery**: Building error handling infrastructure first creates a solid foundation:
+- Error boundaries prevent cascading failures and improve debugging
+- Consistent loading states significantly improve perceived performance
+- Type-safe async hooks reduce boilerplate and prevent common mistakes
+- Global error pages provide better user experience than browser defaults
+- Proper error recovery mechanisms increase user confidence
+
+**Impact**: The application now has production-ready error handling that follows Next.js 15 and React 19 best practices.
+
+**Action Items**:
+- Document established patterns for team consistency
+- Use these patterns as foundation for future feature development
+- Consider gradual adoption of React 19 Actions for form handling
+- Maintain error handling conventions as codebase grows
+
+---
+
+## 2025-01-08 - Code Style Preferences Matter
+
+**Context**: Discovered that Ultracite configuration was enforcing semicolons, which conflicted with team preference.
+
+**Discovery**: Code style preferences have significant impact on developer experience:
+- Semicolons vs no-semicolons is still a valid debate in 2024
+- Modern JavaScript/TypeScript works well with ASI (Automatic Semicolon Insertion)
+- Team consistency is more important than following any particular standard
+- Configuration tools should be customizable to team preferences
+
+**Impact**: Successfully configured Biome to use "asNeeded" semicolons, improving team satisfaction.
+
+**Action Items**:
+- Document code style decisions in steering documents
+- Ensure all team members understand the rationale
+- Keep configuration flexible for future adjustments
+- Regular review of code style preferences as team evolves
+
+---
+
 ## Future Learning Entries
 
 *This section will be populated as we learn from actual development experience*

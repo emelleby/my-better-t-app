@@ -1,25 +1,26 @@
-"use client";
+'use client'
 
-import { ThemeProvider } from "./theme-provider";
-import { Toaster } from "../ui/sonner";
-import { AuthProvider } from "@/contexts/mock-auth-context";
+import { ErrorBoundary } from '@/components/common/error-boundary'
+import { AuthProvider } from '@/contexts/mock-auth-context'
+import { Toaster } from '../ui/sonner'
+import { ThemeProvider } from './theme-provider'
 
-export default function Providers({
-  children
-}: {
-  children: React.ReactNode
-}) {
+export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <AuthProvider>
-        {children}
-        <Toaster richColors />
-      </AuthProvider>
-    </ThemeProvider>
-  );
+    <ErrorBoundary>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        disableTransitionOnChange
+        enableSystem
+      >
+        <ErrorBoundary>
+          <AuthProvider>
+            {children}
+            <Toaster richColors />
+          </AuthProvider>
+        </ErrorBoundary>
+      </ThemeProvider>
+    </ErrorBoundary>
+  )
 }

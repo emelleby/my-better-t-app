@@ -1,8 +1,7 @@
-"use client";
-import * as React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+'use client'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import * as React from 'react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,61 +9,61 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import { ModeToggle } from "../common/mode-toggle";
+} from '@/components/ui/breadcrumb'
+import { Separator } from '@/components/ui/separator'
+import { SidebarTrigger } from '@/components/ui/sidebar'
+import { ModeToggle } from '../common/mode-toggle'
 
 // Helper function to generate breadcrumbs from pathname
 function generateBreadcrumbs(pathname: string) {
-  const segments = pathname.split('/').filter(Boolean);
-  const breadcrumbs = [];
+  const segments = pathname.split('/').filter(Boolean)
+  const breadcrumbs: Array<{ label: string; href: string; isLast: boolean }> =
+    []
 
   // Handle different top-level pages
   if (segments.length === 0 || pathname === '/') {
-    return breadcrumbs;
+    return breadcrumbs
   }
 
   // For each segment, create a breadcrumb
   for (let i = 0; i < segments.length; i++) {
-    const segment = segments[i];
-    const href = '/' + segments.slice(0, i + 1).join('/');
-    const isLast = i === segments.length - 1;
+    const segment = segments[i]
+    const href = '/' + segments.slice(0, i + 1).join('/')
+    const isLast = i === segments.length - 1
 
     // Format segment name (capitalize and replace hyphens with spaces)
     const label = segment
       .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
 
     breadcrumbs.push({
       label,
       href,
-      isLast
-    });
+      isLast,
+    })
   }
 
-  return breadcrumbs;
+  return breadcrumbs
 }
 
 interface HeaderProps {
-  isDashboard?: boolean;
+  isDashboard?: boolean
 }
 
 export default function Header({ isDashboard = false }: HeaderProps) {
-  const pathname = usePathname();
-  const links = [
-    { to: "/", label: "Home" },
-  ];
+  const pathname = usePathname()
+  const links = [{ to: '/', label: 'Home' }]
 
   // Dashboard header layout
   if (isDashboard) {
-    const breadcrumbs = generateBreadcrumbs(pathname);
+    const breadcrumbs = generateBreadcrumbs(pathname)
 
     return (
-      <header className="flex h-12 mb-4 shrink-0 items-center shadow gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+      <header className="mb-4 flex h-12 shrink-0 items-center gap-2 shadow transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
         <div className="flex items-center gap-2 px-4">
           <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Separator className="mr-2 h-4" orientation="vertical" />
           <Breadcrumb>
             <BreadcrumbList>
               {breadcrumbs.map((breadcrumb, index) => (
@@ -88,7 +87,7 @@ export default function Header({ isDashboard = false }: HeaderProps) {
           <ModeToggle />
         </div>
       </header>
-    );
+    )
   }
 
   // Regular header layout
@@ -98,10 +97,10 @@ export default function Header({ isDashboard = false }: HeaderProps) {
         <nav className="flex gap-4 text-lg">
           {links.map(({ to, label }) => {
             return (
-              <Link key={to} href={to}>
+              <Link href={to} key={to}>
                 {label}
               </Link>
-            );
+            )
           })}
         </nav>
         <div className="flex items-center gap-2">
@@ -110,5 +109,5 @@ export default function Header({ isDashboard = false }: HeaderProps) {
       </div>
       <hr />
     </div>
-  );
+  )
 }
