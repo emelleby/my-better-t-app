@@ -73,7 +73,7 @@ When working on this project:
 
 ## Review Schedule
 
-- **After Each Feature or completed task**: Update relevant documents and tell the user to run `./scripts/folder_sync.sh` to update the steering documents.
+- **After Each Feature or completed task**: Update relevant documents and tell the user to run the correct sync script `./scripts/sync.sh` to update the steering documents.
 - **Weekly**: Review all documents for accuracy
 - **Monthly**: Archive outdated information and consolidate learnings
 
