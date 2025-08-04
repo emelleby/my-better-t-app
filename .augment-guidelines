@@ -1,33 +1,46 @@
 # Augment Agent Workflow Guidelines
 
-*Last Updated: 2025-08-03*
+_Last Updated: 2025-08-04_
 
 ## Overview
+
 This document establishes the workflow for Augment Agent when working on the my-better-t-app project. It ensures consistency, maintains documentation alignment, and preserves project context across conversations.
+
+**📋 Documentation Structure**: The Foundation/steering/ directory is now organized into Current State Documentation (✅ what exists) and Development Guidelines (🔄 future patterns). Always check `Foundation/steering/README.md` for navigation guidance.
 
 ## 1. Conversation Initialization Protocol
 
 ### Required Foundation Review (Execute in Order)
-1. **Current State Assessment**
+
+1. **Documentation Navigation**
+
+   - Start with `Foundation/steering/README.md` for documentation structure overview
+   - Understand the distinction between current state docs (✅) and future guidelines (🔄)
+
+2. **Current State Assessment**
+
    - Read `Foundation/steering/current-state.md` to understand what actually exists
    - Read `Foundation/steering/MAIN.md` for core principles and coding standards
-   - Read `Foundation/steering/tech.md` for technology stack details
+   - Read `Foundation/steering/tech.md` for technology stack and commands
 
-2. **Epic Context (If Working on Specific Features)**
+3. **Epic Context (If Working on Specific Features)**
+
    - Identify relevant epic in `Foundation/specs/`
    - Read epic's `requirement.md` for goals and scope
    - Read epic's `design.md` for implementation approach
    - Read epic's `tasks.md` for current progress and next steps
 
-3. **Architecture Context**
+4. **Development Guidelines Context**
    - Read `Foundation/steering/structure.md` for project organization
-   - Read relevant best practice documents based on work type:
-     - `api-best-practices.md` for backend work
-     - `ui-best-practices.md` for frontend work
-     - `database-best-practices.md` for data layer work
-     - `testing-best-practices.md` for test-related work
+   - Read `Foundation/steering/development.md` for workflow guidelines
+   - Read relevant future implementation guides ONLY when implementing new features:
+     - `api-best-practices.md` for backend work (🔄 future patterns)
+     - `ui-best-practices.md` for frontend work (🔄 future patterns)
+     - `database-best-practices.md` for data layer work (🔄 future patterns)
+     - `testing-best-practices.md` for test-related work (🔄 future patterns)
 
 ### Information Gathering Commands
+
 ```bash
 # Always start with these commands after Foundation review
 codebase-retrieval: "current implementation status of [specific area]"
@@ -37,12 +50,15 @@ git-commit-retrieval: "recent changes related to [work area]"
 ## 2. Development Workflow
 
 ### Before Making Any Code Changes
+
 1. **Validate Current State**
+
    - Use `codebase-retrieval` to understand existing patterns
    - Check `Foundation/steering/current-state.md` accuracy
    - Identify any gaps between documentation and reality
 
 2. **Plan with Task Management**
+
    - For complex work (>30 minutes), use task management tools
    - Break work into ~20-minute professional developer tasks
    - Reference epic `tasks.md` files for context
@@ -53,7 +69,9 @@ git-commit-retrieval: "recent changes related to [work area]"
    - Use appropriate package managers (never edit package files directly)
 
 ### During Development
+
 1. **Incremental Progress**
+
    - Make small, focused changes
    - Update task states as work progresses
    - Test changes immediately after implementation
@@ -68,37 +86,66 @@ git-commit-retrieval: "recent changes related to [work area]"
 ### When to Update Foundation Documents
 
 #### `Foundation/steering/current-state.md`
+
 - **Add** new implemented features to "What Actually Exists"
 - **Remove** items from "What Doesn't Exist Yet" when implemented
 - **Update** environment setup status when configuration changes
 - **Revise** "Next Logical Steps" based on current progress
 
 #### Epic `tasks.md` Files
+
 - **Mark complete** when tasks are finished and tested
 - **Add new tasks** when scope expands or issues are discovered
 - **Update descriptions** when implementation differs from plan
 - **Note blockers** when dependencies are discovered
 
 #### Epic `design.md` Files
+
 - **Document** significant architectural decisions made during implementation
 - **Update** when technical approach changes from original plan
 - **Add** lessons learned and implementation notes
 
 #### Best Practice Documents
+
 - **Add examples** of patterns successfully implemented
 - **Update** when new tools or approaches are adopted
 - **Document** common pitfalls discovered during development
 
 ### Documentation Update Triggers
+
 - ✅ New feature implemented → Update `current-state.md`
 - ✅ Task completed → Update epic `tasks.md`
 - ✅ Architecture decision made → Update epic `design.md`
 - ✅ New pattern established → Update relevant best-practices document
 - ✅ Environment change → Update `current-state.md` environment section
 
+## 3.1 Documentation Categories and Usage
+
+### Current State Documentation (✅ Reflects Reality)
+
+These documents accurately reflect what is currently implemented:
+
+- `current-state.md`: Comprehensive audit of what exists vs what doesn't
+- `tech.md`: Technology stack, versions, and command reference
+- `structure.md`: Project file organization and naming conventions
+- `MAIN.md`: Coding standards and rules applicable to current code
+
+### Development Guidelines (🔄 Future Implementation Guides)
+
+These documents provide patterns for future development:
+
+- `development.md`: Workflow and project standards
+- `api-best-practices.md`: Patterns to follow when implementing API features
+- `ui-best-practices.md`: Patterns to follow when implementing UI components
+- `database-best-practices.md`: Patterns to follow when implementing database models
+- `testing-best-practices.md`: Testing setup and patterns for future implementation
+
+**⚠️ Important**: Future implementation guides contain patterns that may not exist yet. Always verify current implementation status in `current-state.md` before using these patterns.
+
 ## 4. Quality Assurance Checklist
 
 ### Before Completing Any Work
+
 - [ ] Code follows `Foundation/steering/MAIN.md` standards
 - [ ] Changes align with epic `design.md` approach
 - [ ] Tests written and passing (suggest if not existing)
@@ -107,6 +154,7 @@ git-commit-retrieval: "recent changes related to [work area]"
 - [ ] `current-state.md` reflects new implementation status
 
 ### Code Quality Standards
+
 - Use TypeScript strictly (no `any` types)
 - Follow accessibility guidelines from MAIN.md
 - Implement proper error handling patterns
@@ -116,12 +164,14 @@ git-commit-retrieval: "recent changes related to [work area]"
 ## 5. Communication Guidelines
 
 ### With Users
+
 - **Be Direct**: Skip flattery, provide actionable information
 - **Be Conservative**: Ask before potentially damaging actions
 - **Be Specific**: Reference exact files and line numbers when discussing code
 - **Be Helpful**: Suggest testing and validation steps
 
 ### Documentation Style
+
 - **Be Accurate**: Only document what actually exists
 - **Be Specific**: Include exact commands, file paths, and examples
 - **Be Current**: Always update timestamps when modifying documents
@@ -130,18 +180,21 @@ git-commit-retrieval: "recent changes related to [work area]"
 ## 6. Emergency Protocols
 
 ### When Documentation is Inaccurate
+
 1. Immediately note discrepancies in conversation
 2. Update `current-state.md` to reflect reality
 3. Investigate git history to understand when divergence occurred
 4. Update related epic documentation if needed
 
 ### When Stuck or Going in Circles
+
 1. Ask user for clarification or help
 2. Review Foundation documents for missed context
 3. Use `git-commit-retrieval` to find similar past solutions
 4. Consider if task breakdown needs refinement
 
 ### When Major Architecture Changes are Needed
+
 1. Document the need in epic `design.md`
 2. Update epic `requirement.md` if scope changes
 3. Get user approval before proceeding
@@ -150,12 +203,14 @@ git-commit-retrieval: "recent changes related to [work area]"
 ## 7. File Naming and Organization
 
 ### When Creating New Foundation Documents
+
 - Use descriptive, hyphenated names (e.g., `new-feature-patterns.md`)
 - Place in appropriate subdirectory (`specs/`, `steering/`, or `hooks/`)
 - Include creation date and purpose in document header
 - Reference from other relevant documents
 
 ### When Working with Epic Documentation
+
 - Never create new epics without user direction
 - Always work within existing epic structure
 - Update all three files (`requirement.md`, `design.md`, `tasks.md`) when epic scope changes
@@ -163,6 +218,7 @@ git-commit-retrieval: "recent changes related to [work area]"
 ## 8. Success Metrics
 
 ### Conversation Success Indicators
+
 - Foundation documents consulted before major decisions
 - Code changes align with documented patterns
 - Documentation updated to reflect current state
@@ -170,11 +226,41 @@ git-commit-retrieval: "recent changes related to [work area]"
 - Project maintains consistency across conversations
 
 ### Documentation Health Indicators
+
 - `current-state.md` accurately reflects codebase
 - Epic `tasks.md` files show clear progress
 - Best practice documents contain working examples
 - No contradictions between Foundation documents
+- Clear distinction maintained between current state (✅) and future guidelines (🔄)
+- `Foundation/steering/README.md` provides accurate navigation guidance
+
+## 9. Foundation Directory Cross-Reference
+
+### Key Foundation Documents for Context
+
+- **Navigation**: `Foundation/steering/README.md` - Start here for documentation overview
+- **Current Reality**: `Foundation/steering/current-state.md` - What actually exists right now
+- **Technology**: `Foundation/steering/tech.md` - Stack details and commands
+- **Standards**: `Foundation/steering/MAIN.md` - Coding rules and quality standards
+- **Workflow**: `Foundation/steering/development.md` - Development process guidelines
+- **Architecture**: `Foundation/steering/structure.md` - Project organization
+
+### Epic Documentation Pattern
+
+Each epic in `Foundation/specs/` follows this structure:
+
+- `requirement.md` - Goals, scope, and acceptance criteria
+- `design.md` - Technical approach and architecture decisions
+- `tasks.md` - Implementation tasks and progress tracking
+
+### Documentation Maintenance Protocol
+
+1. Always check `Foundation/steering/current-state.md` first to understand what exists
+2. Use future implementation guides only when implementing new features
+3. Update current state documentation when features are completed
+4. Cross-reference between Foundation documents to maintain consistency
+5. Follow the clear categorization: Current State (✅) vs Future Guidelines (🔄)
 
 ---
 
-*This document should be reviewed and updated as the project evolves and new patterns emerge.*
+_This document should be reviewed and updated as the project evolves and new patterns emerge._
