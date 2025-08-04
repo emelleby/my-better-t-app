@@ -1,6 +1,16 @@
 # Database Best Practices
 
-*Guidelines for database design and operations with Prisma and MongoDB*
+**🔄 FUTURE IMPLEMENTATION GUIDE**
+
+_This document contains patterns and guidelines for database design and operations with Prisma and MongoDB. No database models or operations currently exist in the project._
+
+**Current Status**: Prisma is configured for MongoDB, but no models are defined in the schema and no database connection is established. This is entirely future implementation guidance.
+
+**Reference**: See `Foundation/steering/current-state.md` for what actually exists right now.
+
+---
+
+## Guidelines for Database Design and Operations with Prisma and MongoDB
 
 ## Prisma Schema Design Guidelines
 
@@ -15,11 +25,11 @@ model User {
   avatar    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   // Relations
   posts     Post[]
   comments  Comment[]
-  
+
   @@map("users")
 }
 
@@ -30,13 +40,13 @@ model Post {
   published Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   // Relations
   authorId  String   @db.ObjectId
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments  Comment[]
   tags      Tag[]    @relation("PostTags")
-  
+
   @@map("posts")
 }
 ```
@@ -80,17 +90,17 @@ async function createUser(userData: CreateUserData) {
     const user = await prisma.user.create({
       data: {
         name: userData.name,
-        email: userData.email
-      }
+        email: userData.email,
+      },
     });
     return { success: true, data: user };
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === 'P2002') {
-        return { success: false, error: 'Email already exists' };
+      if (error.code === "P2002") {
+        return { success: false, error: "Email already exists" };
       }
     }
-    return { success: false, error: 'Failed to create user' };
+    return { success: false, error: "Failed to create user" };
   }
 }
 
@@ -98,20 +108,20 @@ async function createUser(userData: CreateUserData) {
 const users = await prisma.user.findMany({
   where: {
     email: {
-      contains: "@example.com"
-    }
+      contains: "@example.com",
+    },
   },
   include: {
     posts: {
       where: {
-        published: true
-      }
-    }
+        published: true,
+      },
+    },
   },
   orderBy: {
-    createdAt: 'desc'
+    createdAt: "desc",
   },
-  take: 10
+  take: 10,
 });
 
 // Update with validation
@@ -119,13 +129,13 @@ const updatedUser = await prisma.user.update({
   where: { id: userId },
   data: {
     name: validatedData.name,
-    updatedAt: new Date()
-  }
+    updatedAt: new Date(),
+  },
 });
 
 // Delete with cascade consideration
 await prisma.user.delete({
-  where: { id: userId }
+  where: { id: userId },
   // Related records handled by onDelete: Cascade in schema
 });
 ```
@@ -139,37 +149,37 @@ const postsWithComments = await prisma.post.findMany({
     published: true,
     author: {
       email: {
-        endsWith: "@company.com"
-      }
-    }
+        endsWith: "@company.com",
+      },
+    },
   },
   include: {
     author: {
       select: {
         name: true,
-        email: true
-      }
+        email: true,
+      },
     },
     comments: {
       where: {
         createdAt: {
-          gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // Last 7 days
-        }
+          gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // Last 7 days
+        },
       },
       include: {
-        author: true
-      }
+        author: true,
+      },
     },
     _count: {
       select: {
-        comments: true
-      }
-    }
+        comments: true,
+      },
+    },
   },
   orderBy: {
-    createdAt: 'desc'
+    createdAt: "desc",
   },
-  take: 10
+  take: 10,
 });
 ```
 
@@ -182,20 +192,20 @@ const result = await prisma.$transaction(async (tx) => {
   const user = await tx.user.create({
     data: {
       email: "user@example.com",
-      name: "John Doe"
-    }
+      name: "John Doe",
+    },
   });
-  
+
   // Create initial post
   const post = await tx.post.create({
     data: {
       title: "Welcome Post",
       content: "Welcome to the platform!",
       authorId: user.id,
-      published: true
-    }
+      published: true,
+    },
   });
-  
+
   return { user, post };
 });
 ```
@@ -212,9 +222,9 @@ model Post {
   published Boolean  @default(false)
   createdAt DateTime @default(now())
   authorId  String   @db.ObjectId
-  
+
   author    User     @relation(fields: [authorId], references: [id])
-  
+
   // Compound indexes for common queries
   @@index([published, createdAt])
   @@index([authorId, published])
@@ -230,9 +240,9 @@ const users = await prisma.user.findMany({
   select: {
     id: true,
     name: true,
-    email: true
+    email: true,
     // Don't fetch unnecessary fields like avatar, timestamps
-  }
+  },
 });
 
 // Use cursor-based pagination for large datasets
@@ -240,26 +250,26 @@ const posts = await prisma.post.findMany({
   take: 10,
   skip: 1, // Skip the cursor
   cursor: {
-    id: lastPostId
+    id: lastPostId,
   },
   orderBy: {
-    createdAt: 'desc'
-  }
+    createdAt: "desc",
+  },
 });
 
 // Use aggregations for statistics
 const userStats = await prisma.user.aggregate({
   _count: {
-    id: true
+    id: true,
   },
   _avg: {
-    posts: true
+    posts: true,
   },
   where: {
     createdAt: {
-      gte: new Date('2024-01-01')
-    }
-  }
+      gte: new Date("2024-01-01"),
+    },
+  },
 });
 ```
 
@@ -279,23 +289,23 @@ async function handleDatabaseOperation() {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // Handle known Prisma errors
       switch (error.code) {
-        case 'P2002':
-          return { success: false, error: 'Unique constraint violation' };
-        case 'P2025':
-          return { success: false, error: 'Record not found' };
+        case "P2002":
+          return { success: false, error: "Unique constraint violation" };
+        case "P2025":
+          return { success: false, error: "Record not found" };
         default:
-          console.error('Prisma error:', error);
-          return { success: false, error: 'Database operation failed' };
+          console.error("Prisma error:", error);
+          return { success: false, error: "Database operation failed" };
       }
     }
-    
+
     if (error instanceof Prisma.PrismaClientValidationError) {
-      return { success: false, error: 'Invalid data provided' };
+      return { success: false, error: "Invalid data provided" };
     }
-    
+
     // Handle unknown errors
-    console.error('Unknown database error:', error);
-    return { success: false, error: 'Internal server error' };
+    console.error("Unknown database error:", error);
+    return { success: false, error: "Internal server error" };
   }
 }
 ```
@@ -345,22 +355,27 @@ model User {
 
 ```typescript
 // Singleton pattern for Prisma client
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 declare global {
   var __prisma: PrismaClient | undefined;
 }
 
-export const prisma = globalThis.__prisma || new PrismaClient({
-  log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
-});
+export const prisma =
+  globalThis.__prisma ||
+  new PrismaClient({
+    log:
+      process.env.NODE_ENV === "development"
+        ? ["query", "error", "warn"]
+        : ["error"],
+  });
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   globalThis.__prisma = prisma;
 }
 
 // Graceful shutdown
-process.on('beforeExit', async () => {
+process.on("beforeExit", async () => {
   await prisma.$disconnect();
 });
 ```
@@ -386,22 +401,22 @@ DATABASE_URL="mongodb+srv://user:password@cluster.mongodb.net/myapp_prod"
 
 ```typescript
 // Test database setup
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.TEST_DATABASE_URL
-    }
-  }
+      url: process.env.TEST_DATABASE_URL,
+    },
+  },
 });
 
 // Clean database before each test
 export async function cleanDatabase() {
   const modelNames = Object.keys(prisma).filter(
-    key => !key.startsWith('_') && !key.startsWith('$')
+    (key) => !key.startsWith("_") && !key.startsWith("$")
   );
-  
+
   for (const modelName of modelNames) {
     await prisma[modelName].deleteMany();
   }
@@ -411,11 +426,11 @@ export async function cleanDatabase() {
 export async function seedTestData() {
   const user = await prisma.user.create({
     data: {
-      email: 'test@example.com',
-      name: 'Test User'
-    }
+      email: "test@example.com",
+      name: "Test User",
+    },
   });
-  
+
   return { user };
 }
 ```
@@ -423,18 +438,21 @@ export async function seedTestData() {
 ## Security Considerations
 
 ### Data Validation
+
 - Always validate data before database operations
 - Use Zod schemas for input validation
 - Sanitize user input to prevent injection
 
 ### Access Control
+
 - Implement proper authorization checks
 - Use row-level security where applicable
 - Audit sensitive operations
 
 ### Data Privacy
+
 - Hash sensitive data (passwords, tokens)
 - Implement data retention policies
 - Follow GDPR/privacy regulations
 
-*Note: These are best practice guidelines to follow when implementing database features. Update this document with real patterns as they emerge from actual implementation.*
+_Note: These are best practice guidelines to follow when implementing database features. Update this document with real patterns as they emerge from actual implementation._

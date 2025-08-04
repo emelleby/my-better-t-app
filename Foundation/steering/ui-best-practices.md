@@ -1,10 +1,21 @@
 # UI Development Best Practices
 
-*Guidelines and best practices for UI development - to be applied when implementing components*
+**🔄 FUTURE IMPLEMENTATION GUIDE**
+
+_This document contains patterns and guidelines to follow when implementing new UI components. While some basic components exist, most of these patterns are recommendations for future development._
+
+**Current Status**: Basic layout, navigation, theming, and mock authentication components exist. Forms, complex business logic components, and many UI patterns described here are not yet implemented.
+
+**Reference**: See `Foundation/steering/current-state.md` for what components actually exist right now.
+
+---
+
+## Guidelines for UI Development
 
 ## shadcn/ui Integration Guidelines
 
 ### Configuration
+
 This project is configured for shadcn/ui v4 with "new-york" style:
 
 ```json
@@ -24,6 +35,7 @@ This project is configured for shadcn/ui v4 with "new-york" style:
 ```
 
 ### Component Development Approach
+
 When building UI components:
 
 1. **Check available components** first using MCP shadcn tools
@@ -32,6 +44,7 @@ When building UI components:
 4. **Extend with custom logic** as needed
 
 ### Standard Component Pattern
+
 ```typescript
 interface ComponentProps {
   children?: React.ReactNode;
@@ -39,10 +52,10 @@ interface ComponentProps {
   // Other props...
 }
 
-export default function Component({ 
-  children, 
+export default function Component({
+  children,
   className,
-  ...props 
+  ...props
 }: ComponentProps) {
   return (
     <div className={cn("base-styles", className)} {...props}>
@@ -55,6 +68,7 @@ export default function Component({
 ## Theme System Best Practices
 
 ### Implementation Pattern
+
 ```typescript
 // Theme provider setup (already implemented)
 <ThemeProvider
@@ -68,12 +82,13 @@ export default function Component({
 ```
 
 ### Theme Toggle Pattern
+
 ```typescript
 import { useTheme } from "next-themes";
 
 export function ModeToggle() {
   const { setTheme, theme } = useTheme();
-  
+
   return (
     <Button
       variant="ghost"
@@ -90,6 +105,7 @@ export function ModeToggle() {
 ## Form Development Best Practices
 
 ### TanStack Form Integration Pattern
+
 ```typescript
 import { useForm } from "@tanstack/react-form";
 import { Button } from "@/components/ui/button";
@@ -99,21 +115,23 @@ import { Label } from "@/components/ui/label";
 function ContactForm() {
   const form = useForm({
     defaultValues: {
-      name: '',
-      email: '',
-      message: ''
+      name: "",
+      email: "",
+      message: "",
     },
     onSubmit: async ({ value }) => {
       // Handle form submission
       console.log(value);
-    }
+    },
   });
 
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault();
-      form.handleSubmit();
-    }}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
       <form.Field name="name">
         {(field) => (
           <div className="space-y-2">
@@ -126,7 +144,7 @@ function ContactForm() {
           </div>
         )}
       </form.Field>
-      
+
       <Button type="submit">Submit</Button>
     </form>
   );
@@ -136,6 +154,7 @@ function ContactForm() {
 ## Loading States Best Practices
 
 ### Loading Component Pattern
+
 ```typescript
 export function Loader({ className }: { className?: string }) {
   return (
@@ -148,12 +167,12 @@ export function Loader({ className }: { className?: string }) {
 // Usage pattern
 function UsersList() {
   const { data: users, isLoading } = useUsers();
-  
+
   if (isLoading) return <Loader className="h-32" />;
-  
+
   return (
     <div>
-      {users?.map(user => (
+      {users?.map((user) => (
         <UserCard key={user.id} user={user} />
       ))}
     </div>
@@ -164,6 +183,7 @@ function UsersList() {
 ## Responsive Design Guidelines
 
 ### Mobile-First Approach
+
 ```typescript
 // Use TailwindCSS responsive prefixes
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -176,6 +196,7 @@ function UsersList() {
 ```
 
 ### Container Patterns
+
 ```typescript
 // Standard container (already used in page.tsx)
 <div className="container mx-auto max-w-3xl px-4 py-2">
@@ -191,6 +212,7 @@ function UsersList() {
 ## Notification System Guidelines
 
 ### Toast Notifications (Sonner - already configured)
+
 ```typescript
 import { toast } from "sonner";
 
@@ -203,26 +225,29 @@ toast.error("Failed to create user");
 // Loading toast
 const promise = createUser(userData);
 toast.promise(promise, {
-  loading: 'Creating user...',
-  success: 'User created!',
-  error: 'Failed to create user'
+  loading: "Creating user...",
+  success: "User created!",
+  error: "Failed to create user",
 });
 ```
 
 ## Accessibility Guidelines
 
 ### Semantic HTML
+
 - Use proper heading hierarchy (h1, h2, h3...)
 - Use semantic elements (nav, main, section, article)
 - Provide alt text for images
 - Use proper form labels
 
 ### Keyboard Navigation
+
 - Ensure all interactive elements are focusable
 - Provide visible focus indicators
 - Support keyboard shortcuts where appropriate
 
 ### Screen Reader Support
+
 - Use ARIA labels where needed
 - Provide descriptive text for complex interactions
 - Test with screen readers
@@ -230,6 +255,7 @@ toast.promise(promise, {
 ## Performance Optimization Guidelines
 
 ### Image Optimization
+
 ```typescript
 import Image from "next/image";
 
@@ -239,26 +265,28 @@ import Image from "next/image";
   width={100}
   height={100}
   className="rounded-full"
-/>
+/>;
 ```
 
 ### Code Splitting
+
 ```typescript
 // Dynamic imports for large components
-const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
-  loading: () => <Loader />
+const HeavyComponent = dynamic(() => import("./HeavyComponent"), {
+  loading: () => <Loader />,
 });
 ```
 
 ### Memoization
+
 ```typescript
 import { memo, useMemo } from "react";
 
 const ExpensiveComponent = memo(function ExpensiveComponent({ data }) {
   const processedData = useMemo(() => {
-    return data.map(item => processItem(item));
+    return data.map((item) => processItem(item));
   }, [data]);
-  
+
   return <div>{/* Render processed data */}</div>;
 });
 ```
@@ -266,19 +294,22 @@ const ExpensiveComponent = memo(function ExpensiveComponent({ data }) {
 ## Component Organization Guidelines
 
 ### File Structure
+
 - Components in `apps/web/src/components/`
 - UI components in `apps/web/src/components/ui/`
 - Pages in `apps/web/src/app/` (App Router)
 - Utilities in `apps/web/src/lib/`
 
 ### Naming Conventions
+
 - **Files**: kebab-case (e.g., `user-profile.tsx`)
 - **Components**: PascalCase (e.g., `UserProfile`)
 - **Props Interfaces**: PascalCase with Props suffix (e.g., `UserProfileProps`)
 
 ### Export Patterns
+
 - Export components as default
 - Use named exports for utilities and types
 - Co-locate types with components when possible
 
-*Note: These are guidelines to follow when implementing UI components. Update this document with real patterns as they emerge from actual implementation.*
+_Note: These are guidelines to follow when implementing UI components. Update this document with real patterns as they emerge from actual implementation._
