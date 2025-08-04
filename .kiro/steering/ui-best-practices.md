@@ -211,27 +211,41 @@ toast.promise(promise, {
 
 ## Accessibility Guidelines
 
-### Semantic HTML
+**Reference:** See comprehensive accessibility documentation in `docs/ACCESSIBILITY_PATTERNS.md` and `docs/ACCESSIBILITY_QUICK_REFERENCE.md`
+
+### Core Accessibility Principles (WCAG 2.1 AA Compliance)
+
+#### 1. Semantic HTML and ARIA
 - Use proper heading hierarchy (h1, h2, h3...)
-- Use semantic elements (nav, main, section, article)
-- Provide alt text for images
-- Use proper form labels
-
-### Keyboard Navigation
-- Ensure all interactive elements are focusable
-- Provide visible focus indicators
-- Support keyboard shortcuts where appropriate
-- Implement focus management for route changes
-
-### Screen Reader Support
-- Use ARIA labels where needed
-- Provide descriptive text for complex interactions
-- Test with screen readers
+- Use semantic elements (`<nav>`, `<main>`, `<section>`, `<article>`, `<header>`, `<aside>`)
+- Replace `role="banner"` with `<header>` element
+- Replace `role="complementary"` with `<aside>` element
+- Use `role="navigation"` with `aria-label` for navigation containers
 - Hide decorative icons with `aria-hidden="true"`
+
+#### 2. Interactive Elements
+- Provide `aria-label` for icon-only buttons
+- Use descriptive alt text for images (not just "image")
+- Add `aria-expanded` for collapsible elements
+- Use `aria-describedby` to link elements with descriptions
+- Implement `role="status"` for dynamic status updates
+
+#### 3. Keyboard Navigation & Focus Management
+- Ensure all interactive elements are focusable
+- Implement automatic focus management on route changes via `useFocusManagement` hook
+- Provide skip-to-content links for keyboard users
+- Support keyboard shortcuts (Cmd/Ctrl+B for sidebar toggle)
+- Show focus indicators only during keyboard navigation
+
+#### 4. Mobile Accessibility
+- Minimum 44px touch targets on mobile devices
+- Enhanced touch targets: `min-h-[44px] min-w-[44px]` for buttons
+- Auto-close mobile sidebar on navigation
+- Mobile-optimized dropdown positioning
 
 ### Implemented Accessibility Patterns
 
-#### Navigation Accessibility
+#### Navigation Accessibility (Currently Implemented)
 ```typescript
 // Main navigation with proper ARIA roles
 <SidebarMenu role="navigation" aria-label="Main navigation">
@@ -256,25 +270,41 @@ toast.promise(promise, {
 </SidebarMenuButton>
 ```
 
-#### Focus Management
+#### Semantic HTML Patterns (Use These Instead of ARIA Roles)
+```typescript
+// ✅ Use semantic elements instead of role attributes
+<header className="badge-styles">
+  EU-standardiseret Bærekraftsrapportering
+</header>
+
+// ✅ Instead of role="complementary"
+<aside aria-label="Compliance certification">
+  <span>I samsvar med ESRS</span>
+</aside>
+
+// ✅ Instead of role="banner" on div
+<header className="hero-badge">Content</header>
+```
+
+#### Focus Management (Currently Implemented)
 - Automatic focus management on route changes via `useFocusManagement` hook
-- Skip-to-content link for keyboard users
+- Skip-to-content link for keyboard users: `<a href="#main-content" className="skip-link">`
 - Enhanced focus indicators during keyboard navigation
 - Proper focus restoration without disrupting tab order
 
-#### Mobile Accessibility
-- Minimum 44px touch targets on mobile devices
+#### Mobile Accessibility (Currently Implemented)
+- Minimum 44px touch targets: `min-h-[44px] min-w-[44px]`
 - Auto-close mobile sidebar on navigation
-- Enhanced spacing and sizing for touch interactions
+- Enhanced spacing: `isMobile && "min-h-[44px] py-3"`
 - Mobile-optimized dropdown positioning
 
-#### Screen Reader Support
+#### Screen Reader Support (Currently Implemented)
 - Route change announcements via ARIA live regions
 - Descriptive ARIA labels for all interactive elements
 - Proper semantic markup with landmarks
 - Hidden decorative elements with `aria-hidden="true"`
 
-### CSS Accessibility Classes
+### CSS Accessibility Classes (Currently Implemented)
 ```css
 /* Screen reader only content */
 .sr-only {
@@ -307,7 +337,55 @@ toast.promise(promise, {
   z-index: 1000;
   transition: top 0.3s;
 }
+
+.skip-link:focus {
+  top: 6px;
+}
 ```
+
+### Common Accessibility Fixes
+
+#### Replace ARIA Roles with Semantic Elements
+```typescript
+// ❌ Don't use role attributes when semantic elements exist
+<div role="banner">Content</div>
+<div role="complementary">Content</div>
+
+// ✅ Use semantic HTML elements instead
+<header>Content</header>
+<aside>Content</aside>
+```
+
+#### Proper Icon Button Patterns
+```typescript
+// ❌ Missing accessibility
+<button onClick={handleClose}>
+  <X />
+</button>
+
+// ✅ Proper accessibility
+<button onClick={handleClose} aria-label="Close dialog">
+  <X aria-hidden="true" />
+</button>
+```
+
+### Testing Accessibility
+
+#### Quick Manual Tests
+- Tab through all interactive elements
+- Test with screen reader (VoiceOver on Mac: Cmd+F5)
+- Verify skip link works (Tab on page load)
+- Check focus indicators are visible
+- Test keyboard shortcuts
+
+#### Automated Testing Tools
+- Browser DevTools Accessibility panel
+- Lighthouse accessibility audit
+- axe DevTools extension
+
+**For comprehensive accessibility patterns and testing guidelines, see:**
+- `docs/ACCESSIBILITY_PATTERNS.md` - Complete implementation guide
+- `docs/ACCESSIBILITY_QUICK_REFERENCE.md` - Quick reference for common patterns
 
 ## Performance Optimization Guidelines
 

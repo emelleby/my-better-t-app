@@ -1,0 +1,200 @@
+{
+  "timestamp": "2025-08-03T14:09:34.111Z",
+  "summary": {
+    "passed": 35,
+    "failed": 3,
+    "successRate": "92.1"
+  },
+  "tests": [
+    {
+      "name": "File exists: Root layout",
+      "passed": true,
+      "details": "apps/web/src/app/layout.tsx"
+    },
+    {
+      "name": "File exists: App layout",
+      "passed": true,
+      "details": "apps/web/src/components/layout/app-layout.tsx"
+    },
+    {
+      "name": "File exists: Header component",
+      "passed": true,
+      "details": "apps/web/src/components/layout/header.tsx"
+    },
+    {
+      "name": "File exists: App sidebar",
+      "passed": true,
+      "details": "apps/web/src/components/navigation/app-sidebar.tsx"
+    },
+    {
+      "name": "File exists: Main navigation",
+      "passed": true,
+      "details": "apps/web/src/components/navigation/nav-main.tsx"
+    },
+    {
+      "name": "File exists: User navigation",
+      "passed": true,
+      "details": "apps/web/src/components/navigation/nav-user.tsx"
+    },
+    {
+      "name": "File exists: Projects navigation",
+      "passed": true,
+      "details": "apps/web/src/components/navigation/nav-projects.tsx"
+    },
+    {
+      "name": "File exists: Team switcher",
+      "passed": true,
+      "details": "apps/web/src/components/navigation/team-switcher.tsx"
+    },
+    {
+      "name": "File exists: Landing page",
+      "passed": true,
+      "details": "apps/web/src/app/(LandingPages)/page.tsx"
+    },
+    {
+      "name": "File exists: Dashboard page",
+      "passed": true,
+      "details": "apps/web/src/app/(SignedIn)/dashboard/page.tsx"
+    },
+    {
+      "name": "File exists: Projects page",
+      "passed": true,
+      "details": "apps/web/src/app/(SignedIn)/projects/page.tsx"
+    },
+    {
+      "name": "File exists: Settings page",
+      "passed": true,
+      "details": "apps/web/src/app/(SignedIn)/settings/page.tsx"
+    },
+    {
+      "name": "File exists: Mock auth context",
+      "passed": true,
+      "details": "apps/web/src/contexts/mock-auth-context.tsx"
+    },
+    {
+      "name": "File exists: Auth hook",
+      "passed": true,
+      "details": "apps/web/src/hooks/use-auth.ts"
+    },
+    {
+      "name": "Component structure: App sidebar structure",
+      "passed": true,
+      "details": "All required elements found"
+    },
+    {
+      "name": "Component structure: Main navigation structure",
+      "passed": true,
+      "details": "All required elements found"
+    },
+    {
+      "name": "Component structure: Header structure",
+      "passed": true,
+      "details": "All required elements found"
+    },
+    {
+      "name": "Accessibility: Main navigation",
+      "passed": true,
+      "details": "Found 5 accessibility features: aria-label, aria-expanded, aria-hidden, role=, aria-describedby"
+    },
+    {
+      "name": "Accessibility: User navigation",
+      "passed": true,
+      "details": "Found 2 accessibility features: aria-label, aria-hidden"
+    },
+    {
+      "name": "Accessibility: Landing page",
+      "passed": true,
+      "details": "Found 3 accessibility features: aria-label, aria-hidden, role="
+    },
+    {
+      "name": "Responsive design: Main navigation",
+      "passed": false,
+      "details": "Found responsive features: isMobile"
+    },
+    {
+      "name": "Responsive design: User navigation",
+      "passed": false,
+      "details": "Found responsive features: isMobile"
+    },
+    {
+      "name": "Responsive design: Landing page",
+      "passed": true,
+      "details": "Found responsive features: sm:, lg:"
+    },
+    {
+      "name": "Responsive design: Header",
+      "passed": false,
+      "details": "Found responsive features: sm:"
+    },
+    {
+      "name": "Theme support: Header",
+      "passed": true,
+      "details": "Found theme features: ModeToggle"
+    },
+    {
+      "name": "Theme support: Providers",
+      "passed": true,
+      "details": "Found theme features: ThemeProvider"
+    },
+    {
+      "name": "Theme support: Settings page",
+      "passed": true,
+      "details": "Found theme features: dark:, ModeToggle"
+    },
+    {
+      "name": "Component structure: Sidebar error boundaries",
+      "passed": true,
+      "details": "All required elements found"
+    },
+    {
+      "name": "File exists: Error boundary component",
+      "passed": true,
+      "details": "apps/web/src/components/common/error-boundary.tsx"
+    },
+    {
+      "name": "File exists: Global error page",
+      "passed": true,
+      "details": "apps/web/src/app/error.tsx"
+    },
+    {
+      "name": "File exists: Not found page",
+      "passed": true,
+      "details": "apps/web/src/app/not-found.tsx"
+    },
+    {
+      "name": "File exists: UI component: button.tsx",
+      "passed": true,
+      "details": "apps/web/src/components/ui/button.tsx"
+    },
+    {
+      "name": "File exists: UI component: card.tsx",
+      "passed": true,
+      "details": "apps/web/src/components/ui/card.tsx"
+    },
+    {
+      "name": "File exists: UI component: input.tsx",
+      "passed": true,
+      "details": "apps/web/src/components/ui/input.tsx"
+    },
+    {
+      "name": "File exists: UI component: sidebar.tsx",
+      "passed": true,
+      "details": "apps/web/src/components/ui/sidebar.tsx"
+    },
+    {
+      "name": "File exists: UI component: dropdown-menu.tsx",
+      "passed": true,
+      "details": "apps/web/src/components/ui/dropdown-menu.tsx"
+    },
+    {
+      "name": "File exists: UI component: avatar.tsx",
+      "passed": true,
+      "details": "apps/web/src/components/ui/avatar.tsx"
+    },
+    {
+      "name": "File exists: UI component: breadcrumb.tsx",
+      "passed": true,
+      "details": "apps/web/src/components/ui/breadcrumb.tsx"
+    }
+  ]
+}
