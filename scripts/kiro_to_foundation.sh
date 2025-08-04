@@ -5,16 +5,13 @@
 # Configuration
 SOURCE_DIR="/home/eivind/my-better-t-app/.kiro"
 TARGET_DIR="/home/eivind/my-better-t-app/Foundation"
-LOG_FILE="/home/eivind/my-better-t-app/kiro_to_foundation.log"
 
 # Ensure we have the required directories
 mkdir -p "$TARGET_DIR"
 
 # Function to sync from .kiro to Foundation
 sync_from_kiro() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - Starting sync from .kiro to Foundation" >> "$LOG_FILE"
-    rsync -av --delete "$SOURCE_DIR/" "$TARGET_DIR" >> "$LOG_FILE" 2>&1
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - Sync from .kiro to Foundation completed" >> "$LOG_FILE"
+    rsync -a --delete "$SOURCE_DIR/" "$TARGET_DIR" >/dev/null 2>&1
 }
 
 # Initial sync
