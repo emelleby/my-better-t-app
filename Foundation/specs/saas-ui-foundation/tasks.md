@@ -92,63 +92,71 @@
   - Set up basic routing structure (authentication will be handled by Clerk)
   - _Requirements: 3.3, 5.5_
 
-- [x] 6. Transform marketing page
-- [x] 6.1 Create simple marketing layout
+- [ ] 6. Transform marketing page
+- [ ] 6.1 Create simple marketing layout
+
   - Remove current ASCII art and create clean marketing layout
-  - Implement simple hero section with VSME Guru title, ask the user for an example picture.
+  - Implement simple hero section with VSME Guru title
   - Add centered layout with minimal design
   - _Requirements: 1.1, 1.4, 6.1_
 
-- [x] 6.2 Create sign-in with mock auth
+- [ ] 6.2 Create sign-in with mock auth
+
   - Create SignInButton component that toggles mock auth state
   - Add blue styling and proper visual feedback
   - Implement mock sign-in flow that redirects to dashboard
   - **Note**: Final sign-in functionality will be implemented with Clerk
   - _Requirements: 1.2, 2.1, 2.2_
 
-- [x] 7. Add loading states and error handling
+- [ ] 7. Add loading states and error handling
+
   - Add error boundaries for component failures
   - Create fallback UI for missing data or errors
   - Handle API errors and network failures gracefully
   - Set up basic loading state patterns
   - _Requirements: 2.5, 5.4_
 
-- [x] 8. Implement responsive design and accessibility
-- [x] 8.1 Ensure mobile responsiveness
+- [ ] 8. Implement responsive design and accessibility
+- [ ] 8.1 Ensure mobile responsiveness
+
   - Test sidebar collapse functionality on mobile devices
   - Verify marketing page responsive design
   - Add proper touch interactions for mobile sidebar
   - _Requirements: 1.3, 3.4, 6.1, 6.2_
 
-- [x] 8.2 Add accessibility features
+- [ ] 8.2 Add accessibility features
+
   - Implement proper ARIA labels for navigation elements
   - Add keyboard navigation support for sidebar and dropdowns
   - Ensure focus management for route changes
   - Test screen reader compatibility
   - _Requirements: 6.3, 6.4, 6.5_
 
-- [x] 9. Apply color scheme and theming
-- [x] 9.1 Implement blue and emerald color scheme
+- [ ] 9. Apply color scheme and theming
+- [ ] 9.1 Implement blue and emerald color scheme
+
   - Update Tailwind configuration with custom blue and emerald colors
   - Apply primary blue colors to key UI elements
   - Add emerald/teal accents to secondary elements
   - _Requirements: 1.6, 1.7_
 
-- [x] 9.2 Ensure theme compatibility
+- [ ] 9.2 Ensure theme compatibility
+
   - Test color scheme with both light and dark themes
   - Maintain existing theme toggle functionality
   - Verify color contrast and accessibility standards
   - _Requirements: 1.5, 5.3_
 
-- [x] 10. Final UI foundation testing
-- [x] 10.1 Test UI components and layout
+- [ ] 10. Final UI foundation testing
+- [ ] 10.1 Test UI components and layout
+
   - Verify all sidebar navigation components work correctly
   - Test responsive behavior across different screen sizes
   - Confirm proper URL updates and browser history
   - Test component styling and theming
   - _Requirements: 3.2, 3.3, 5.5, 5.6_
 
-- [x] 10.2 Prepare for Clerk integration
+- [ ] 10.2 Prepare for Clerk integration
   - Test complete UI flow with mock authentication
   - Verify layout switching between marketing and dashboard
   - Document mock auth integration points for Clerk replacement
