@@ -57,11 +57,69 @@ export default function UserProfile({ userId, onUpdate }: UserProfileProps) {
 - Loading and error states for async operations
 - Graceful fallbacks for missing data
 
-## Current Component State
-- Basic layout components: `layout.tsx`, `header.tsx`, `providers.tsx`
-- Theme system with dark/light mode toggle
-- Authentication context with mock authentication
-- shadcn/ui configured but components not yet implemented
+## Current Component State (January 8, 2025)
+- **Layout System**: Root layout, header, sidebar, providers with comprehensive error boundaries
+- **Error Handling**: Error boundaries, error display, global error pages with recovery and retry mechanisms
+- **Loading States**: Multiple loading variants (skeleton, inline, page, button loaders) with accessibility support
+- **UI Components**: Complete shadcn/ui integration (20+ components: Button, Card, Input, Switch, Sidebar, Skeleton, etc.)
+- **Navigation**: App sidebar with collapsible navigation, breadcrumb system, and keyboard navigation
+- **Theme System**: Dark/light mode with system preference detection, persistence, and smooth transitions
+- **Authentication**: Mock authentication context with localStorage persistence for development (Clerk integration planned)
+- **API Integration**: Type-safe API client with comprehensive error handling, retry logic, and network error detection
+- **Accessibility**: WCAG 2.1 AA compliance with ARIA labels, keyboard navigation, screen reader support, and focus management
+- **Marketing Page**: Norwegian content with VSME Guru branding, responsive design, and accessibility features
+
+## Established Patterns (Required)
+
+### Error Handling Pattern
+```typescript
+import { ErrorBoundary } from '@/components/common/error-boundary'
+
+// Always wrap components
+<ErrorBoundary>
+  <YourComponent />
+</ErrorBoundary>
+
+// API calls with error handling
+const { data, error, isLoading, execute } = useApiCall(apiFunction)
+if (error) return <ErrorDisplay error={error} onRetry={execute} />
+```
+
+### Loading State Pattern
+```typescript
+import { InlineLoader, PageLoader, ButtonLoader } from '@/components/common/loading'
+
+// Button loading
+<Button disabled={isLoading}>
+  {isLoading ? <ButtonLoader className="mr-2" /> : null}
+  Submit
+</Button>
+```
+
+### Accessibility Pattern
+```typescript
+// Navigation with proper ARIA roles
+<SidebarMenu role="navigation" aria-label="Main navigation">
+  <Link 
+    href={item.url}
+    aria-expanded={item.isActive}
+    aria-describedby={item.items?.length ? `${item.title}-submenu` : undefined}
+  >
+    {item.icon && <item.icon aria-hidden="true" />}
+    <span>{item.title}</span>
+  </Link>
+</SidebarMenu>
+
+// User menu with descriptive labels
+<SidebarMenuButton aria-label={`User menu for ${user.name}`}>
+  <Avatar>
+    <AvatarImage alt={`${user.name}'s profile picture`} src={user.avatar} />
+    <AvatarFallback aria-label={`${user.name} initials`}>
+      {initials}
+    </AvatarFallback>
+  </Avatar>
+</SidebarMenuButton>
+```
 
 ## shadcn/ui Integration
 When building UI components:

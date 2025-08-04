@@ -1,0 +1,155 @@
+{
+  "timestamp": "2025-08-03T14:11:15.653Z",
+  "summary": {
+    "passed": 21,
+    "failed": 8,
+    "successRate": "72.4"
+  },
+  "tests": [
+    {
+      "name": "HTTP endpoint: Home page",
+      "passed": true,
+      "details": "http://localhost:3001/ returned 200"
+    },
+    {
+      "name": "HTTP endpoint: Dashboard page",
+      "passed": true,
+      "details": "http://localhost:3001/dashboard returned 200"
+    },
+    {
+      "name": "HTTP endpoint: Projects page",
+      "passed": true,
+      "details": "http://localhost:3001/projects returned 200"
+    },
+    {
+      "name": "HTTP endpoint: Settings page",
+      "passed": true,
+      "details": "http://localhost:3001/settings returned 200"
+    },
+    {
+      "name": "HTTP endpoint: Non-existent page (should 404)",
+      "passed": true,
+      "details": "http://localhost:3001/nonexistent returned 404"
+    },
+    {
+      "name": "Component integrity: Main navigation click handling",
+      "passed": false,
+      "details": "Missing patterns: Link.*href"
+    },
+    {
+      "name": "Component integrity: User navigation dropdown functionality",
+      "passed": true,
+      "details": "All required patterns found"
+    },
+    {
+      "name": "Component integrity: Sidebar component integration",
+      "passed": true,
+      "details": "All required patterns found"
+    },
+    {
+      "name": "Component integrity: Mock authentication state management",
+      "passed": true,
+      "details": "All required patterns found"
+    },
+    {
+      "name": "Component integrity: Authentication-based layout switching",
+      "passed": false,
+      "details": "Missing patterns: useEffect.*window\\.location"
+    },
+    {
+      "name": "Responsive features: Main navigation",
+      "passed": true,
+      "details": "Found 4 responsive patterns: isMobile, useSidebar, setOpenMobile, min-h-\\[44px\\]"
+    },
+    {
+      "name": "Responsive features: User navigation",
+      "passed": true,
+      "details": "Found 3 responsive patterns: isMobile, useSidebar, min-h-\\[48px\\]"
+    },
+    {
+      "name": "Responsive features: Header component",
+      "passed": true,
+      "details": "Found 3 responsive patterns: sm:, min-h-\\[44px\\], min-w-\\[44px\\]"
+    },
+    {
+      "name": "Responsive features: Landing page",
+      "passed": true,
+      "details": "Found 4 responsive patterns: sm:, lg:, min-h-\\[44px\\], min-h-\\[48px\\]"
+    },
+    {
+      "name": "Accessibility compliance: Main navigation",
+      "passed": true,
+      "details": "Found 5 accessibility features: aria-label, aria-expanded, aria-hidden, aria-describedby, role="
+    },
+    {
+      "name": "Accessibility compliance: User navigation",
+      "passed": true,
+      "details": "Found 3 accessibility features: aria-label, aria-hidden, alt="
+    },
+    {
+      "name": "Accessibility compliance: Landing page",
+      "passed": true,
+      "details": "Found 3 accessibility features: aria-label, aria-hidden, role="
+    },
+    {
+      "name": "Accessibility compliance: Root layout",
+      "passed": false,
+      "details": "Found 0 accessibility features: "
+    },
+    {
+      "name": "Theme implementation: Theme providers",
+      "passed": true,
+      "details": "Found 1 theme features: ThemeProvider"
+    },
+    {
+      "name": "Theme implementation: Theme toggle",
+      "passed": true,
+      "details": "Found 4 theme features: dark:, ModeToggle, useTheme, next-themes"
+    },
+    {
+      "name": "Theme implementation: Header theme integration",
+      "passed": true,
+      "details": "Found 1 theme features: ModeToggle"
+    },
+    {
+      "name": "Component integrity: Error boundary implementation",
+      "passed": true,
+      "details": "All required patterns found"
+    },
+    {
+      "name": "Component integrity: Global error page functionality",
+      "passed": false,
+      "details": "Missing patterns: ErrorDisplay"
+    },
+    {
+      "name": "Component integrity: Breadcrumb URL generation",
+      "passed": false,
+      "details": "Missing patterns: BreadcrumbLink.*href"
+    },
+    {
+      "name": "Component integrity: Navigation URL linking",
+      "passed": false,
+      "details": "Missing patterns: Link.*href.*item\\.url, Link.*href.*subItem\\.url"
+    },
+    {
+      "name": "Component integrity: Landing page styling classes",
+      "passed": true,
+      "details": "All required patterns found"
+    },
+    {
+      "name": "Component integrity: Sidebar styling and behavior",
+      "passed": false,
+      "details": "Missing patterns: className"
+    },
+    {
+      "name": "Component integrity: Landing page auth integration",
+      "passed": false,
+      "details": "Missing patterns: useRouter.*push.*dashboard"
+    },
+    {
+      "name": "Component integrity: Dashboard auth integration",
+      "passed": true,
+      "details": "All required patterns found"
+    }
+  ]
+}

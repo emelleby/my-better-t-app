@@ -211,21 +211,181 @@ toast.promise(promise, {
 
 ## Accessibility Guidelines
 
-### Semantic HTML
+**Reference:** See comprehensive accessibility documentation in `docs/ACCESSIBILITY_PATTERNS.md` and `docs/ACCESSIBILITY_QUICK_REFERENCE.md`
+
+### Core Accessibility Principles (WCAG 2.1 AA Compliance)
+
+#### 1. Semantic HTML and ARIA
 - Use proper heading hierarchy (h1, h2, h3...)
-- Use semantic elements (nav, main, section, article)
-- Provide alt text for images
-- Use proper form labels
+- Use semantic elements (`<nav>`, `<main>`, `<section>`, `<article>`, `<header>`, `<aside>`)
+- Replace `role="banner"` with `<header>` element
+- Replace `role="complementary"` with `<aside>` element
+- Use `role="navigation"` with `aria-label` for navigation containers
+- Hide decorative icons with `aria-hidden="true"`
 
-### Keyboard Navigation
+#### 2. Interactive Elements
+- Provide `aria-label` for icon-only buttons
+- Use descriptive alt text for images (not just "image")
+- Add `aria-expanded` for collapsible elements
+- Use `aria-describedby` to link elements with descriptions
+- Implement `role="status"` for dynamic status updates
+
+#### 3. Keyboard Navigation & Focus Management
 - Ensure all interactive elements are focusable
-- Provide visible focus indicators
-- Support keyboard shortcuts where appropriate
+- Implement automatic focus management on route changes via `useFocusManagement` hook
+- Provide skip-to-content links for keyboard users
+- Support keyboard shortcuts (Cmd/Ctrl+B for sidebar toggle)
+- Show focus indicators only during keyboard navigation
 
-### Screen Reader Support
-- Use ARIA labels where needed
-- Provide descriptive text for complex interactions
-- Test with screen readers
+#### 4. Mobile Accessibility
+- Minimum 44px touch targets on mobile devices
+- Enhanced touch targets: `min-h-[44px] min-w-[44px]` for buttons
+- Auto-close mobile sidebar on navigation
+- Mobile-optimized dropdown positioning
+
+### Implemented Accessibility Patterns
+
+#### Navigation Accessibility (Currently Implemented)
+```typescript
+// Main navigation with proper ARIA roles
+<SidebarMenu role="navigation" aria-label="Main navigation">
+  <Link 
+    href={item.url}
+    aria-expanded={item.isActive}
+    aria-describedby={item.items?.length ? `${item.title}-submenu` : undefined}
+  >
+    {item.icon && <item.icon aria-hidden="true" />}
+    <span>{item.title}</span>
+  </Link>
+</SidebarMenu>
+
+// User menu with descriptive labels
+<SidebarMenuButton aria-label={`User menu for ${user.name}`}>
+  <Avatar>
+    <AvatarImage alt={`${user.name}'s profile picture`} src={user.avatar} />
+    <AvatarFallback aria-label={`${user.name} initials`}>
+      {initials}
+    </AvatarFallback>
+  </Avatar>
+</SidebarMenuButton>
+```
+
+#### Semantic HTML Patterns (Use These Instead of ARIA Roles)
+```typescript
+// ✅ Use semantic elements instead of role attributes
+<header className="badge-styles">
+  EU-standardiseret Bærekraftsrapportering
+</header>
+
+// ✅ Instead of role="complementary"
+<aside aria-label="Compliance certification">
+  <span>I samsvar med ESRS</span>
+</aside>
+
+// ✅ Instead of role="banner" on div
+<header className="hero-badge">Content</header>
+```
+
+#### Focus Management (Currently Implemented)
+- Automatic focus management on route changes via `useFocusManagement` hook
+- Skip-to-content link for keyboard users: `<a href="#main-content" className="skip-link">`
+- Enhanced focus indicators during keyboard navigation
+- Proper focus restoration without disrupting tab order
+
+#### Mobile Accessibility (Currently Implemented)
+- Minimum 44px touch targets: `min-h-[44px] min-w-[44px]`
+- Auto-close mobile sidebar on navigation
+- Enhanced spacing: `isMobile && "min-h-[44px] py-3"`
+- Mobile-optimized dropdown positioning
+
+#### Screen Reader Support (Currently Implemented)
+- Route change announcements via ARIA live regions
+- Descriptive ARIA labels for all interactive elements
+- Proper semantic markup with landmarks
+- Hidden decorative elements with `aria-hidden="true"`
+
+### CSS Accessibility Classes (Currently Implemented)
+```css
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enhanced focus indicators for keyboard navigation */
+.keyboard-navigation *:focus {
+  @apply outline-2 outline-offset-2 outline-blue-600;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: white;
+  color: black;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+```
+
+### Common Accessibility Fixes
+
+#### Replace ARIA Roles with Semantic Elements
+```typescript
+// ❌ Don't use role attributes when semantic elements exist
+<div role="banner">Content</div>
+<div role="complementary">Content</div>
+
+// ✅ Use semantic HTML elements instead
+<header>Content</header>
+<aside>Content</aside>
+```
+
+#### Proper Icon Button Patterns
+```typescript
+// ❌ Missing accessibility
+<button onClick={handleClose}>
+  <X />
+</button>
+
+// ✅ Proper accessibility
+<button onClick={handleClose} aria-label="Close dialog">
+  <X aria-hidden="true" />
+</button>
+```
+
+### Testing Accessibility
+
+#### Quick Manual Tests
+- Tab through all interactive elements
+- Test with screen reader (VoiceOver on Mac: Cmd+F5)
+- Verify skip link works (Tab on page load)
+- Check focus indicators are visible
+- Test keyboard shortcuts
+
+#### Automated Testing Tools
+- Browser DevTools Accessibility panel
+- Lighthouse accessibility audit
+- axe DevTools extension
+
+**For comprehensive accessibility patterns and testing guidelines, see:**
+- `docs/ACCESSIBILITY_PATTERNS.md` - Complete implementation guide
+- `docs/ACCESSIBILITY_QUICK_REFERENCE.md` - Quick reference for common patterns
 
 ## Performance Optimization Guidelines
 
@@ -263,22 +423,103 @@ const ExpensiveComponent = memo(function ExpensiveComponent({ data }) {
 });
 ```
 
+## Error Handling & Loading States
+
+### Error Boundary Implementation
+Always wrap components with error boundaries for graceful failure handling:
+
+```typescript
+import { ErrorBoundary } from '@/components/common/error-boundary'
+
+// Wrap individual components
+<ErrorBoundary>
+  <YourComponent />
+</ErrorBoundary>
+
+// Or use the HOC pattern
+export default withErrorBoundary(YourComponent)
+```
+
+### Loading State Patterns
+Use consistent loading patterns across the application:
+
+```typescript
+import { InlineLoader, PageLoader, ButtonLoader } from '@/components/common/loading'
+
+// For buttons
+<Button disabled={isLoading}>
+  {isLoading ? <ButtonLoader className="mr-2" /> : null}
+  Submit
+</Button>
+
+// For page-level loading
+if (isLoading) return <PageLoader text="Loading dashboard..." />
+
+// For inline loading
+{isLoading ? <InlineLoader /> : <span>Content loaded</span>}
+```
+
+### Error Display Patterns
+Use the ErrorDisplay component for consistent error messaging:
+
+```typescript
+import { ErrorDisplay } from '@/components/common/error-display'
+
+// Basic error display
+<ErrorDisplay 
+  error={error} 
+  onRetry={handleRetry}
+  variant="minimal" 
+/>
+
+// Specialized error components
+<NetworkError onRetry={handleRetry} />
+<NotFoundError resource="user" />
+```
+
+### Async Operation Patterns
+Use the useAsync hooks for consistent async state management:
+
+```typescript
+import { useApiCall, useAsyncSubmit } from '@/hooks/use-async'
+
+// For API calls
+const { data, error, isLoading, execute } = useApiCall(apiFunction)
+
+// For form submissions
+const { submit, isLoading, error } = useAsyncSubmit(submitFunction)
+```
+
 ## Component Organization Guidelines
 
 ### File Structure
 - Components in `apps/web/src/components/`
 - UI components in `apps/web/src/components/ui/`
+- Common components in `apps/web/src/components/common/`
+- Layout components in `apps/web/src/components/layout/`
+- Navigation components in `apps/web/src/components/navigation/`
 - Pages in `apps/web/src/app/` (App Router)
 - Utilities in `apps/web/src/lib/`
+- Custom hooks in `apps/web/src/hooks/`
 
 ### Naming Conventions
 - **Files**: kebab-case (e.g., `user-profile.tsx`)
 - **Components**: PascalCase (e.g., `UserProfile`)
 - **Props Interfaces**: PascalCase with Props suffix (e.g., `UserProfileProps`)
+- **Hooks**: camelCase starting with 'use' (e.g., `useApiCall`)
 
 ### Export Patterns
 - Export components as default
 - Use named exports for utilities and types
 - Co-locate types with components when possible
+- Export multiple related components from index files
 
-*Note: These are guidelines to follow when implementing UI components. Update this document with real patterns as they emerge from actual implementation.*
+### Established Patterns
+These patterns are currently implemented and should be followed:
+
+1. **Error Boundaries**: All major components wrapped with error boundaries
+2. **Loading States**: Consistent loading indicators across all async operations
+3. **Type Safety**: All components have proper TypeScript interfaces
+4. **Accessibility**: ARIA labels and keyboard navigation implemented
+5. **Responsive Design**: Mobile-first approach with Tailwind breakpoints
+6. **Theme Support**: All components support dark/light mode

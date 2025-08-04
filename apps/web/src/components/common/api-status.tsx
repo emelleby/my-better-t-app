@@ -1,106 +1,93 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from 'react';
-import { apiCalls } from '@/lib/api';
-import { Button } from '@/components/ui/button';
-
-interface ApiStatus {
-  status: 'loading' | 'connected' | 'error';
-  message?: string;
-  timestamp?: string;
-}
+import { useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+import { useApiCall } from '@/hooks/use-async'
+import { apiCalls } from '@/lib/api'
+import { ErrorDisplay } from './error-display'
+import { InlineLoader } from './loading'
 
 interface HealthCheckResponse {
-  status: string;
-  message: string;
-  timestamp: string;
+  status: string
+  message: string
+  timestamp: string
 }
 
 export function ApiStatus() {
-  const [apiStatus, setApiStatus] = useState<ApiStatus>({ status: 'loading' });
-
-  const checkApiStatus = async () => {
-    setApiStatus({ status: 'loading' });
-
-    const result = await apiCalls.healthCheck();
-
-    if (result.error) {
-      setApiStatus({
-        status: 'error',
-        message: result.error
-      });
-    } else {
-      const healthData = result.data as HealthCheckResponse;
-      setApiStatus({
-        status: 'connected',
-        message: healthData?.message || 'API Connected',
-        timestamp: healthData?.timestamp
-      });
-    }
-  };
+  const {
+    data: healthData,
+    error,
+    isLoading,
+    isError,
+    isSuccess,
+    execute: checkApiStatus,
+  } = useApiCall<HealthCheckResponse>(apiCalls.healthCheck)
 
   useEffect(() => {
-    checkApiStatus();
-  }, []);
+    checkApiStatus()
+  }, [checkApiStatus])
 
   const getStatusColor = () => {
-    switch (apiStatus.status) {
-      case 'connected':
-        return 'text-green-600';
-      case 'error':
-        return 'text-red-600';
-      default:
-        return 'text-yellow-600';
-    }
-  };
+    if (isSuccess) return 'text-green-600'
+    if (isError) return 'text-red-600'
+    return 'text-yellow-600'
+  }
 
   const getStatusText = () => {
-    switch (apiStatus.status) {
-      case 'connected':
-        return '✅ Connected';
-      case 'error':
-        return '❌ Error';
-      default:
-        return '⏳ Loading...';
-    }
-  };
+    if (isSuccess) return '✅ Connected'
+    if (isError) return '❌ Error'
+    return '⏳ Loading...'
+  }
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="font-medium">API Status</h3>
         <Button
-          variant="outline"
-          size="sm"
+          disabled={isLoading}
           onClick={checkApiStatus}
-          disabled={apiStatus.status === 'loading'}
+          size="sm"
+          variant="outline"
         >
+          {isLoading ? <InlineLoader className="mr-2" /> : null}
           Refresh
         </Button>
       </div>
 
       <div className="space-y-2">
-        <p className={`font-medium ${getStatusColor()}`}>
-          {getStatusText()}
-        </p>
+        <p className={`font-medium ${getStatusColor()}`}>{getStatusText()}</p>
 
-        {apiStatus.message && (
-          <p className="text-sm text-muted-foreground">
-            {apiStatus.message}
-          </p>
+        {isError && (
+          <ErrorDisplay
+            error={error || 'Unknown error'}
+            onRetry={checkApiStatus}
+            retryText="Retry Connection"
+            showIcon={false}
+            variant="minimal"
+          />
         )}
 
-        {apiStatus.timestamp && (
-          <p className="text-xs text-muted-foreground">
-            Last checked: {new Date(apiStatus.timestamp).toLocaleString()}
-          </p>
+        {isSuccess && healthData && (
+          <>
+            <p className="text-muted-foreground text-sm">
+              {healthData.message || 'API Connected'}
+            </p>
+            {healthData.timestamp && (
+              <p className="text-muted-foreground text-xs">
+                Last checked: {new Date(healthData.timestamp).toLocaleString()}
+              </p>
+            )}
+          </>
         )}
       </div>
 
-      <div className="text-xs text-muted-foreground">
-        <p>Server URL: {process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}</p>
+      <div className="text-muted-foreground text-xs">
+        <p>
+          Server URL:{' '}
+          {process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}
+        </p>
         <p>RPC Type Safety: ✅ Enabled</p>
       </div>
     </div>
-  );
+  )
 }

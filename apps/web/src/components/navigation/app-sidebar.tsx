@@ -1,119 +1,132 @@
-"use client"
+'use client'
 
-import * as React from "react"
 import {
-    AudioWaveform,
-    Bot,
-    Command,
-    Frame,
-    FolderOpen,
-    GalleryVerticalEnd,
-    Settings2,
-    SquareTerminal,
-} from "lucide-react"
+  AudioWaveform,
+  Bot,
+  Command,
+  FolderOpen,
+  Frame,
+  GalleryVerticalEnd,
+  Settings2,
+  SquareTerminal,
+} from 'lucide-react'
+import type * as React from 'react'
 
-import { NavMain, NavProjects, NavUser, TeamSwitcher } from "@/components"
+import { NavMain, NavProjects, NavUser, TeamSwitcher } from '@/components'
+import { ErrorBoundary } from '@/components/common/error-boundary'
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarHeader,
-    SidebarRail,
-} from "@/components/ui/sidebar"
-import { useMockAuth } from "@/contexts/mock-auth-context"
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarRail,
+} from '@/components/ui/sidebar'
+import { useMockAuth } from '@/contexts/mock-auth-context'
 
 // VSME Guru specific data
 const data = {
-    user: {
-        name: "John Doe",
-        email: "john.doe@vsme-guru.com",
-        avatar: "https://github.com/shadcn.png",
+  user: {
+    name: 'John Doe',
+    email: 'john.doe@vsme-guru.com',
+    avatar: 'https://github.com/shadcn.png',
+  },
+  teams: [
+    {
+      name: 'VSME Guru',
+      logo: GalleryVerticalEnd,
+      plan: 'Enterprise',
     },
-    teams: [
+    {
+      name: 'Sustainability Corp',
+      logo: AudioWaveform,
+      plan: 'Pro',
+    },
+    {
+      name: 'Green Solutions',
+      logo: Command,
+      plan: 'Starter',
+    },
+  ],
+  navMain: [
+    {
+      title: 'Dashboard',
+      url: '/dashboard',
+      icon: SquareTerminal,
+      isActive: true,
+      items: [
         {
-            name: "VSME Guru",
-            logo: GalleryVerticalEnd,
-            plan: "Enterprise",
+          title: 'Overview',
+          url: '/dashboard',
         },
+      ],
+    },
+    {
+      title: 'Projects',
+      url: '/projects',
+      icon: FolderOpen,
+      items: [
         {
-            name: "Sustainability Corp",
-            logo: AudioWaveform,
-            plan: "Pro",
+          title: 'All Projects',
+          url: '/projects',
         },
+      ],
+    },
+    {
+      title: 'Settings',
+      url: '/settings',
+      icon: Settings2,
+      items: [
         {
-            name: "Green Solutions",
-            logo: Command,
-            plan: "Starter",
+          title: 'Account Settings',
+          url: '/settings',
         },
-    ],
-    navMain: [
-        {
-            title: "Dashboard",
-            url: "/dashboard",
-            icon: SquareTerminal,
-            isActive: true,
-            items: [
-                {
-                    title: "Overview",
-                    url: "/dashboard",
-                },
-            ],
-        },
-        {
-            title: "Projects",
-            url: "/dashboard/projects",
-            icon: FolderOpen,
-            items: [
-                {
-                    title: "All Projects",
-                    url: "/dashboard/projects",
-                },
-            ],
-        },
-        {
-            title: "Settings",
-            url: "/dashboard/settings",
-            icon: Settings2,
-            items: [
-                {
-                    title: "Account Settings",
-                    url: "/dashboard/settings",
-                },
-            ],
-        },
-    ],
-    projects: [
-        {
-            name: "Current Projects",
-            url: "/dashboard/projects",
-            icon: Frame,
-        },
-    ],
+      ],
+    },
+  ],
+  projects: [
+    {
+      name: 'Current Projects',
+      url: '/projects',
+      icon: Frame,
+    },
+  ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const { user } = useMockAuth()
+  const { user } = useMockAuth()
 
-    // Use mock auth user data if available, otherwise fallback to default
-    const userData = user ? {
+  // Use mock auth user data if available, otherwise fallback to default
+  const userData = user
+    ? {
         name: user.name,
         email: user.email,
-        avatar: user.avatar || "https://github.com/shadcn.png",
-    } : data.user
+        avatar: user.avatar || 'https://github.com/shadcn.png',
+      }
+    : data.user
 
-    return (
-        <Sidebar collapsible="icon" {...props}>
-            <SidebarHeader>
-                <TeamSwitcher teams={data.teams} />
-            </SidebarHeader>
-            <SidebarContent>
-                <NavMain items={data.navMain} />
-                <NavProjects projects={data.projects} />
-            </SidebarContent>
-            <SidebarFooter>
-                <NavUser user={userData} />
-            </SidebarFooter>
-            <SidebarRail />
-        </Sidebar>
-    )
+  return (
+    <ErrorBoundary>
+      <Sidebar collapsible="icon" {...props}>
+        <SidebarHeader>
+          <ErrorBoundary>
+            <TeamSwitcher teams={data.teams} />
+          </ErrorBoundary>
+        </SidebarHeader>
+        <SidebarContent>
+          <ErrorBoundary>
+            <NavMain items={data.navMain} />
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <NavProjects projects={data.projects} />
+          </ErrorBoundary>
+        </SidebarContent>
+        <SidebarFooter>
+          <ErrorBoundary>
+            <NavUser user={userData} />
+          </ErrorBoundary>
+        </SidebarFooter>
+        <SidebarRail />
+      </Sidebar>
+    </ErrorBoundary>
+  )
 }
