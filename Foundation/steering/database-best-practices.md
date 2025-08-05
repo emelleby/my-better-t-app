@@ -4,13 +4,25 @@
 
 _This document contains patterns and guidelines for database design and operations with Prisma and MongoDB. No database models or operations currently exist in the project._
 
-**Current Status**: Prisma is configured for MongoDB, but no models are defined in the schema and no database connection is established. This is entirely future implementation guidance.
+**Current Status**: Complete database implementation with Prisma models, dual database architecture, service layer, and management tools. This document now reflects implemented patterns and provides guidance for extending the system.
 
 **Reference**: See `Foundation/steering/current-state.md` for what actually exists right now.
 
 ---
 
-## Guidelines for Database Design and Operations with Prisma and MongoDB
+## Implemented Database Architecture and Best Practices
+
+### Current Implementation Overview
+
+The application uses a dual-database architecture with complete ESG data models:
+
+- **Primary Database**: MongoDB Atlas with User, Company, and Report models
+- **External Database**: MongoDB Atlas for shared data with read-only access
+- **Service Layer**: CompanyService and ReportService with full CRUD operations
+- **External Data Service**: Comprehensive external data integration
+- **Management Tools**: Seeding, migration, and health monitoring systems
+
+## Database Design Patterns (Implemented)
 
 ## Prisma Schema Design Guidelines
 

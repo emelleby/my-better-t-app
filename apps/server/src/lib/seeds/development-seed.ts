@@ -21,8 +21,7 @@ import { prisma } from '../prisma'
  */
 export async function seedDevelopmentData() {
   try {
-    // eslint-disable-next-line no-console
-    // biome-ignore lint/suspicious/noConsole: <explanation>
+    // biome-ignore lint/suspicious/noConsole: Script output for user feedback
     console.log('🌱 Starting development data seeding...')
 
     // Create development users for different organizations
@@ -34,18 +33,13 @@ export async function seedDevelopmentData() {
     // Create ESG reports for the companies
     const reports = await createDevelopmentReports(companies, users)
 
-    // eslint-disable-next-line no-console
     console.log('✅ Development seeding completed successfully!')
-    // eslint-disable-next-line no-console
     console.log(`   - Created ${users.length} users`)
-    // eslint-disable-next-line no-console
     console.log(`   - Created ${companies.length} companies`)
-    // eslint-disable-next-line no-console
     console.log(`   - Created ${reports.length} ESG reports`)
 
     return { users, companies, reports }
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('❌ Development seeding failed:', error)
     throw error
   }
@@ -406,7 +400,6 @@ function getESGData2024(companyIndex: number) {
  */
 export async function cleanupDevelopmentData() {
   try {
-    // eslint-disable-next-line no-console
     console.log('🧹 Cleaning up development data...')
 
     // Delete in reverse order of dependencies
@@ -442,10 +435,8 @@ export async function cleanupDevelopmentData() {
       },
     })
 
-    // eslint-disable-next-line no-console
     console.log('✅ Development data cleanup completed')
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('❌ Development data cleanup failed:', error)
     throw error
   }

@@ -15,7 +15,6 @@ async function main() {
   const environment = process.env.NODE_ENV || 'development'
 
   try {
-    // eslint-disable-next-line no-console
     console.log(
       `🌱 Starting database seeding for ${environment} environment...`
     )
@@ -26,11 +25,9 @@ async function main() {
       await seedDevelopmentData()
     }
 
-    // eslint-disable-next-line no-console
     console.log('🎉 Database seeding completed successfully!')
     process.exit(0)
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('💥 Database seeding failed:', error)
     process.exit(1)
   }

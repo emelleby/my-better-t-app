@@ -32,7 +32,6 @@ interface MigrationRecord {
  */
 export async function runMigrations() {
   try {
-    // eslint-disable-next-line no-console
     console.log('🔄 Starting database migrations...')
 
     // Ensure migration tracking collection exists
@@ -51,22 +50,18 @@ export async function runMigrations() {
     )
 
     if (pendingMigrations.length === 0) {
-      // eslint-disable-next-line no-console
       console.log('✅ No pending migrations - database is up to date')
       return
     }
 
-    // eslint-disable-next-line no-console
     console.log(`📋 Found ${pendingMigrations.length} pending migrations`)
 
     for (const migration of pendingMigrations) {
       await applyMigration(migration)
     }
 
-    // eslint-disable-next-line no-console
     console.log('✅ All migrations applied successfully')
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('❌ Migration failed:', error)
     throw error
   }
@@ -93,7 +88,6 @@ async function ensureMigrationTracking() {
     })
   } catch (error) {
     // Collection might already exist, which is fine
-    // eslint-disable-next-line no-console
     console.log('Migration tracking collection verified')
   }
 }
@@ -134,7 +128,6 @@ async function getAvailableMigrations() {
       checksum: 'initial-schema-v1',
       apply: async () => {
         // This migration is handled by Prisma db:push
-        // eslint-disable-next-line no-console
         console.log('Initial schema migration (handled by Prisma)')
       },
     },
@@ -144,7 +137,6 @@ async function getAvailableMigrations() {
       checksum: 'indexes-v1',
       apply: async () => {
         // This migration is handled by Prisma db:push
-        // eslint-disable-next-line no-console
         console.log('Index migration (handled by Prisma)')
       },
     },
@@ -158,7 +150,6 @@ async function getAvailableMigrations() {
  */
 async function applyMigration(migration: any) {
   try {
-    // eslint-disable-next-line no-console
     console.log(`🔧 Applying migration: ${migration.name}`)
 
     // Apply the migration
@@ -172,10 +163,8 @@ async function applyMigration(migration: any) {
       checksum: migration.checksum,
     })
 
-    // eslint-disable-next-line no-console
     console.log(`✅ Migration applied: ${migration.name}`)
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(`❌ Failed to apply migration ${migration.name}:`, error)
     throw error
   }
@@ -193,7 +182,6 @@ async function recordMigration(migration: MigrationRecord) {
       documents: [migration],
     })
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Failed to record migration:', error)
     throw error
   }
@@ -218,7 +206,6 @@ export async function checkMigrationStatus() {
       upToDate: pendingCount === 0,
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Failed to check migration status:', error)
     throw error
   }

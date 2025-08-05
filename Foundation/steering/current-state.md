@@ -77,17 +77,25 @@ This document provides an accurate audit of what currently exists in the codebas
 ### Backend (apps/server/)
 
 - ✅ **Hono 4.8.10** web framework
-- ✅ **Basic Server Setup** with CORS and logging
-- ✅ **Single Route**: GET / returns "OK"
-- ✅ **Prisma 6.13.0** configured for MongoDB
-- ✅ **Empty Database Schema** (no models defined yet)
+- ✅ **Complete Server Setup** with CORS and logging
+- ✅ **Health Check Routes**: GET / and GET /api/v1/health return server status
+- ✅ **Server Running**: Successfully starts on port 3000 with hot reload
+- ✅ **Prisma 6.13.0** configured for MongoDB with complete ESG models
+- ✅ **Dual Database Architecture**: Primary + External MongoDB Atlas connections
+- ✅ **Complete Database Models**: User, Company, Report with ESG data structures
+- ✅ **Service Layer**: Company and Report services with CRUD operations
+- ✅ **External Data Integration**: Full external database client and service layer
+- ✅ **Database Management**: Seeding, migrations, and health monitoring
 
 #### Actual Server Implementation
 
 - `apps/server/src/index.ts`: Main server entry point with Hono app
-- Basic CORS configuration for frontend communication
-- Single health check endpoint at root path
-- Prisma client setup (but no database models yet)
+- `apps/server/src/lib/prisma.ts`: Centralized Prisma client with singleton pattern
+- `apps/server/src/lib/external-db.ts`: External database client with connection pooling
+- `apps/server/src/lib/services/`: Complete service layer for data operations
+- `apps/server/src/types/`: TypeScript definitions for ESG and external data
+- `apps/server/src/lib/validation/`: Zod schemas for runtime validation
+- `apps/server/src/scripts/`: Database management and testing scripts
 
 #### Current Component Patterns Observed
 
@@ -135,42 +143,69 @@ This document provides an accurate audit of what currently exists in the codebas
 
 ### Database
 
-- ✅ **Prisma Configuration** for MongoDB with ESM
-- ❌ **No Models Defined** (schema is empty)
-- ❌ **No Database Connection** established yet
-- ❌ **No Migrations** created
+- ✅ **Dual Database Architecture**: Primary and External MongoDB Atlas
+- ✅ **Complete Prisma Schema**: User, Company, Report models with ESG data structures
+- ✅ **Database Connections**: Both primary and external databases connected and tested
+- ✅ **Migration System**: Migration runner with tracking and rollback capabilities
+- ✅ **Seeding System**: Development and production seeding with realistic ESG data
+- ✅ **Service Layer**: CompanyService and ReportService with full CRUD operations
+- ✅ **External Data Service**: Read-only access to external databases with validation
+- ✅ **Performance Optimization**: Strategic indexes for common query patterns
+- ✅ **Health Monitoring**: Database status checking and connection validation
+
+#### Database Models Implemented
+
+##### User Model
+- `clerkId`: Unique identifier from Clerk authentication
+- `organizationId`: Multi-tenant data isolation
+- Relationships to companies and reports
+
+##### Company Model
+- Complete ESG company profile (name, registration, revenue, industry)
+- NACE codes and CO2 intensity data
+- Multi-tenant organization-based access control
+
+##### Report Model with Nested ESG Data
+- **Environmental**: Energy consumption, emissions (Scope 1/2/3), renewable energy
+- **Social**: Employee counts (full-time, part-time, temporary)
+- **Governance**: Ethics (corruption cases, whistleblower reports), fines and penalties
+- Year-based reporting with company relationships
+
+#### External Database Integration
+- **External Database Client**: Connection pooling, timeout management, health monitoring
+- **External Data Service**: Search, aggregation, and resource discovery
+- **Type Safety**: Complete TypeScript definitions and runtime validation
+- **Error Handling**: Graceful degradation when external data unavailable
 
 ### Build System
 
 - ✅ **Turborepo** for monorepo orchestration
 - ✅ **Bun** as runtime and package manager
 - ✅ **TypeScript** configuration
-- ✅ **Biome + Ultracite** for code quality
+- ✅ **Biome + Ultracite** for code quality (no ESLint, use biome-ignore comments)
 
 ## What Doesn't Exist Yet
 
-### Database Layer
+### API Layer (Next Priority)
 
-- No database models defined in Prisma schema
-- No database connection established (needs DATABASE_URL)
-- No API routes beyond basic health check
-- No data validation schemas with Zod
+- No API routes for CRUD operations (models and services ready)
+- No authentication middleware with Clerk integration
+- No request validation middleware (schemas ready)
+- No API error handling middleware
 
-### API Layer
+### Frontend Data Integration (Next Priority)
 
-- No API routers beyond basic setup
-- No real authentication (only mock system for UI development)
-- No error handling patterns established
-- No request validation middleware
-- No API endpoints for CRUD operations
+- No TanStack Query hooks for data fetching (TanStack Query configured)
+- No forms using TanStack Form (TanStack Form configured)
+- No real authentication integration with Clerk (mock system in place)
+- No data fetching from backend APIs (API foundation ready)
 
-### Frontend Features Missing
+### Advanced Features (Future Implementation)
 
-- No real data fetching from backend APIs
-- No forms using TanStack Form (configured but not implemented)
-- No complex business logic components
-- No error boundaries or loading states
-- No real user management (only mock authentication)
+- No error boundaries or loading states (patterns defined in steering docs)
+- No real-time data synchronization
+- No caching strategies beyond TanStack Query defaults
+- No background data processing
 
 ### Testing Infrastructure
 
@@ -181,43 +216,65 @@ This document provides an accurate audit of what currently exists in the codebas
 
 ## Environment Setup Status
 
-### Required Environment Variables
+### Environment Variables (Configured)
 
 ```bash
-# apps/server/.env (needs to be created)
-DATABASE_URL="mongodb://..."
+# apps/server/.env (configured and working)
+PRIMARY_DATABASE_URL="mongodb+srv://..."  # Primary application database
+SCOPE321_DATABASE_URL="mongodb+srv://..."  # External shared database
+EXTERNAL_DATABASE_NAME="co2-intensities-dev"  # Environment-specific database name
 CORS_ORIGIN="http://localhost:3001"
+CLERK_SECRET_KEY="sk_test_..."
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
 
-# apps/web/.env (needs to be created)
+# apps/web/.env (needs frontend environment setup)
 NEXT_PUBLIC_API_URL="http://localhost:3000"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
 ```
+
+### Environment Configuration System (✅ Implemented)
+
+- **Multi-Environment Support**: Development, test, staging, production configurations
+- **Automatic Database Selection**: Environment-based database name resolution
+- **Configuration Validation**: Comprehensive environment validation with error reporting
+- **Setup Scripts**: Environment setup and validation tools
 
 ### Development Commands That Work
 
 ```bash
-bun dev          # Starts both apps
-bun dev:web      # Frontend only
-bun dev:server   # Backend only
-bun check        # Code formatting/linting
-```
+# Application commands
+bun dev              # Starts both apps
+bun dev:web          # Frontend only (port 3001)
+bun dev:server       # Backend only (port 3000)
+bun check            # Code formatting/linting
 
-### Commands That Need Setup
+# Database commands (fully functional)
+bun db:generate      # Generate Prisma client
+bun db:push          # Push schema to database
+bun db:studio        # Open Prisma Studio
+bun db:seed:dev      # Seed development data
+bun db:seed:prod     # Seed production data
+bun db:reset         # Reset database with fresh data
+bun db:status        # Database health and status report
+bun db:test-external # Test external database service
 
-```bash
-bun db:push      # Needs DATABASE_URL
-bun db:studio    # Needs DATABASE_URL
-bun db:generate  # Needs models in schema
+# Environment management commands
+bun env:setup        # Validate current environment configuration
+bun env:setup production  # Show setup for specific environment
+
+# Type validation commands
+bun validate:types   # Validate alignment between TypeScript types and Zod schemas
 ```
 
 ## Next Logical Steps
 
-Based on current state, the next steps would be:
+Based on current state with complete database foundation, the next steps are:
 
-1. **Environment Setup**: Create .env files with database connection
-2. **First Database Model**: Add a simple model to Prisma schema
-3. **First API Route**: Create a basic CRUD endpoint
-4. **First UI Component**: Build a component that uses the API
-5. **Connect Frontend to Backend**: Implement data fetching
+1. **API Layer Development**: Create CRUD endpoints using existing services
+2. **Authentication Middleware**: Integrate Clerk authentication with API routes
+3. **Frontend Data Hooks**: Create TanStack Query hooks for data fetching
+4. **Form Implementation**: Build ESG data entry forms with TanStack Form
+5. **Real Authentication**: Replace mock auth with Clerk integration
 
 ## Documentation Status Reference
 

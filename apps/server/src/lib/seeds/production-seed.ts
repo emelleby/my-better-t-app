@@ -19,7 +19,6 @@ import { prisma } from '../prisma'
  */
 export async function seedProductionData() {
   try {
-    // eslint-disable-next-line no-console
     console.log('🏭 Starting production data seeding...')
 
     // Create system indexes and constraints if needed
@@ -28,10 +27,8 @@ export async function seedProductionData() {
     // Create any required reference data
     await createReferenceData()
 
-    // eslint-disable-next-line no-console
     console.log('✅ Production seeding completed successfully!')
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('❌ Production seeding failed:', error)
     throw error
   }
@@ -64,10 +61,8 @@ async function ensureSystemConstraints() {
       },
     })
 
-    // eslint-disable-next-line no-console
     console.log('✅ Database constraints verified')
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('❌ Database constraint verification failed:', error)
     throw error
   }
@@ -85,7 +80,6 @@ async function createReferenceData() {
   // - Standard NACE codes
   // - Default ESG frameworks
 
-  // eslint-disable-next-line no-console
   console.log('✅ Reference data setup completed (no data required currently)')
 }
 
@@ -96,7 +90,6 @@ async function createReferenceData() {
  */
 export async function validateProductionDatabase() {
   try {
-    // eslint-disable-next-line no-console
     console.log('🔍 Validating production database state...')
 
     // Check that all required collections exist
@@ -122,16 +115,12 @@ export async function validateProductionDatabase() {
       }),
     ])
 
-    // eslint-disable-next-line no-console
     console.log('✅ Production database validation passed')
-    // eslint-disable-next-line no-console
     console.log(`   - Collections accessible: ${collections.length}`)
-    // eslint-disable-next-line no-console
     console.log('   - Query performance: OK')
 
     return true
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('❌ Production database validation failed:', error)
     throw error
   }

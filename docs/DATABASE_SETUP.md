@@ -6,7 +6,13 @@ This document describes the database architecture, setup procedures, and managem
 
 The application uses a dual-database architecture:
 - **Primary Database**: MongoDB Atlas for application data (Users, Companies, Reports)
-- **External Database**: MongoDB Atlas for shared data from other applications
+- **External Database**: MongoDB Atlas for shared data from other applications in the same Clerk domain
+
+### External Database Integration
+The external database provides read-only access to shared resources and reference data from other applications. This enables:
+- Cross-application data sharing within the same organization
+- Reference data lookups (industry standards, benchmarks)
+- Shared resource discovery and utilization
 
 ## Database Models
 
@@ -40,6 +46,9 @@ PRIMARY_DATABASE_URL=mongodb+srv://user:password@cluster.mongodb.net/database
 # External database (shared data)
 SCOPE321_DATABASE_URL=mongodb+srv://user:password@cluster.mongodb.net/shared_db
 
+# External database name (environment-specific)
+EXTERNAL_DATABASE_NAME=co2-intensities-dev
+
 # Clerk authentication
 CLERK_SECRET_KEY=sk_test_your_secret_key
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_publishable_key
@@ -47,6 +56,28 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_publishable_key
 # API configuration
 CORS_ORIGIN=http://localhost:3001
 ```
+
+### Environment-Specific Configuration
+
+The application supports multiple deployment environments with automatic database name resolution:
+
+**Development Environment:**
+- External Database: `co2-intensities-dev`
+- Features: Debug logging, query logging, detailed errors
+
+**Test Environment:**
+- External Database: `co2-intensities-test`
+- Features: Query logging, detailed errors, minimal connection pools
+
+**Staging Environment:**
+- External Database: `co2-intensities-staging`
+- Features: Performance monitoring, production-like settings
+
+**Production Environment:**
+- External Database: `co2-intensities`
+- Features: Performance monitoring, error tracking, optimized connection pools
+
+The system automatically selects the appropriate database name based on `NODE_ENV`, with the option to override using `EXTERNAL_DATABASE_NAME`.
 
 ### Database User Permissions
 
@@ -59,6 +90,8 @@ CORS_ORIGIN=http://localhost:3001
 - Role: `read` on shared database
 - Purpose: Read-only access to shared reference data
 - Used by: External data fetching, reference lookups
+- Configuration: Optimized connection pooling with shorter timeouts
+- Features: Automatic retry logic, connection health monitoring, graceful degradation
 
 ## Database Management Commands
 
@@ -82,6 +115,16 @@ bun run db:reset
 
 # Check database status and health
 bun run db:status
+
+# Test external database service
+bun run db:test-external
+
+# Environment setup and validation
+bun run env:setup
+bun run env:setup production  # Show setup for specific environment
+
+# Type alignment validation
+bun run validate:types       # Validate TypeScript types ↔ Zod schemas alignment
 ```
 
 ### Production Commands
@@ -150,6 +193,16 @@ Located in `src/lib/migrations/`
 - `getReportsByCompany()`: Company-specific report history
 - `getReportsByYear()`: Year-based report aggregation
 
+### External Data Service (`src/lib/services/external-data-service.ts`)
+**Purpose**: Handles all external database operations with validation and caching
+**Used by**: External data API endpoints, reference data lookups, cross-application data sharing
+**Methods**:
+- `getSharedResources()`: Fetch shared resources with pagination and filtering
+- `getSharedResourceById()`: Retrieve specific external resource by ID
+- `searchSharedResources()`: Text-based search across external resources
+- `getExternalDataStats()`: Statistics and health information for external data
+- `getAggregatedData()`: Complex aggregation queries on external data
+
 ## Data Validation
 
 ### Zod Schemas (`src/lib/validation/esg-schemas.ts`)
@@ -161,6 +214,44 @@ Located in `src/lib/migrations/`
 - `environmentalSchema`: Environmental data validation
 - `socialSchema`: Social data validation
 - `governanceSchema`: Governance data validation
+
+## Type Safety and Validation
+
+### Type Alignment System
+
+The application maintains type safety across three layers:
+
+1. **Prisma Models** (Database Layer): Auto-generated from schema
+2. **TypeScript Interfaces** (Business Layer): Manual definitions in `src/types/`
+3. **Zod Schemas** (API Layer): Manual validation schemas in `src/lib/validation/`
+
+### Automatic Validation
+
+**Kiro Hooks** automatically validate type alignment when:
+- Prisma schema files are modified
+- TypeScript type definitions change
+- Zod validation schemas are updated
+- After `db:generate`, `db:push`, or `db:migrate` operations
+
+**Manual Validation:**
+```bash
+bun run validate:types  # Run comprehensive type alignment check
+```
+
+**Validation Checks:**
+- CompanyData interface ↔ companySchema alignment
+- ReportData interface ↔ reportSchema alignment
+- ESG nested types ↔ their Zod schemas
+- Prisma client generation and accessibility
+
+### Maintaining Type Alignment
+
+When making schema changes:
+1. Update Prisma schema first
+2. Run `bun db:generate` and `bun db:push`
+3. Update TypeScript interfaces in `src/types/`
+4. Update Zod schemas in `src/lib/validation/`
+5. Run `bun run validate:types` to verify alignment
 
 ## Performance Optimization
 

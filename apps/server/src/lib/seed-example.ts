@@ -73,20 +73,15 @@ export async function seedExampleData() {
       },
     })
 
-    // eslint-disable-next-line no-console
     console.log('✅ Seed data created successfully:')
-    // eslint-disable-next-line no-console
     console.log(`   - User: ${testUser.name} (${testUser.email})`)
-    // eslint-disable-next-line no-console
     console.log(
       `   - Company: ${testCompany.name} (${testCompany.registrationNumber})`
     )
-    // eslint-disable-next-line no-console
     console.log(`   - Report: ${testReport.year} ESG Report`)
 
     return { testUser, testCompany, testReport }
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('❌ Error seeding data:', error)
     throw error
   }
@@ -107,10 +102,8 @@ export async function cleanupTestData() {
       where: { clerkId: 'test-clerk-id' },
     })
 
-    // eslint-disable-next-line no-console
     console.log('✅ Test data cleaned up successfully')
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('❌ Error cleaning up test data:', error)
     throw error
   }

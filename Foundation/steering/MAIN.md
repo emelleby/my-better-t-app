@@ -6,6 +6,8 @@
 
 Ultracite enforces strict type safety, accessibility standards, and consistent code quality for JavaScript/TypeScript projects using Biome's lightning-fast formatter and linter.
 
+**Important**: This project uses Biome (via Ultracite), not ESLint. Use `// biome-ignore` comments for linting exceptions, not `// eslint-disable` comments.
+
 ## Key Principles
 
 - Zero configuration required

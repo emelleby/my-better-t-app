@@ -15,19 +15,15 @@ import {
 
 async function main() {
   try {
-    // eslint-disable-next-line no-console
     console.log('🧹 Cleaning existing development data...')
     await cleanupDevelopmentData()
 
-    // eslint-disable-next-line no-console
     console.log('🌱 Seeding fresh development data...')
     await seedDevelopmentData()
 
-    // eslint-disable-next-line no-console
     console.log('🎉 Development database seeding completed!')
     process.exit(0)
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('💥 Development seeding failed:', error)
     process.exit(1)
   }

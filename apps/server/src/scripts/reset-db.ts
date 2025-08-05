@@ -17,16 +17,12 @@ async function main() {
   try {
     // Safety check - prevent accidental production reset
     if (process.env.NODE_ENV === 'production') {
-      // eslint-disable-next-line no-console
       console.error('🚫 Cannot reset production database!')
-      // eslint-disable-next-line no-console
       console.error('This script is only for development environments.')
       process.exit(1)
     }
 
-    // eslint-disable-next-line no-console
     console.log('⚠️  WARNING: This will completely reset your database!')
-    // eslint-disable-next-line no-console
     console.log('🧹 Cleaning all data...')
 
     // Clean up all development data
@@ -35,18 +31,14 @@ async function main() {
     // Also clean up any other test data
     await cleanupAllTestData()
 
-    // eslint-disable-next-line no-console
     console.log('🌱 Reseeding with fresh development data...')
     await seedDevelopmentData()
 
-    // eslint-disable-next-line no-console
     console.log('🎉 Database reset completed!')
-    // eslint-disable-next-line no-console
     console.log('Your database now contains fresh development data.')
 
     process.exit(0)
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('💥 Database reset failed:', error)
     process.exit(1)
   }
@@ -91,10 +83,8 @@ async function cleanupAllTestData() {
       },
     })
 
-    // eslint-disable-next-line no-console
     console.log('✅ Additional test data cleaned up')
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.warn('⚠️  Warning: Could not clean all test data:', error)
     // Don't fail the script for this
   }
