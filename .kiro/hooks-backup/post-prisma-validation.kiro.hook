@@ -2,15 +2,9 @@
   "name": "Post-Prisma Type Validation",
   "description": "Validates type alignment after Prisma operations like db:generate, db:push, or schema changes",
   "trigger": {
-    "type": "command_completion",
-    "commands": [
-      "bun db:generate",
-      "bun db:push", 
-      "bun db:migrate",
-      "turbo -F server db:generate",
-      "turbo -F server db:push",
-      "turbo -F server db:migrate"
-    ]
+    "type": "manual",
+    "buttonText": "Post-Prisma Validation",
+    "category": "Database & Types"
   },
   "actions": [
     {
