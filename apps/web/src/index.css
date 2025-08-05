@@ -223,7 +223,6 @@ body {
 
   /* Improve touch targets on mobile */
   @media (max-width: 768px) {
-
     button,
     a,
     input,

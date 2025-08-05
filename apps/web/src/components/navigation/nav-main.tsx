@@ -47,7 +47,7 @@ export function NavMain({
   return (
     <SidebarGroup>
       <SidebarGroupLabel>VSME Reporting</SidebarGroupLabel>
-      <SidebarMenu role="navigation" aria-label="Main navigation">
+      <SidebarMenu aria-label="Main navigation" role="navigation">
         {items.map((item) => (
           <Collapsible
             asChild
@@ -59,24 +59,28 @@ export function NavMain({
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton
                   asChild
-                  tooltip={item.title}
                   className={cn(
                     // Enhanced touch targets for mobile
-                    isMobile && "min-h-[44px] py-3"
+                    isMobile && 'min-h-[44px] py-3'
                   )}
+                  tooltip={item.title}
                 >
                   <Link
+                    aria-describedby={
+                      item.items?.length
+                        ? `${item.title.replace(/\s+/g, '-').toLowerCase()}-submenu`
+                        : undefined
+                    }
+                    aria-expanded={item.isActive}
                     href={item.url}
                     onClick={handleNavigation}
-                    aria-expanded={item.isActive}
-                    aria-describedby={item.items?.length ? `${item.title.replace(/\s+/g, '-').toLowerCase()}-submenu` : undefined}
                   >
                     {item.icon && <item.icon aria-hidden="true" />}
                     <span>{item.title}</span>
                     {item.items?.length && (
                       <ChevronRight
-                        className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
                         aria-hidden="true"
+                        className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
                       />
                     )}
                   </Link>
@@ -85,9 +89,9 @@ export function NavMain({
               {item.items?.length && (
                 <CollapsibleContent>
                   <SidebarMenuSub
-                    role="menu"
                     aria-label={`${item.title} submenu`}
                     id={`${item.title.replace(/\s+/g, '-').toLowerCase()}-submenu`}
+                    role="menu"
                   >
                     {item.items.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title} role="none">
@@ -95,7 +99,7 @@ export function NavMain({
                           asChild
                           className={cn(
                             // Enhanced touch targets for mobile
-                            isMobile && "min-h-[40px] py-2"
+                            isMobile && 'min-h-[40px] py-2'
                           )}
                         >
                           <Link

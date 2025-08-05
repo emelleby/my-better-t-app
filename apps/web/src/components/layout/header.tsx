@@ -60,7 +60,7 @@ export default function Header({ isDashboard = false }: HeaderProps) {
     const breadcrumbs = generateBreadcrumbs(pathname)
 
     return (
-      <header className="mb-4 flex h-12 sm:h-14 shrink-0 items-center gap-2 shadow transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+      <header className="mb-4 flex h-12 shrink-0 items-center gap-2 shadow transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 sm:h-14">
         <div className="flex items-center gap-2 px-3 sm:px-4">
           <SidebarTrigger className="-ml-1 min-h-[44px] min-w-[44px] sm:min-h-[32px] sm:min-w-[32px]" />
           <Separator className="mr-2 h-4" orientation="vertical" />

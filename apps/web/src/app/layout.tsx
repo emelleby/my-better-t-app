@@ -33,7 +33,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <Providers>
             <FocusManager />
-            <a href="#main-content" className="skip-link">
+            <a className="skip-link" href="#main-content">
               Skip to main content
             </a>
             <div className="grid h-svh grid-rows-[auto_1fr]" id="main-content">

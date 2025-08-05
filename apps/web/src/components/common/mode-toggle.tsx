@@ -20,9 +20,9 @@ export function ModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
+          className={isMobile ? 'min-h-[44px] min-w-[44px]' : ''}
           size="icon"
           variant="outline"
-          className={isMobile ? 'min-h-[44px] min-w-[44px]' : ''}
         >
           <Sun className="dark:-rotate-90 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:scale-0" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -31,20 +31,20 @@ export function ModeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem
-          onClick={() => setTheme('light')}
           className={isMobile ? 'min-h-[44px] py-3' : ''}
+          onClick={() => setTheme('light')}
         >
           Light
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => setTheme('dark')}
           className={isMobile ? 'min-h-[44px] py-3' : ''}
+          onClick={() => setTheme('dark')}
         >
           Dark
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => setTheme('system')}
           className={isMobile ? 'min-h-[44px] py-3' : ''}
+          onClick={() => setTheme('system')}
         >
           System
         </DropdownMenuItem>
