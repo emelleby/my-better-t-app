@@ -72,6 +72,21 @@ const data = {
       ],
     },
     {
+      title: 'Form Test',
+      url: '/form-test',
+      icon: Bot,
+      items: [
+        {
+          title: 'Component Test',
+          url: '/form-test',
+        },
+        {
+          title: 'Multi-Step Form',
+          url: '/multistep',
+        },
+      ],
+    },
+    {
       title: 'Settings',
       url: '/settings',
       icon: Settings2,
