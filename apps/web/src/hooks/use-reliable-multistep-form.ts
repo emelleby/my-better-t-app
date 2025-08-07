@@ -9,6 +9,11 @@ const getInitialFormData = (): Partial<FormData> => ({
   // Step 1: Organization Information
   organizationName: '',
   organizationNumber: '',
+  registrationNumber: '',
+  naceCode: '',
+  industry: '',
+  revenue: 0,
+  numberOfEmployees: 1,
   contactPerson: '',
   email: '',
   phoneNumber: '',

@@ -147,19 +147,101 @@ export default function MultiStepPage() {
                 )}
               </form.Field>
 
-              <form.Field name="organizationNumber">
-                {(field) => (
-                  <FormField
-                    error={field.state.meta.errors?.[0]}
-                    id="organizationNumber"
-                    label="Organization Number"
-                    onChange={(value) => field.handleChange(value)}
-                    placeholder="Enter organization number"
-                    required
-                    value={String(field.state.value || '')}
-                  />
-                )}
-              </form.Field>
+              <div className="grid gap-4 md:grid-cols-2">
+                <form.Field name="organizationNumber">
+                  {(field) => (
+                    <FormField
+                      error={field.state.meta.errors?.[0]}
+                      id="organizationNumber"
+                      label="Organization Number"
+                      onChange={(value) => field.handleChange(value)}
+                      placeholder="Enter organization number"
+                      required
+                      value={String(field.state.value || '')}
+                    />
+                  )}
+                </form.Field>
+
+                <form.Field name="registrationNumber">
+                  {(field) => (
+                    <FormField
+                      error={field.state.meta.errors?.[0]}
+                      id="registrationNumber"
+                      label="Registration Number"
+                      onChange={(value) => field.handleChange(value)}
+                      placeholder="Enter registration number"
+                      required
+                      value={String(field.state.value || '')}
+                    />
+                  )}
+                </form.Field>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <form.Field name="naceCode">
+                  {(field) => (
+                    <FormField
+                      error={field.state.meta.errors?.[0]}
+                      id="naceCode"
+                      label="NACE Code"
+                      onChange={(value) => field.handleChange(value)}
+                      placeholder="e.g. 62.01"
+                      required
+                      value={String(field.state.value || '')}
+                    />
+                  )}
+                </form.Field>
+
+                <form.Field name="industry">
+                  {(field) => (
+                    <FormField
+                      error={field.state.meta.errors?.[0]}
+                      id="industry"
+                      label="Industry"
+                      onChange={(value) => field.handleChange(value)}
+                      placeholder="e.g. Information Technology"
+                      required
+                      value={String(field.state.value || '')}
+                    />
+                  )}
+                </form.Field>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <form.Field name="revenue">
+                  {(field) => (
+                    <FormField
+                      error={field.state.meta.errors?.[0]}
+                      id="revenue"
+                      label="Annual Revenue (NOK)"
+                      min={0}
+                      onChange={(value) => field.handleChange(value)}
+                      placeholder="0"
+                      required
+                      step={1000}
+                      type="number"
+                      value={field.state.value ?? 0}
+                    />
+                  )}
+                </form.Field>
+
+                <form.Field name="numberOfEmployees">
+                  {(field) => (
+                    <FormField
+                      error={field.state.meta.errors?.[0]}
+                      id="numberOfEmployees"
+                      label="Number of Employees"
+                      min={1}
+                      onChange={(value) => field.handleChange(value)}
+                      placeholder="1"
+                      required
+                      step={1}
+                      type="number"
+                      value={field.state.value ?? 1}
+                    />
+                  )}
+                </form.Field>
+              </div>
 
               <form.Field name="contactPerson">
                 {(field) => (
@@ -175,35 +257,37 @@ export default function MultiStepPage() {
                 )}
               </form.Field>
 
-              <form.Field name="email">
-                {(field) => (
-                  <FormField
-                    error={field.state.meta.errors?.[0]}
-                    id="email"
-                    label="Email Address"
-                    onChange={(value) => field.handleChange(value)}
-                    placeholder="contact@organization.com"
-                    required
-                    type="email"
-                    value={String(field.state.value || '')}
-                  />
-                )}
-              </form.Field>
+              <div className="grid gap-4 md:grid-cols-2">
+                <form.Field name="email">
+                  {(field) => (
+                    <FormField
+                      error={field.state.meta.errors?.[0]}
+                      id="email"
+                      label="Email Address"
+                      onChange={(value) => field.handleChange(value)}
+                      placeholder="contact@organization.com"
+                      required
+                      type="email"
+                      value={String(field.state.value || '')}
+                    />
+                  )}
+                </form.Field>
 
-              <form.Field name="phoneNumber">
-                {(field) => (
-                  <FormField
-                    error={field.state.meta.errors?.[0]}
-                    id="phoneNumber"
-                    label="Phone Number"
-                    onChange={(value) => field.handleChange(value)}
-                    placeholder="+47 12345678"
-                    required
-                    type="tel"
-                    value={String(field.state.value || '')}
-                  />
-                )}
-              </form.Field>
+                <form.Field name="phoneNumber">
+                  {(field) => (
+                    <FormField
+                      error={field.state.meta.errors?.[0]}
+                      id="phoneNumber"
+                      label="Phone Number"
+                      onChange={(value) => field.handleChange(value)}
+                      placeholder="+47 12345678"
+                      required
+                      type="tel"
+                      value={String(field.state.value || '')}
+                    />
+                  )}
+                </form.Field>
+              </div>
             </div>
           </div>
         )
@@ -545,6 +629,40 @@ export default function MultiStepPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
+                  <span className="font-medium">Org Number:</span>
+                  <span>
+                    {form.state.values.organizationNumber || 'Not provided'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <span className="font-medium">Registration Number:</span>
+                  <span>
+                    {form.state.values.registrationNumber || 'Not provided'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <span className="font-medium">NACE Code:</span>
+                  <span>{form.state.values.naceCode || 'Not provided'}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <span className="font-medium">Industry:</span>
+                  <span>{form.state.values.industry || 'Not provided'}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <span className="font-medium">Revenue:</span>
+                  <span>
+                    {form.state.values.revenue 
+                      ? `${form.state.values.revenue.toLocaleString('no-NO')} NOK`
+                      : 'Not provided'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <span className="font-medium">Employees:</span>
+                  <span>
+                    {form.state.values.numberOfEmployees || 'Not provided'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
                   <span className="font-medium">Contact:</span>
                   <span>
                     {form.state.values.contactPerson || 'Not provided'}
@@ -553,6 +671,10 @@ export default function MultiStepPage() {
                 <div className="grid grid-cols-2 gap-2">
                   <span className="font-medium">Email:</span>
                   <span>{form.state.values.email || 'Not provided'}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <span className="font-medium">Phone:</span>
+                  <span>{form.state.values.phoneNumber || 'Not provided'}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <span className="font-medium">Business Model:</span>

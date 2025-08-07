@@ -3,6 +3,11 @@ export interface FormData extends Record<string, unknown> {
   // Step 1: Organization Information
   organizationName: string
   organizationNumber: string
+  registrationNumber: string
+  naceCode: string
+  industry: string
+  revenue: number
+  numberOfEmployees: number
   contactPerson: string
   email: string
   phoneNumber: string

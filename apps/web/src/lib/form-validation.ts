@@ -11,6 +11,34 @@ export const organizationInfoSchema = z.object({
     .string()
     .min(1, 'Organization number is required')
     .max(50, 'Organization number must be less than 50 characters'),
+  registrationNumber: z
+    .string()
+    .min(1, 'Registration number is required')
+    .max(50, 'Registration number must be less than 50 characters'),
+  naceCode: z
+    .string()
+    .min(1, 'NACE code is required')
+    .max(20, 'NACE code must be less than 20 characters')
+    .regex(/^[0-9\.]+$/, 'NACE code must contain only numbers and dots'),
+  industry: z
+    .string()
+    .min(2, 'Industry must be at least 2 characters')
+    .max(100, 'Industry must be less than 100 characters'),
+  revenue: z
+    .number({
+      required_error: 'Revenue is required',
+      invalid_type_error: 'Revenue must be a valid number',
+    })
+    .min(0, 'Revenue must be a positive number')
+    .max(1000000000000, 'Revenue value is too large'),
+  numberOfEmployees: z
+    .number({
+      required_error: 'Number of employees is required',
+      invalid_type_error: 'Number of employees must be a valid number',
+    })
+    .int('Number of employees must be a whole number')
+    .min(1, 'Number of employees must be at least 1')
+    .max(1000000, 'Number of employees value is too large'),
   contactPerson: z
     .string()
     .min(2, 'Contact person name must be at least 2 characters')
@@ -195,6 +223,11 @@ export function getDefaultFormData(): Partial<CompleteFormData> {
     // Step 1 defaults
     organizationName: '',
     organizationNumber: '',
+    registrationNumber: '',
+    naceCode: '',
+    industry: '',
+    revenue: 0,
+    numberOfEmployees: 1,
     contactPerson: '',
     email: '',
     phoneNumber: '',

@@ -9,15 +9,18 @@ import { cn } from '@/lib/utils'
 interface FormFieldProps {
   id: string
   label: string
-  type?: 'text' | 'email' | 'password' | 'tel' | 'textarea'
+  type?: 'text' | 'email' | 'password' | 'tel' | 'number' | 'textarea'
   placeholder?: string
-  value?: string
+  value?: string | number
   error?: string
   required?: boolean
   disabled?: boolean
   className?: string
   rows?: number
-  onChange?: (value: string) => void
+  min?: number
+  max?: number
+  step?: number
+  onChange?: (value: string | number) => void
   onBlur?: () => void
 }
 
@@ -37,6 +40,9 @@ const FormField = forwardRef<
       disabled = false,
       className,
       rows,
+      min,
+      max,
+      step,
       onChange,
       onBlur,
       ...props
@@ -46,7 +52,12 @@ const FormField = forwardRef<
     const handleChange = (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-      onChange?.(e.target.value)
+      if (type === 'number') {
+        const numValue = parseFloat(e.target.value)
+        onChange?.(isNaN(numValue) ? 0 : numValue)
+      } else {
+        onChange?.(e.target.value)
+      }
     }
 
     const inputClassName = cn(
@@ -90,6 +101,9 @@ const FormField = forwardRef<
             className={inputClassName}
             disabled={disabled}
             id={id}
+            min={type === 'number' ? min : undefined}
+            max={type === 'number' ? max : undefined}
+            step={type === 'number' ? step : undefined}
             onBlur={onBlur}
             onChange={handleChange}
             placeholder={placeholder}
