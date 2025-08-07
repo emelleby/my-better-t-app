@@ -9,16 +9,12 @@ export const organizationInfoSchema = z.object({
     .max(100, 'Organization name must be less than 100 characters'),
   organizationNumber: z
     .string()
-    .min(1, 'Organization number is required')
-    .max(50, 'Organization number must be less than 50 characters'),
-  registrationNumber: z
-    .string()
-    .min(1, 'Registration number is required')
-    .max(50, 'Registration number must be less than 50 characters'),
+    .min(9, 'Organization number is required. 9-digits')
+    .max(9, 'Organization number must be 9 digits'),
   naceCode: z
     .string()
-    .min(1, 'NACE code is required')
-    .max(20, 'NACE code must be less than 20 characters')
+    .min(2, 'NACE code is required')
+    .max(6, 'NACE code must be less than 20 characters')
     .regex(/^[0-9\.]+$/, 'NACE code must contain only numbers and dots'),
   industry: z
     .string()
@@ -48,7 +44,7 @@ export const organizationInfoSchema = z.object({
     .max(255, 'Email must be less than 255 characters'),
   phoneNumber: z
     .string()
-    .min(10, 'Please enter a valid phone number')
+    .min(8, 'Please enter a valid phone number')
     .max(20, 'Phone number must be less than 20 characters')
     .regex(/^[+]?[0-9\s\-()]+$/, 'Please enter a valid phone number format'),
 })
@@ -234,7 +230,7 @@ export function getDefaultFormData(): Partial<CompleteFormData> {
 
     // Step 2 defaults
     businessModel: '',
-    hasSubsidiaries: null,
+    hasSubsidiaries: 'no',
     subsidiaries: [],
 
     // Step 3 defaults
