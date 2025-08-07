@@ -1,9 +1,18 @@
-# VSME Guru SaaS Platform - Project Context for Claude Code
+# my-better-t-app - Project Context for Claude Code
 
 ## Project Overview
-**VSME Guru** is a sustainability reporting platform for the SME market, conformant to the VSME EU standard and NSRS. Built as a modern full-stack TypeScript application with Next.js 15, Hono backend, and MongoDB. 
+**my-better-t-app** is a full-stack TypeScript application built with the Better-T-Stack template, providing a modern web application foundation with a React frontend and API backend, designed for rapid development and scalability.
 
-**Current State (January 8, 2025)**: Production-ready error handling and loading states system implemented. Complete UI foundation with responsive sidebar navigation, comprehensive accessibility features, and theme system. Mock authentication system for development. Backend server with health check route ready for database models and API route expansion. Clerk authentication integration planned and documented.
+**Current State (January 8, 2025)**: Production-ready foundation with complete multi-step form implementation using TanStack Form. Comprehensive error handling and loading states system. Complete UI foundation with responsive sidebar navigation, accessibility features (WCAG 2.1 AA compliance), and theme system. Mock authentication system for development. Backend server with health check route ready for database models and API route expansion.
+
+## Key Reference Documents
+For comprehensive project information, always reference these steering documents in `Foundation/steering/`:
+- **current-state.md**: Accurate audit of what actually exists vs what's planned
+- **tech.md**: Technology stack, versions, and command reference  
+- **structure.md**: Project file organization and naming conventions
+- **form-implementation-patterns.md**: Proven patterns for TanStack Form development
+- **decision-log.md**: Record of architectural decisions made
+- **learning-journal.md**: Development insights and lessons learned
 
 ## Technology Stack
 
@@ -19,7 +28,7 @@
 - **shadcn/ui**: Reusable component library built on Radix UI
 - **Lucide React**: Icon library
 - **TanStack Query**: Server state management
-- **TanStack Form**: Form state management
+- **TanStack Form**: Form state managemented)
 
 ### Backend
 - **Hono 4.8.10**: Lightweight web framework
@@ -66,95 +75,97 @@ apps/
         ├── app/     # App Router pages
         ├── components/
         ├── contexts/
-        └── lib/
+        ├── hook/
+   lib/
+/
 ```
 
 ## Core Development Principles
 
 ### Type Safety & Quality
-- Strict TypeScript configuration enforced
+- Strict TypeScript configuration enfored
 - Zero tolerance for `any` types
 - Comprehensive error handling required
-- All functions must handle edge cases
-- Test-driven development approach when tests exist
+ge cases
+- Test-driven developme
 
 ### Before Writing Code
 1. Analyze existing patterns in the codebase
 2. Consider edge cases and error scenarios
 3. Follow the Ultracite rules below strictly
-4. Validate accessibility requirements
-5. Use test-driven development cycle when tests exist
+s
+5. Use test-driven developme exist
 
 ### Communication Guidelines
 - Maintain objectivity and provide genuine value
-- Don't change stance just to please - provide constructive feedback
-- Be a trusted technical partner with honest assessment
-- Focus on practical solutions and accurate information
+- Don't change stance just to please - provide construc
+t
+- Focus ion
 
 ## Rules
 
 ### Accessibility (a11y)
 - Don't use `accessKey` attribute on any HTML element.
 - Don't set `aria-hidden="true"` on focusable elements.
-- Don't add ARIA roles, states, and properties to elements that don't support them.
+- Don't add ARIA roles, states, and properties m.
 - Don't use distracting elements like `<marquee>` or `<blink>`.
 - Only use the `scope` prop on `<th>` elements.
 - Don't assign non-interactive ARIA roles to interactive HTML elements.
-- Make sure label elements have text content and are associated with an input.
-- Don't assign interactive ARIA roles to non-interactive HTML elements.
+- Make sure label elements have text content and are associ.
+- Don't assign interactive ARIA roles to non-interacti
 - Don't assign `tabIndex` to non-interactive HTML elements.
 - Don't use positive integers for `tabIndex` property.
 - Don't include "image", "picture", or "photo" in img alt prop.
-- Don't use explicit role property that's the same as the implicit/default role.
+- Don't use explicit role property that's the same a
 - Make static elements with click handlers use a valid role attribute.
 - Always include a `title` element for SVG elements.
 - Give all elements requiring alt text meaningful information for screen readers.
 - Make sure anchors have content that's accessible to screen readers.
-- Assign `tabIndex` to non-interactive HTML elements with `aria-activedescendant`.
-- Include all required ARIA attributes for elements with ARIA roles.
-- Make sure ARIA properties are valid for the element's supported roles.
+- Assign `tabIndex` to non-interactive HTML elements with `aria-activede.
+- Include all required ARIA attributes for elements withA roles.
+- Make sure ARIA properties are valid for the element's suppor
 - Always include a `type` attribute for button elements.
-- Make elements with interactive roles and handlers focusable.
-- Give heading elements content that's accessible to screen readers (not hidden with `aria-hidden`).
+- Make elements with interactive roles and handlers focule.
+- Give heading elements content that's accessible to scren`).
 - Always include a `lang` attribute on the html element.
 - Always include a `title` attribute for iframe elements.
-- Accompany `onClick` with at least one of: `onKeyUp`, `onKeyDown`, or `onKeyPress`.
-- Accompany `onMouseOver`/`onMouseOut` with `onFocus`/`onBlur`.
-- Include caption tracks for audio and video elements.
-- Use semantic elements instead of role attributes in JSX.
+- Accompany `onClick` with at least one of: `onKeyUp`,ess`.
+- Accompany `onMouseOver`/`onMouseOut` with `onFocus`/`onB.
+- Include caption tracks for audio and video ele
+- Use semantic elements instead of role attributes.
 - Make sure all anchors are valid and navigable.
-- Ensure all ARIA properties (`aria-*`) are valid.
+- Ensure all ARIA properties (`aria-*`) are
 - Use valid, non-abstract ARIA roles for elements with ARIA roles.
 - Use valid ARIA state and property values.
-- Use valid values for the `autocomplete` attribute on input elements.
-- Use correct ISO language/country codes for the `lang` attribute.
+s.
+- Use correct ISO language/coun
 
 ### Code Complexity and Quality
-- Don't use consecutive spaces in regular expression literals.
+- Don't use consecutive spaces in regular expression lirals.
 - Don't use the `arguments` object.
 - Don't use primitive type aliases or misleading types.
 - Don't use the comma operator.
-- Don't use empty type parameters in type aliases and interfaces.
-- Don't write functions that exceed a given Cognitive Complexity score.
-- Don't nest describe() blocks too deeply in test files.
+- Don't use empty type parameters in type aliases and inaces.
+- Don't write functions that exceed a re.
+- Don't nest describe() blocks too deeply in te.
 - Don't use unnecessary boolean casts.
 - Don't use unnecessary callbacks with flatMap.
-- Use for...of statements instead of Array.forEach.
-- Don't create classes that only have static members (like a static namespace).
-- Don't use this and super in static contexts.
+- Use for...of statements instead of Array.forch.
+- Don't create classes that only have 
+- Don't use this and super in static 
 - Don't use unnecessary catch clauses.
 - Don't use unnecessary constructors.
 - Don't use unnecessary continue statements.
-- Don't export empty modules that don't change anything.
-- Don't use unnecessary escape sequences in regular expression literals.
+- Don't export empty modules that 
+- Don't use unnecessary escape .
 - Don't use unnecessary fragments.
 - Don't use unnecessary labels.
 - Don't use unnecessary nested block statements.
 - Don't rename imports, exports, and destructured assignments to the same name.
-- Don't use unnecessary string or template literal concatenation.
-- Don't use String.raw in template literals when there are no escape sequences.
-- Don't use useless case statements in switch statements.
-- Don't use ternary operators when simpler alternatives exist.
+- Don't use unnecessary string or template literal concatn.
+- Don't use String.raw in template literals when there are no 
+- Don't use useless case statements nts.
+- Don't use ternary operators when simpler alte.
 - Don't use useless `this` aliasing.
 - Don't use any or unknown as type constraints.
 - Don't initialize variables to undefined.
@@ -163,535 +174,460 @@ apps/
 - Use Date.now() to get milliseconds since the Unix Epoch.
 - Use .flatMap() instead of map().flat() when possible.
 - Use literal property access instead of computed property access.
-- Don't use parseInt() or Number.parseInt() when binary, octal, or hexadecimal literals work.
+- Don't use parseInt() or Number.parseInt() when binary, octal, or hexadecimal lit.
 - Use concise optional chaining instead of chained logical expressions.
-- Use regular expression literals instead of the RegExp constructor when possible.
-- Don't use number literal object member names that aren't base 10 or use underscore separators.
-- Remove redundant terms from logical expressions.
-- Use while loops instead of for loops when you don't need initializer and update expressions.
+- Use regular expression literals instead of the R
+- Don't use number literal object member names that aren't base 10 or use underscore separator
+- Remove redundant terms from lions.
+- Use while loops instead of for sions.
 - Don't pass children as props.
 - Don't reassign const variables.
-- Don't use constant expressions in conditions.
-- Don't use `Math.min` and `Math.max` to clamp values when the result is constant.
+- Don't use constant expressions in condit.
+- Don't use `Math.min` and `Math.max` to clamp values when the resu
 - Don't return a value from a constructor.
-- Don't use empty character classes in regular expression literals.
+- Don't use empty character classes in regular expr.
 - Don't use empty destructuring patterns.
-- Don't call global object properties as functions.
+- Don't call global object properties as functio
 - Don't declare functions and vars that are accessible outside their block.
 - Make sure builtins are correctly instantiated.
-- Don't use super() incorrectly inside classes. Also check that super() is called in classes that extend other constructors.
-- Don't use variables and function parameters before they're declared.
-- Don't use 8 and 9 escape sequences in string literals.
-- Don't use literal numbers that lose precision.
+- Don't use super() incorrectly inside classes. Also chers.
+- Don't use variables and function parameters be.
+.
+- Don't use literal numbers that
 
 ### React and JSX Best Practices
 - Don't use the return value of React.render.
-- Make sure all dependencies are correctly specified in React hooks.
-- Make sure all React hooks are called from the top level of component functions.
-- Don't forget key props in iterators and collection literals.
-- Don't destructure props inside JSX components in Solid projects.
-- Don't define React components inside other components.
+- Make sure all dependencies are correctly specified in React .
+- Make sure all React hooks are called from the top level of compo
+- Don't forget key props in iterators and collection lit
+- Don't destructure props inside JSX components in Soli
+- Don't define React components inside os.
 - Don't use event handlers on non-interactive elements.
-- Don't assign to React component props.
-- Don't use both `children` and `dangerouslySetInnerHTML` props on the same element.
+- Don't assign to React componen.
+- Don't use both `children` and ement.
 - Don't use dangerous JSX props.
 - Don't use Array index in keys.
 - Don't insert comments as text nodes.
 - Don't assign JSX properties multiple times.
 - Don't add extra closing tags for components without children.
-- Use `<>...</>` instead of `<Fragment>...</Fragment>`.
-- Watch out for possible "wrong" semicolons inside JSX elements.
+`.
+- Watch out for possible " elements.
 
 ### Correctness and Safety
 - Don't assign a value to itself.
 - Don't return a value from a setter.
-- Don't compare expressions that modify string case with non-compliant values.
-- Don't use lexical declarations in switch clauses.
+- Don't compare expressions that modify string case with non-comp.
+- Don't use lexical declaration clauses.
 - Don't use variables that haven't been declared in the document.
 - Don't write unreachable code.
-- Make sure super() is called exactly once on every code path in a class constructor before this is accessed if the class has a superclass.
-- Don't use control flow statements in finally blocks.
-- Don't use optional chaining where undefined values aren't allowed.
-- Don't have unused function parameters.
+- Make sure super() is called exactly once on every code path in a c.
+- Don't use control flow statements in fs.
+- Don't use optional chaininwed.
+- Don't have unused functio
 - Don't have unused imports.
 - Don't have unused labels.
 - Don't have unused private class members.
 - Don't have unused variables.
-- Make sure void (self-closing) elements don't have children.
+- Make sure void (self-closing) elem
 - Don't return a value from a function with the return type 'void'
 - Use isNaN() when checking for NaN.
-- Make sure "for" loop update clauses move the counter in the right direction.
-- Make sure typeof expressions are compared to valid values.
-- Make sure generator functions contain yield.
+- Make sure "for" loop update clauses move the
+- Make sure typeof expressions lues.
+- Make sure generator function
 - Don't use await inside loops.
 - Don't use bitwise operators.
-- Don't use expressions where the operation doesn't change the value.
-- Make sure Promise-like statements are handled appropriately.
-- Don't use __dirname and __filename in the global scope.
+- Don't use expressions where the operation doesn't chang.
+- Make sure Promise-like
+- Don't use __dirname and __file
 - Prevent import cycles.
 - Don't use configured elements.
-- Don't hardcode sensitive data like API keys and tokens.
-- Don't let variable declarations shadow variables from outer scopes.
+- Don't hardcode sensitive data like API keys anns.
+- Don't let variable declarations shadow variab
 - Don't use the TypeScript directive @ts-ignore.
 - Prevent duplicate polyfills from Polyfill.io.
-- Don't use useless backreferences in regular expressions that always match empty strings.
+- Don't use useless backrefere
 - Don't use unnecessary escapes in string literals.
 - Don't use useless undefined.
-- Make sure getters and setters for the same property are next to each other in class and object definitions.
-- Make sure object literals are declared consistently (defaults to explicit definitions).
-- Use static Response methods instead of new Response() constructor when possible.
+- Make sure getters and setters for the same property are next to each other in cl
+- Make sure object literals are declared consistennitions).
+- Use static Response methods instead of new Response() constructor whe
 - Make sure switch-case statements are exhaustive.
-- Make sure the `preconnect` attribute is used when using Google Fonts.
-- Use `Array#{indexOf,lastIndexOf}()` instead of `Array#{findIndex,findLastIndex}()` when looking for the index of an item.
-- Make sure iterable callbacks return consistent values.
+- Make sure the `preconnect` attribute is used when usin
+- Use `Array#{indexOf,lastIndexOf}()` instead of `Arra
+- Make sure iterable callbacks return consists.
 - Use `with { type: "json" }` for JSON module imports.
 - Use numeric separators in numeric literals.
 - Use object spread instead of `Object.assign()` when constructing new objects.
-- Always use the radix argument when using `parseInt()`.
-- Make sure JSDoc comment lines start with a single asterisk, except for the first one.
-- Include a description parameter for `Symbol()`.
-- Don't use spread (`...`) syntax on accumulators.
-- Don't use the `delete` operator.
-- Don't access namespace imports dynamically.
+- Always use the radix argument when using `parse
+- Make sure JSDoc comment lines start with a singl.
+- Include a description parameter ol()`.
+- Don't use spread (`...`) syntax on accumula.
+- Don't use the `delete` operar.
+- Don't access namespace imports dynamical
 - Don't use namespace imports.
-- Declare regex literals at the top level.
-- Don't use `target="_blank"` without `rel="noopener"`.
+el.
+- Don't use `target="_blank"`
 
 ### TypeScript Best Practices
 - Don't use TypeScript enums.
 - Don't export imported variables.
-- Don't add type annotations to variables, parameters, and class properties that are initialized with literal expressions.
+- Don't add type annotations to variables, parameters, and cla
 - Don't use TypeScript namespaces.
-- Don't use non-null assertions with the `!` postfix operator.
+- Don't use non-null assertions
 - Don't use parameter properties in class constructors.
 - Don't use user-defined types.
-- Use `as const` instead of literal types and type annotations.
-- Use either `T[]` or `Array<T>` consistently.
-- Initialize each enum member value explicitly.
+- Use `as const` instead of literal types and t
+- Use either `T[]` or `Array<Tently.
+- Initialize each enum member 
 - Use `export type` for types.
 - Use `import type` for types.
-- Make sure all enum members are literal values.
+- Make sure all enum members are lues.
 - Don't use TypeScript const enum.
-- Don't declare empty interfaces.
+- Don't declare empty int
 - Don't let variables evolve into any type through reassignments.
 - Don't use the any type.
-- Don't misuse the non-null assertion operator (!) in TypeScript files.
+- Don't misuse the non-null assertion operator
 - Don't use implicit any type on variable declarations.
 - Don't merge interfaces and classes unsafely.
-- Don't use overload signatures that aren't next to each other.
-- Use the namespace keyword instead of the module keyword to declare TypeScript namespaces.
+ther.
+- Use the namespace keywospaces.
 
 ### Style and Consistency
 - Don't use global `eval()`.
-- Don't use callbacks in asynchronous tests and hooks.
-- Don't use negation in `if` statements that have `else` clauses.
+- Don't use callbacks in asynchronous t
+- Don't use negation in `if` statemenauses.
 - Don't use nested ternary expressions.
 - Don't reassign function parameters.
-- This rule lets you specify global variable names you don't want to use in your application.
+- This rule lets you specify global variable names you don't want to use iion.
 - Don't use specified modules when loaded by import or require.
 - Don't use constants whose value is the upper-case version of their name.
-- Use `String.slice()` instead of `String.substr()` and `String.substring()`.
-- Don't use template literals if you don't need interpolation or special-character handling.
-- Don't use `else` blocks when the `if` block breaks early.
+- Use `String.slice()` instead of `String.substr()` and `St)`.
+- Don't use template literalsg.
+- Don't use `else` blocks when .
 - Don't use yoda expressions.
 - Don't use Array constructors.
 - Use `at()` instead of integer index access.
 - Follow curly brace conventions.
 - Use `else if` instead of nested `if` statements in `else` clauses.
 - Use single `if` statements instead of nested `if` clauses.
-- Use `new` for all builtins except `String`, `Number`, and `Boolean`.
+- Use `new` for all builtins except `String`, `Number`, and `Boolean`
 - Use consistent accessibility modifiers on class properties and methods.
-- Use `const` declarations for variables that are only assigned once.
-- Put default function parameters and optional function parameters last.
+- Use `const` declarations for variables that are ce.
+- Put default function parameters and optionalt.
 - Include a `default` clause in switch statements.
 - Use the `**` operator instead of `Math.pow`.
-- Use `for-of` loops when you need the index to extract an item from the iterated array.
+- Use `for-of` loops when you need the index to extract
 - Use `node:assert/strict` over `node:assert`.
-- Use the `node:` protocol for Node.js builtin modules.
+- Use the `node:` protocol for Node.js builtin modus.
 - Use Number properties instead of global ones.
 - Use assignment operator shorthand where possible.
-- Use function types instead of object types with call signatures.
-- Use template literals over string concatenation.
+- Use function types instead of objures.
+- Use template literals over statenation.
 - Use `new` when throwing an error.
 - Don't throw non-Error values.
-- Use `String.trimStart()` and `String.trimEnd()` over `String.trimLeft()` and `String.trimRight()`.
-- Use standard constants instead of approximated literals.
+- Use `String.trimStart()` and `Strint()`.
+- Use standard constants instead of approximated 
 - Don't assign values in expressions.
-- Don't use async functions as Promise executors.
-- Don't reassign exceptions in catch clauses.
+- Don't use async functions as s.
+- Don't reassign exceptionss.
 - Don't reassign class members.
 - Don't compare against -0.
-- Don't use labeled statements that aren't loops.
+- Don't use labeled oops.
 - Don't use void type outside of generic or return types.
 - Don't use console.
-- Don't use control characters and escape sequences that match control characters in regular expression literals.
+- Don't use control characters and escape s.
 - Don't use debugger.
-- Don't assign directly to document.cookie.
+- Don't assign directly to documen
 - Use `===` and `!==`.
 - Don't use duplicate case labels.
 - Don't use duplicate class members.
-- Don't use duplicate conditions in if-else-if chains.
-- Don't use two keys with the same name inside objects.
+- Don't use duplicate conditions in if-else-if 
+- Don't use two keys with the same name inside o.
 - Don't use duplicate function parameter names.
-- Don't have duplicate hooks in describe blocks.
-- Don't use empty block statements and static blocks.
+- Don't have duplicate hooks in describes.
+- Don't use empty block statements and .
 - Don't let switch clauses fall through.
 - Don't reassign function declarations.
-- Don't allow assignments to native objects and read-only global variables.
-- Use Number.isFinite instead of global isFinite.
+- Don't allow assignments to native objectss.
+- Use Number.isFinite instead of glo
 - Use Number.isNaN instead of global isNaN.
 - Don't assign to imported bindings.
 - Don't use irregular whitespace characters.
-- Don't use labels that share a name with a variable.
-- Don't use characters made with multiple code points in character class syntax.
+- Don't use labels that share a name with a varie.
+- Don't use characters made with multiple code points in character clyntax.
 - Make sure to use new and constructor properly.
-- Don't use shorthand assign when the variable appears on both sides.
+- Don't use shorthand assign when the variable  sides.
 - Don't use octal escape sequences in string literals.
-- Don't use Object.prototype builtins directly.
-- Don't redeclare variables, functions, classes, and types in the same scope.
+- Don't use Object.prototype builtintly.
+- Don't redeclare variables, functions, classes, and types ine.
 - Don't have redundant "use strict".
-- Don't compare things where both sides are exactly the same.
+- Don't compare things where both sides are exe.
 - Don't let identifiers shadow restricted names.
-- Don't use sparse arrays (arrays with holes).
-- Don't use template literal placeholder syntax in regular strings.
-- Don't use the then property.
+- Don't use sparse arrays (arrs).
+- Don't use template literalgs.
+- Don't use the operty.
 - Don't use unsafe negation.
 - Don't use var.
 - Don't use with statements in non-strict contexts.
 - Make sure async functions actually use await.
-- Make sure default clauses in switch statements come last.
-- Make sure to pass a message value when creating a built-in error.
+- Make sure default clauses in switch statemen
+- Make sure to pass a message value when creating a buierror.
 - Make sure get methods always return a value.
-- Use a recommended display strategy with Google Fonts.
+- Use a recommended display strategy with Google F
 - Make sure for-in loops include an if statement.
 - Use Array.isArray() instead of instanceof Array.
-- Make sure to use the digits argument with Number#toFixed().
-- Make sure to use the "use strict" directive in script files.
+ed().
+- Make sure to use the "usfiles.
 
 ### Next.js Specific Rules
 - Don't use `<img>` elements in Next.js projects.
 - Don't use `<head>` elements in Next.js projects.
-- Don't import next/document outside of pages/_document.jsx in Next.js projects.
-- Don't use the next/head module in pages/_document.js on Next.js projects.
+ojects.
+- Don't use the next/head .
 
 ### Testing Best Practices
 - Don't use export or module.exports in test files.
 - Don't use focused tests.
-- Make sure the assertion function, like expect, is placed inside an it() function call.
-- Don't use disabled tests.
+ll.
+- Don't use dis
 
 ## Common Tasks
-- `npx ultracite init` - Initialize Ultracite in your project
-- `npx ultracite format` - Format and fix code automatically
-- `npx ultracite lint` - Check for issues without fixing
+- `npx ultracite init` - Initialize Ultracite in your prect
+
+- `npx ultracite lint` - Cixing
 
 ## File Naming Conventions
 - **Components**: `PascalCase` (UserProfile)
 - **Files**: `kebab-case` (user-profile.tsx)
 - **Functions**: `camelCase` (getUserProfile)
-- **Constants**: `SCREAMING_SNAKE_case` (API_BASE_URL)
-- **Types/Interfaces**: `PascalCase` (UserProfile, ApiResponse)
+
+- **Types/Interfaces**
 
 ## Import Organization
-1. External libraries (React, Next.js, etc.)
+1. External librari
 2. Internal utilities and components
-3. Relative imports
-4. Type-only imports (use `import type`)
+orts
+4. Type-only imports t type`)
 
 ## Component Patterns
-- Use functional components with hooks only
-- Custom hooks for reusable logic
+- Use functional components with hooks 
+- Custom hooks for reusablc
 - Proper dependency arrays in useEffect
 - No missing keys in lists
 - No components defined inside other components
-- Use `<>...</>` instead of `<React.Fragment>`
-- PascalCase for component names, kebab-case for file names
+- Use `<>...</>` instead of `<Rea
+- PascalCase for component names, kebab-case names
 - Co-locate types with components
-- Props interfaces defined inline or exported
-- Default exports for components
-- Composition over inheritance
+- Props interfaces defined inld
+s
+- Composition over inh
 
-## Database Operations
-- Use Prisma for all database interactions
+## Form Implementation Patterns (Established)
+
+### TanStack Form Integration
+
+
+```typescript
+// Custom hook pattern
+export function useReliablvoid) {
+  const form = useForm({
+    defaultValues: {
+
+      email: '',
+      // ... other defaults
+    },
+    onSubmit: async ({ valu
+      onSubmit(value)
+    }
+  })
+
+  const [currentStep, setate(1)
+  
+  return {
+    form,
+    currentStep,
+    navigationState,
+    goToNextStep,
+Step,
+  }
+}
+
+// Field binding pattern
+<form.Field name="organizationName">
+
+    <FormField
+      ers?.[0]}
+      id="organiza"
+      label="Organization Name"
+      onChange={(value) => field.halue)}
+me"
+      required
+      value={String(field.state.value || ''
+    />
+ )}
+</form.Field>
+`
+
+### Multi-Step Form Structure
+```typescript
+const renderStepContent = () => {
+  switch (currentStep) {
+    case 1:
+
+    case 2:
+      return <Step2Content />
+    case 3:
+      return <Step3Content />
+    default:
+      return <div>Invalid step</div>
+ }
+}
+
+return (
+  <Card>
+    <CardContent className="space-y-6">
+
+      <StepIndicator currentStep={cu>
+      
+      <div className="min-h-[400px] py-4" key={`step-${currentStep}`}>
+        {renderStepContent()}
+ </div>
+      
+      <NavigationControls
+        canGoBack={navigationState.canGoPrevious}
+        canGoNext={navigationState.canGoNext}
+        onBack={goToPreviousStep}
+        onNext={goToNextStep}
+        onSubmit={() => form.handleSubmit()}
+      />
+tent>
+  </Card>
+)
+```
+
+ions
+- Use Prisma for all database interaons
 - Proper error handling for database operations
 - Type-safe queries with Prisma client
-- Use transactions for multi-step operations
+ns
 
-## API Development
-- Hono router for all endpoints
+
+- Hono router for all end
 - Zod validation for request/response
 - Proper HTTP status codes
 - Consistent error response format
 - CORS configuration for frontend
 
-## Security Requirements
+## Security Requiements
 - No hardcoded secrets or API keys
 - Environment variables for configuration
 - Input validation with Zod
 - HTTPS in production
-- Rate limiting implementation
-- Parameterized queries (handled by Prisma)
+ion
+- Parameterized querierisma)
 
 ## Performance Guidelines
-- Use Next.js Image component for images
+- Use Next.js Image component for imag
 - Implement loading states
-- React.memo for expensive components
+omponents
 - Dynamic imports for code splitting
 - Database indexes for queries
 - Connection pooling for database
 
 ## Environment Setup
-- MongoDB instance required (local or cloud)
-- Environment files: `apps/web/.env` and `apps/server/.env`
-- Use `.env.example` files as templates
+d)
+- Environment files: `apps/web/.env` and `apps/s
+
 - Never commit actual `.env` files
 
 ### Required Environment Variables
 ```bash
 # apps/server/.env
-DATABASE_URL="mongodb://localhost:27017/vsme_guru_dev"
+DATABASE_URL="mongodb://localhost:27017/myapp_dev"
 CORS_ORIGIN="http://localhost:3001"
 
 # apps/web/.env  
 NEXT_PUBLIC_API_URL="http://localhost:3000"
 ```
 
-## Current Component Inventory
-
-### Layout Components (Implemented)
-- `apps/web/src/app/layout.tsx` - Root layout with providers and error boundaries
-- `apps/web/src/components/layout/header.tsx` - Header with breadcrumbs and theme toggle
-- `apps/web/src/components/layout/providers.tsx` - Theme and toast providers
-- `apps/web/src/components/layout/app-layout.tsx` - Main application layout wrapper
-- `apps/web/src/components/layout/dashboard-loading.tsx` - Dashboard skeleton loading
-
-### Navigation Components (Implemented)
-- `apps/web/src/components/navigation/app-sidebar.tsx` - Main sidebar with collapsible navigation
-- `apps/web/src/components/navigation/nav-main.tsx` - Primary navigation items
-- `apps/web/src/components/navigation/nav-projects.tsx` - Project navigation section
-- `apps/web/src/components/navigation/nav-user.tsx` - User profile dropdown
-- `apps/web/src/components/navigation/team-switcher.tsx` - Team/organization switcher
-
-### Error Handling Components (Implemented)
-- `apps/web/src/components/common/error-boundary.tsx` - React error boundary with recovery
-- `apps/web/src/components/common/error-display.tsx` - Error display with retry functionality
-- `apps/web/src/app/error.tsx` - Global error page
-- `apps/web/src/app/not-found.tsx` - Custom 404 page
-
-### Loading Components (Implemented)
-- `apps/web/src/components/common/loading.tsx` - Various loading indicators
-- `apps/web/src/components/layout/dashboard-loading.tsx` - Dashboard skeleton
-- `apps/web/src/components/ui/skeleton.tsx` - Skeleton loading component
-
-### UI Components (shadcn/ui - Implemented)
-- `apps/web/src/components/ui/button.tsx` - Button component with variants
-- `apps/web/src/components/ui/card.tsx` - Card component for content containers
-- `apps/web/src/components/ui/input.tsx` - Input field component
-- `apps/web/src/components/ui/sidebar.tsx` - Sidebar primitives
-- `apps/web/src/components/ui/skeleton.tsx` - Loading skeleton
-- `apps/web/src/components/ui/switch.tsx` - Toggle switch component
-- And many more shadcn/ui components
-
-### Authentication Components (Implemented)
-- `apps/web/src/components/auth/auth-demo.tsx` - Mock authentication demo
-- `apps/web/src/contexts/auth-context.tsx` - Authentication context provider
-- `apps/web/src/contexts/mock-auth-context.tsx` - Mock authentication for development
-
-### Utility Components (Implemented)
-- `apps/web/src/components/common/mode-toggle.tsx` - Dark/light theme toggle
-- `apps/web/src/components/common/api-status.tsx` - API connection status display
-
-## Current Architecture Patterns
-
-### Authentication System
-- Mock authentication context in `apps/web/src/contexts/auth-context.tsx`
-- JWT-based authentication routes in `apps/server/src/routes/auth.ts`
-- User model with bcrypt password hashing
-- localStorage persistence for authentication state
-
-### API Structure
-- Hono routers in `apps/server/src/routes/`
-- Zod validation schemas in `apps/server/src/lib/validation.ts`
-- Prisma database client in `apps/server/src/lib/db.ts`
-- JWT utilities in `apps/server/src/lib/jwt.ts`
-
-### Frontend Structure
-- Next.js App Router in `apps/web/src/app/`
-- Components in `apps/web/src/components/`
-- Contexts in `apps/web/src/contexts/`
-- Utilities in `apps/web/src/lib/`
-
-## Testing Strategy (Future Implementation)
-- Unit tests for individual functions and components
-- Integration tests for API endpoints and database operations
-- E2E tests for complete user workflows
-- Tools under consideration: Vitest, Testing Library, Playwright
-
-## Current State (Last Updated: January 8, 2025)
+## Current Implementation Status (January 8, 2025)
 
 ### What Actually Exists Right Now
-- ✅ **Frontend**: Next.js 15.3.0 with App Router, React 19, TailwindCSS 4.1.11
-- ✅ **Complete Layout System**: Header, sidebar, responsive design with collapsible navigation
-- ✅ **shadcn/ui Components**: Button, Card, Input, Switch, Sidebar, Skeleton, and 20+ other components implemented
-- ✅ **Comprehensive Error Handling**: Error boundaries, global error pages, recovery mechanisms, retry logic
-- ✅ **Loading States System**: Skeleton loading, inline loaders, page loaders, button loaders with accessibility
-- ✅ **Authentication Context**: Mock authentication for development with localStorage persistence
-- ✅ **Theme System**: Dark/light mode with system preference detection and persistence
-- ✅ **Backend**: Hono 4.8.10 with health check route, CORS configuration, and logging middleware
-- ✅ **Database**: Prisma 6.13.0 configured for MongoDB with ESM support and type generation working
-- ✅ **API Integration**: Type-safe API client with error handling, retry logic, and network error detection
-- ✅ **Build System**: Turborepo monorepo with Bun runtime, error-free development server
-- ✅ **Accessibility**: WCAG 2.1 AA compliance, ARIA labels, keyboard navigation, screen reader support, focus management
-- ✅ **Marketing Page**: Norwegian content with VSME Guru branding, responsive design, and accessibility features
-- ✅ **Code Quality**: Biome + Ultracite with no semicolons preference, comprehensive TypeScript coverage
+ce
+- ✅ **Form Components**: FormField,s
+- ✅ **Form Types and Validation**: Complete TypeScript interfaces, Zod schemas, and utility functions
+- ✅ **Backend API foundation** with Hono server structure and health check route
+- ✅ **Database and validation setup** with Prisma and Zod (schema ready for models)
+- ✅ **Mock authentication context** for UI development with localStorage persistence
+- ✅ **Complete layout system** with responsive sidebar navigation and theme support
+- ✅ **Comprehensive error handling system** (boundaries, global pages, recovery)
+s)
+- ✅ **Complete shadcn/ui component integratiores
+- ✅ **API client** with error handling, retry logic, and type safety
+- ✅ **Accessibility implementation** (WCAG 2.1 AA compliance, ARIA labels, keyboard navigation, screen reader support)
+- ✅ **Focus management system** for route changes and keyboard navigation
 
-### What's Ready for Implementation
-- 🔄 **Database Models**: Prisma schema ready for model definitions (schema currently empty but configured)
-- 🔄 **API Routes**: Hono server ready for route expansion in `apps/server/src/routers/`
-- 🔄 **Real Authentication**: Clerk integration planned and documented with comprehensive task list
-- 🔄 **Data Fetching**: TanStack Query configured and ready to use with existing error handling patterns
-- 🔄 **Form Handling**: TanStack Form configured for complex forms with validation patterns
-- 🔄 **Testing**: Vitest, Testing Library, Playwright planned with comprehensive testing strategy documented
-
-### Major Accomplishments Since Initial Setup
-1. **Error Handling & Loading States Implementation**: Class-based error boundaries with recovery, global error pages, multiple loading variants, API error handling with retry logic, type-safe async hooks
-2. **UI Foundation**: Complete component library with responsive layout, accessibility features, comprehensive theme support, and WCAG 2.1 AA compliance
-3. **Development Experience**: Error-free runtime, comprehensive TypeScript coverage, Biome formatting with no semicolons preference, excellent IDE support
-4. **Accessibility Implementation**: Full ARIA support, keyboard navigation, screen reader compatibility, automatic focus management, semantic HTML patterns
-5. **Documentation Evolution**: Reactive documentation approach that evolves with implementation, comprehensive implementation guides
-
-### Current Implementation Status
-Following the SaaS UI Foundation spec with these completed tasks:
-- [x] Backend API foundation with Hono server structure and health check route
-- [x] Database and validation setup with Prisma and Zod (schema ready for models)
-- [x] Mock authentication context for UI development with localStorage persistence
-- [x] Complete sidebar-07 block implementation with collapsible navigation
-- [x] Comprehensive error handling system (boundaries, global pages, recovery)
-- [x] Loading states system (skeleton, inline, page, button loaders)
-- [x] Marketing page with VSME Guru branding and Norwegian content
-- [x] Dashboard layout with responsive sidebar and breadcrumb navigation
-- [x] Complete shadcn/ui component integration with accessibility features
-- [x] API client with error handling, retry logic, and type safety
-- [x] Accessibility implementation (ARIA labels, keyboard navigation, screen reader support)
-- [x] Focus management system for route changes and keyboard navigation
-- [ ] Real authentication with Clerk (planned - see clerk-integration spec)
-- [ ] Database connection and first models (ready to implement)
-- [ ] API routes expansion (ready to implement)
-- [ ] Testing framework setup (Vitest, Testing Library, Playwright planned)
+### Ready for Implementation
+ured)
+- [ ] **API routes expansion** (rdy)
+- [ ] **Testing framework setup** (Vitest, Testing Library, Playw)
 
 ## Development Guidelines
 
 ### AI Agent Server Testing (Important)
-**Never start development servers using executeBash** as these are long-running processes that will hang execution.
+**Never start development servers using executeBash** as these are long-runnin.
 
 **Recommended Testing Approach:**
 1. Ask user to start development server in their terminal
 2. Use `curl` commands to test API endpoints (these terminate quickly)
 3. Ask user to share terminal output, errors, or startup issues
 
-**Safe Testing Commands:**
+### Testing Commands (AI Agent Safe)
 ```bash
 # Test health endpoint
 curl -s http://localhost:3000/
 
-# Test API endpoints  
-curl -s -X POST http://localhost:3000/api/v1/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"email":"test@example.com","password":"testpass123","name":"Test User"}'
 
-# Check compilation without starting server
 bun check-types
 ```
 
-**Commands to Avoid:**
-```bash
-bun dev          # Hangs execution
-bun dev:server   # Hangs execution  
-bun dev:web      # Hangs execution
-```
+### Commands to Avoid in AI Agent Execution
+`bash
+# These will hang the agent execu
+bun dev          # Starts all services (long-running)
+bun dev:server   # Starts backend server (long-running)
+bun dev:web      # Starts frontend server (long-running)
 
-### shadcn/ui Integration Rules
-When building UI components:
 
-1. **Discover Assets**: Use `list_components()` and `list_blocks()` to see available assets
-2. **Map Request to Assets**: Analyze requirements and map to available components/blocks
-3. **Prioritize Blocks**: Use blocks (`get_block`) for complex patterns (login, dashboards, calendars)
-4. **Get Demo First**: Always call `get_component_demo(component_name)` before implementation
-5. **Retrieve Code**: Use `get_component()` for single components, `get_block()` for composite blocks
+## Estared)
 
-### Documentation Evolution Protocol
-- Documentation should be **reactive to implementation, not predictive**
-- Update steering documents after completing features, not before
-- Use real code examples from actual implementation
-- Remove outdated theoretical patterns that weren't implemented
-- Focus on current state accuracy over aspirational patterns
-- Capture decision context and lessons learned from real implementation experience
-- Check current state documents before implementing new features
+### Error Handling Pattern
 
-### Established Best Practices (From Implementation)
-1. **Always wrap components with error boundaries**
-2. **Implement loading states for all async operations**
-3. **Use TypeScript interfaces for all props and API responses**
-4. **Follow Next.js App Router conventions for file organization**
-5. **Maintain comprehensive documentation for complex implementations**
-6. **Code style**: No semicolons (configured in Biome with "asNeeded")
+import { ErrorBoundaryndary'
 
-### Critical Notes
-- Always run `bun check` before committing
-- Use existing component patterns in `apps/web/src/components/`
-- Follow established routing patterns in `apps/server/src/routes/`
-- Maintain consistency with existing TypeScript configurations
-- Leverage Turborepo caching for optimal build performance
-- Check current state documents before implementing features
-
-When implementing new features, always examine existing patterns first, follow the established conventions, and maintain the high standards for type safety, accessibility, and code quality that define this project.
-
-## Established Implementation Patterns
-
-### Error Handling Pattern (Required)
-```typescript
-// Component with error boundary
-import { ErrorBoundary } from '@/components/common/error-boundary'
-
+// Always wrap components
 <ErrorBoundary>
-  <YourComponent />
+t />
 </ErrorBoundary>
 
-// API call with error handling
-const { data, error, isLoading, execute } = useApiCall(apiCalls.healthCheck)
+// 
 
-if (isLoading) return <InlineLoader />
-if (error) return <ErrorDisplay error={error} onRetry={execute} />
-return <div>{data}</div>
+if (error) return <Err />
+```
 
-// Form submission with loading
-const { submit, isLoading, error } = useAsyncSubmit(submitFunction)
+### Loading State Pattern
+```typescript
+imp
 
-<Button onClick={() => submit(formData)} disabled={isLoading}>
-  {isLoading ? <ButtonLoader className="mr-2" /> : null}
+// Button loading
+<Button disabled={isLoading}
+ull}
   Submit
 </Button>
 ```
 
-### Loading State Pattern (Required)
-```typescript
-import { InlineLoader, PageLoader, ButtonLoader, DashboardLoading } from '@/components/common/loading'
-
-// Page-level loading
-if (isLoading) return <PageLoader text="Loading dashboard..." />
-
-// Button loading state
-<Button disabled={isLoading}>
-  {isLoading ? <ButtonLoader className="mr-2" /> : null}
-  {isLoading ? 'Submitting...' : 'Submit'}
-</Button>
-
-// Dashboard skeleton loading
-<DashboardLoading />
-```
-
 ### API Route Pattern (Hono)
-```typescript
+script
 import { Hono } from "hono";
 import { z } from "zod";
 import { prisma } from "../lib/db";
@@ -700,7 +636,7 @@ const users = new Hono();
 
 users.post("/", async (c) => {
   try {
-    const body = await c.req.json();
+
     const validatedData = userSchema.parse(body);
     
     const user = await prisma.user.create({
@@ -708,38 +644,38 @@ users.post("/", async (c) => {
     });
     
     return c.json({ success: true, data: user }, 201);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return c.json({ error: "Validation failed", details: error.issues }, 400);
+ror) {
+    if (error inst {
+      return c.json({ error: "Validation f
     }
     return c.json({ error: "Internal server error" }, 500);
   }
 });
 
-export default users;
+s;
 ```
 
 ### React Component Pattern (Required)
-```typescript
+script
 "use client";
 
-import { ErrorBoundary } from '@/components/common/error-boundary'
+import { ErrorBoundary } from '@ary'
 import { useAuth } from "@/contexts/auth-context";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+;
+import { cn } f
 
-interface ComponentProps {
-  className?: string;
+interface Componops {
+ing;
   children?: React.ReactNode;
 }
 
-export default function Component({ className, children }: ComponentProps) {
+export default function Component({ clProps) {
   const { isAuthenticated, user } = useAuth();
   
-  return (
+
     <ErrorBoundary>
       <div className={cn("base-styles", className)}>
-        {children}
+
       </div>
     </ErrorBoundary>
   );
@@ -749,32 +685,27 @@ export default function Component({ className, children }: ComponentProps) {
 ### Error Handling Pattern
 ```typescript
 // ✅ Good: Comprehensive error handling
-try {
-  const result = await fetchData();
+
+  const result = awaiData();
   return { success: true, data: result };
-} catch (error) {
-  console.error('API call failed:', error);
-  return { success: false, error: error.message };
+rror) {
+  console.error('API ca;
+  return { success: false, ere };
 }
 
-// ❌ Bad: Swallowing errors
-try {
+// ❌ Bad:
+
   return await fetchData();
 } catch (e) {
-  console.log(e);
+  cg(e);
 }
 ```
 
 ## Next Implementation Steps
-Based on current state, the immediate next steps are:
-1. **Database Connection**: Set up MongoDB connection and first model
-2. **API Routes**: Implement first CRUD endpoints using established Hono patterns
-3. **Real Data Flow**: Connect frontend components to real API data
-4. **Clerk Authentication**: Replace mock auth with Clerk integration
-5. **Testing Setup**: Implement testing strategy with Vitest
-6. **Form Implementation**: Build forms with TanStack Form
+Based on current state,  are:
+1. **Database Connection**: Set up l
+s
+3. **Form Data PersistencAPI
+ategy
 
-## Quality Assessment (Current State)
-- **Code Quality**: A+ (Excellent) - Production-ready error boundaries, comprehensive TypeScript coverage
-- **Developer Experience**: A+ (Excellent) - Error-free runtime, comprehensive documentation
-- **Production Readiness**: B+ (Very Good) - Missing database connection, real authentication, testing
+Always ase.n the codebat exists ion about whormatie infaccurator the most state.md` fcurrent-ng/teeriFoundation/sference `re

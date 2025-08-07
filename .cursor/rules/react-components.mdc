@@ -58,18 +58,68 @@ export default function UserProfile({ userId, onUpdate }: UserProfileProps) {
 - Graceful fallbacks for missing data
 
 ## Current Component State (January 8, 2025)
+- **Complete Multi-Step Form System**: TanStack Form with dynamic fields, conditional logic, complex data structures (subsidiaries, initiatives), full TypeScript integration, accessibility support, and state persistence
+- **Form Components**: FormField, NavigationControls, ProgressIndicator, StepIndicator with consistent styling and validation patterns
+- **Form Types and Validation**: Complete TypeScript interfaces, Zod schemas, and utility functions
 - **Layout System**: Root layout, header, sidebar, providers with comprehensive error boundaries
 - **Error Handling**: Error boundaries, error display, global error pages with recovery and retry mechanisms
 - **Loading States**: Multiple loading variants (skeleton, inline, page, button loaders) with accessibility support
 - **UI Components**: Complete shadcn/ui integration (20+ components: Button, Card, Input, Switch, Sidebar, Skeleton, etc.)
 - **Navigation**: App sidebar with collapsible navigation, breadcrumb system, and keyboard navigation
 - **Theme System**: Dark/light mode with system preference detection, persistence, and smooth transitions
-- **Authentication**: Mock authentication context with localStorage persistence for development (Clerk integration planned)
+- **Authentication**: Mock authentication context with localStorage persistence for development
 - **API Integration**: Type-safe API client with comprehensive error handling, retry logic, and network error detection
 - **Accessibility**: WCAG 2.1 AA compliance with ARIA labels, keyboard navigation, screen reader support, and focus management
-- **Marketing Page**: Norwegian content with VSME Guru branding, responsive design, and accessibility features
+
+## Reference Documents
+Check `Foundation/steering/` for comprehensive patterns:
+- **form-implementation-patterns.md**: Proven patterns for TanStack Form development
+- **current-state.md**: What actually exists vs what's planned
+- **ui-best-practices.md**: Future implementation patterns for UI components
 
 ## Established Patterns (Required)
+
+### Form Implementation Pattern (TanStack Form)
+```typescript
+// Custom hook pattern (from form-implementation-patterns.md)
+export function useReliableMultiStepForm(onSubmit: (data: FormData) => void) {
+  const form = useForm({
+    defaultValues: {
+      organizationName: '',
+      email: '',
+      // ... other defaults
+    },
+    onSubmit: async ({ value }) => {
+      onSubmit(value)
+    }
+  })
+
+  const [currentStep, setCurrentStep] = useState(1)
+  
+  return {
+    form,
+    currentStep,
+    navigationState,
+    goToNextStep,
+    goToPreviousStep,
+  }
+}
+
+// Field binding pattern
+<form.Field name="organizationName">
+  {(field) => (
+    <FormField
+      error={field.state.meta.errors?.[0]}
+      id="organizationName"
+      label="Organization Name"
+      onChange={(value) => field.handleChange(value)}
+      placeholder="Enter your organization name"
+      required
+      value={String(field.state.value || '')}
+    />
+  )}
+</form.Field>
+```
 
 ### Error Handling Pattern
 ```typescript

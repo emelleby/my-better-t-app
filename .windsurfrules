@@ -1,7 +1,16 @@
-# VSME Guru SaaS Platform Rules for Windsurf
+# my-better-t-app Rules for Windsurf
 
 ## Project Overview
-**VSME Guru** is a sustainability reporting platform for the SME market, conformant to the VSME EU standard and NSRS. Modern full-stack TypeScript application with production-ready error handling and loading states system. Complete UI foundation with responsive sidebar navigation, comprehensive accessibility features (WCAG 2.1 AA compliance), and theme system. Mock authentication system for development with Clerk integration planned.
+**my-better-t-app** is a full-stack TypeScript application built with the Better-T-Stack template, providing a modern web application foundation with a React frontend and API backend. Production-ready foundation with complete multi-step form implementation using TanStack Form. Comprehensive error handling and loading states system. Complete UI foundation with responsive sidebar navigation, accessibility features (WCAG 2.1 AA compliance), and theme system. Mock authentication system for development.
+
+## Key Reference Documents
+For comprehensive project information, always reference `Foundation/steering/`:
+- **current-state.md**: Accurate audit of what actually exists vs what's planned
+- **form-implementation-patterns.md**: Proven patterns for TanStack Form development
+- **tech.md**: Technology stack, versions, and command reference
+- **structure.md**: Project file organization and naming conventions
+- **decision-log.md**: Record of architectural decisions made
+- **learning-journal.md**: Development insights and lessons learned
 
 ## Technology Stack
 - **Runtime**: Bun v1.2.19+ (primary), Node.js (compatible) 
@@ -117,6 +126,79 @@ try {
 }
 ```
 
+### Form Implementation Pattern (Established - TanStack Form)
+```typescript
+// Custom hook pattern (from form-implementation-patterns.md)
+export function useReliableMultiStepForm(onSubmit: (data: FormData) => void) {
+  const form = useForm({
+    defaultValues: {
+      organizationName: '',
+      email: '',
+      // ... other defaults
+    },
+    onSubmit: async ({ value }) => {
+      onSubmit(value)
+    }
+  })
+
+  const [currentStep, setCurrentStep] = useState(1)
+  
+  return {
+    form,
+    currentStep,
+    navigationState,
+    goToNextStep,
+    goToPreviousStep,
+  }
+}
+
+// Field binding pattern
+<form.Field name="organizationName">
+  {(field) => (
+    <FormField
+      error={field.state.meta.errors?.[0]}
+      id="organizationName"
+      label="Organization Name"
+      onChange={(value) => field.handleChange(value)}
+      placeholder="Enter your organization name"
+      required
+      value={String(field.state.value || '')}
+    />
+  )}
+</form.Field>
+
+// Multi-step form structure
+const renderStepContent = () => {
+  switch (currentStep) {
+    case 1: return <Step1Content />
+    case 2: return <Step2Content />
+    case 3: return <Step3Content />
+    default: return <div>Invalid step</div>
+  }
+}
+
+return (
+  <Card>
+    <CardContent className="space-y-6">
+      <ProgressIndicator currentStep={currentStep} totalSteps={3} />
+      <StepIndicator currentStep={currentStep} steps={steps} />
+      
+      <div className="min-h-[400px] py-4" key={`step-${currentStep}`}>
+        {renderStepContent()}
+      </div>
+      
+      <NavigationControls
+        canGoBack={navigationState.canGoPrevious}
+        canGoNext={navigationState.canGoNext}
+        onBack={goToPreviousStep}
+        onNext={goToNextStep}
+        onSubmit={() => form.handleSubmit()}
+      />
+    </CardContent>
+  </Card>
+)
+```
+
 ### Loading State Pattern (Required)
 ```typescript
 import { InlineLoader, PageLoader, ButtonLoader, DashboardLoading } from '@/components/common/loading'
@@ -187,14 +269,15 @@ const useFocusManagement = () => {
 ## Current Implementation Status (January 8, 2025)
 
 ### Major Accomplishments Completed
+- [x] **Complete Multi-Step Form System** with TanStack Form, dynamic fields, conditional logic, complex data structures (subsidiaries, initiatives), full TypeScript integration, accessibility support, and state persistence
+- [x] **Form Components** (FormField, NavigationControls, ProgressIndicator, StepIndicator) with consistent styling and validation patterns
+- [x] **Form Types and Validation** with complete TypeScript interfaces, Zod schemas, and utility functions
 - [x] **Backend API foundation** with Hono server structure, health check route, and error-free development server
 - [x] **Database and validation setup** with Prisma 6.13.0 and Zod (MongoDB configured, schema ready for models)
-- [x] **Mock authentication context** for UI development with localStorage persistence (Clerk integration documented)
-- [x] **Complete sidebar-07 block implementation** with collapsible navigation and keyboard accessibility
+- [x] **Mock authentication context** for UI development with localStorage persistence
+- [x] **Complete layout system** with responsive sidebar navigation and theme support
 - [x] **Comprehensive error handling system** (class-based error boundaries, global pages, recovery, retry logic)
 - [x] **Loading states system** (skeleton, inline, page, button loaders with accessibility support)
-- [x] **Marketing page** with VSME Guru branding, Norwegian content, and responsive design
-- [x] **Dashboard layout** with responsive sidebar, breadcrumb navigation, and focus management
 - [x] **Complete shadcn/ui component integration** with 20+ components and accessibility features
 - [x] **API client** with comprehensive error handling, retry logic, network error detection, and type safety
 - [x] **Accessibility implementation** (WCAG 2.1 AA compliance, ARIA labels, keyboard navigation, screen reader support)
@@ -203,10 +286,9 @@ const useFocusManagement = () => {
 - [x] **Code quality system** with Biome + Ultracite (no semicolons preference, comprehensive TypeScript coverage)
 
 ### Ready for Implementation
-- [ ] Real authentication with Clerk integration (spec documented)
-- [ ] Database connection and first models (Prisma ready)
+- [ ] Database connection and first models (Prisma ready, schema configured)
 - [ ] API routes expansion (Hono structure ready)
-- [ ] Testing framework setup (Vitest, Testing Library, Playwright planned)
+- [ ] Testing framework setup (Vitest, Testing Library, Playwright planned with comprehensive strategy documented)
 
 ### Current State (Production-Ready Foundation)
 - **Frontend**: Complete layout system with comprehensive error handling, loading states, responsive design, and theme system

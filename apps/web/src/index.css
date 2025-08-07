@@ -22,7 +22,7 @@ body {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  --card: oklch(0.99 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -44,7 +44,7 @@ body {
   /* Emerald-900 equivalent */
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  --input: oklch(0.995 0 0);
   --ring: oklch(0.57 0.23 276);
   /* Indigo-600 for focus rings */
   /* Chart colors with indigo and emerald theme */

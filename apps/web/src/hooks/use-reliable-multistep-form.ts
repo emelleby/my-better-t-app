@@ -18,8 +18,17 @@ const getInitialFormData = (): Partial<FormData> => ({
   hasSubsidiaries: null,
   subsidiaries: [],
 
-  // Step 3: Sustainability Initiatives (simplified for now)
-  initiatives: {},
+  // Step 3: Sustainability Initiatives
+  initiatives: {
+    WorkforceDevelopment: { isActive: false },
+    Biodiversity: { isActive: false },
+    ClimateAction: { isActive: false },
+    WasteReduction: { isActive: false },
+    EnergyEfficiency: { isActive: false },
+    WaterConservation: { isActive: false },
+    CommunityEngagement: { isActive: false },
+    SupplyChainSustainability: { isActive: false },
+  },
 })
 
 export function useReliableMultiStepForm(

@@ -1,13 +1,20 @@
 ---
-description: VSME Guru SaaS Platform - Project Context and Development Standards
+description: my-better-t-app - Project Context and Development Standards
 globs: ["**/*"]
 alwaysApply: true
 ---
 
-# VSME Guru Development Standards
+# my-better-t-app Development Standards
 
 ## Project Context
-**VSME Guru** is a sustainability reporting platform for the SME market, conformant to the VSME EU standard and NSRS. Production-ready error handling and loading states implemented. Complete UI foundation with responsive sidebar navigation, comprehensive accessibility features, and theme system. Mock authentication system for development. Backend ready for database models and API route expansion.
+**my-better-t-app** is a full-stack TypeScript application built with the Better-T-Stack template, providing a modern web application foundation with a React frontend and API backend. Production-ready foundation with complete multi-step form implementation using TanStack Form. Comprehensive error handling and loading states system. Complete UI foundation with responsive sidebar navigation, accessibility features, and theme system. Mock authentication system for development. Backend ready for database models and API route expansion.
+
+## Key Reference Documents
+Always check `Foundation/steering/` for comprehensive project information:
+- **current-state.md**: What actually exists vs what's planned
+- **form-implementation-patterns.md**: Proven TanStack Form patterns
+- **tech.md**: Technology stack and commands
+- **structure.md**: File organization
 
 ## Technology Stack
 - **Runtime**: Bun v1.2.19+ (primary), Node.js (compatible)
@@ -65,22 +72,22 @@ apps/
 - Next.js Image component, loading states, React.memo for expensive components
 
 ## Current Implementation Status (January 8, 2025)
-Following SaaS UI Foundation spec - Major accomplishments completed:
+Major accomplishments completed:
+- [x] **Complete Multi-Step Form System** with TanStack Form, dynamic fields, conditional logic, complex data structures (subsidiaries, initiatives), full TypeScript integration, accessibility support, and state persistence
+- [x] **Form Components** (FormField, NavigationControls, ProgressIndicator, StepIndicator) with consistent styling and validation patterns
+- [x] **Form Types and Validation** with complete TypeScript interfaces, Zod schemas, and utility functions
 - [x] **Backend API foundation** with Hono server structure and health check route
 - [x] **Database and validation setup** with Prisma and Zod (schema ready for models)
 - [x] **Mock authentication context** for UI development with localStorage persistence
-- [x] **Complete sidebar-07 block implementation** with collapsible navigation
+- [x] **Complete layout system** with responsive sidebar navigation and theme support
 - [x] **Comprehensive error handling system** (boundaries, global pages, recovery, retry logic)
 - [x] **Loading states system** (skeleton, inline, page, button loaders with accessibility)
-- [x] **Marketing page** with VSME Guru branding and Norwegian content
-- [x] **Dashboard layout** with responsive sidebar and breadcrumb navigation
 - [x] **Complete shadcn/ui component integration** with accessibility features (20+ components)
 - [x] **API client** with error handling, retry logic, and type safety
 - [x] **Accessibility implementation** (WCAG 2.1 AA compliance, ARIA labels, keyboard navigation, screen reader support)
 - [x] **Focus management system** for route changes and keyboard navigation
 - [x] **Theme system** with dark/light mode and system preference detection
 - [x] **Code quality** with Biome + Ultracite (no semicolons preference)
-- [ ] **Real authentication with Clerk** (planned - comprehensive spec documented)
 - [ ] **Database connection and first models** (ready to implement - schema configured)
 - [ ] **API routes expansion** (ready to implement - Hono structure ready)
 - [ ] **Testing framework setup** (Vitest, Testing Library, Playwright planned with strategy documented)

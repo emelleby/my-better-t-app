@@ -16,6 +16,7 @@ interface FormFieldProps {
   required?: boolean
   disabled?: boolean
   className?: string
+  rows?: number
   onChange?: (value: string) => void
   onBlur?: () => void
 }
@@ -35,6 +36,7 @@ const FormField = forwardRef<
       required = false,
       disabled = false,
       className,
+      rows,
       onChange,
       onBlur,
       ...props
@@ -77,6 +79,7 @@ const FormField = forwardRef<
             onChange={handleChange}
             placeholder={placeholder}
             ref={ref as React.Ref<HTMLTextAreaElement>}
+            rows={rows}
             value={value}
             {...props}
           />
