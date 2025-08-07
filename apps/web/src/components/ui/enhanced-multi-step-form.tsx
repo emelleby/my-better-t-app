@@ -20,7 +20,7 @@ import { saveFormData, loadFormData, clearFormData, createDebouncedSave } from "
 // Import step components
 import { OrganizationInfoStep } from "./form-steps/organization-info-step";
 import { BusinessModelStep } from "./form-steps/business-model-step";
-// import { SustainabilityInitiativesStep } from "./form-steps/sustainability-initiatives-step";
+import { SustainabilityInitiativesStep } from "./form-steps/sustainability-initiatives-step";
 
 interface EnhancedMultiStepFormProps {
   className?: string;
@@ -258,9 +258,7 @@ export function EnhancedMultiStepForm({
             <BusinessModelStep form={form} />
           )}
           {currentStep === FormStep.SUSTAINABILITY_INITIATIVES && (
-            <div className="p-8 text-center text-muted-foreground">
-              Sustainability Initiatives Step - Coming Soon
-            </div>
+            <SustainabilityInitiativesStep form={form} />
           )}
         </motion.div>
       </AnimatePresence>

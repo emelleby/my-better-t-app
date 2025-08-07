@@ -64,6 +64,30 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
           )}
         </form.Field>
 
+        {/* Registration Number */}
+        <form.Field
+          name="registrationNumber"
+          validators={{
+            onChange: ({ value }) => {
+              const result = organizationInfoSchema.shape.registrationNumber.safeParse(value);
+              return result.success ? undefined : result.error.issues[0]?.message;
+            },
+          }}
+        >
+          {(field) => (
+            <FormField
+              id="registrationNumber"
+              label="Registration Number"
+              type="text"
+              placeholder="Enter registration number"
+              value={field.state.value || ''}
+              error={field.state.meta.errors?.[0]}
+              required
+              onChange={(value) => field.handleChange(value as string)}
+              onBlur={field.handleBlur}
+            />
+          )}
+        </form.Field>
 
         {/* NACE Code */}
         <form.Field
@@ -136,7 +160,10 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
               required
               min={0}
               step={1000}
-              onChange={(value) => field.handleChange(value as number)}
+              onChange={(value) => {
+                const numValue = typeof value === 'string' ? parseFloat(value) || 0 : value;
+                field.handleChange(numValue);
+              }}
               onBlur={field.handleBlur}
             />
           )}
@@ -158,12 +185,15 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
               label="Number of Employees"
               type="number"
               placeholder="1"
-              value={field.state.value || ''}
+              value={field.state.value ?? 1}
               error={field.state.meta.errors?.[0]}
               required
               min={1}
               step={1}
-              onChange={(value) => field.handleChange(value ? Number(value) : '')}
+              onChange={(value) => {
+                const numValue = typeof value === 'string' ? parseInt(value) || 1 : value;
+                field.handleChange(numValue);
+              }}
               onBlur={field.handleBlur}
             />
           )}

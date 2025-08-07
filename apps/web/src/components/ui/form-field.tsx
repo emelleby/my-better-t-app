@@ -54,7 +54,8 @@ const FormField = forwardRef<
     ) => {
       if (type === 'number') {
         const numValue = parseFloat(e.target.value)
-        onChange?.(isNaN(numValue) ? 0 : numValue)
+        // Handle empty string as 0 for required number fields
+        onChange?.(e.target.value === '' ? '' : (isNaN(numValue) ? 0 : numValue))
       } else {
         onChange?.(e.target.value)
       }
