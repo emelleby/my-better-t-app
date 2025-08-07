@@ -25,7 +25,7 @@ export function saveFormData(
       version: '1.0.0',
     }
     localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(persistedData))
-  } catch (error) {
+  } catch {
     // Silent fail for localStorage issues
   }
 }
@@ -50,7 +50,7 @@ export function loadFormData(): PersistedFormData | null {
     }
 
     return parsed
-  } catch (error) {
+  } catch {
     clearFormData()
     return null
   }
@@ -62,7 +62,7 @@ export function loadFormData(): PersistedFormData | null {
 export function clearFormData(): void {
   try {
     localStorage.removeItem(FORM_STORAGE_KEY)
-  } catch (error) {
+  } catch {
     // Silent fail for localStorage issues
   }
 }

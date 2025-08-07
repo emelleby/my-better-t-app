@@ -16,9 +16,9 @@ export function TestTanStackForm() {
       name: '',
       email: '',
     } as TestFormData,
-    onSubmit: async ({ value }) => {
-      console.log('Form submitted:', value)
+    onSubmit: ({ value }) => {
       alert(`Hello ${value.name}! Email: ${value.email}`)
+      return Promise.resolve()
     },
   })
 

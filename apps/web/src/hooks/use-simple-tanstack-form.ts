@@ -12,8 +12,9 @@ export function useSimpleTanStackForm() {
       name: '',
       email: '',
     } as SimpleFormData,
-    onSubmit: async ({ value }) => {
-      console.log('Form submitted:', value)
+    onSubmit: ({ value }) => {
+      // Handle form submission
+      return Promise.resolve(value)
     },
   })
 

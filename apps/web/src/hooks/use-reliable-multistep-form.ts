@@ -41,7 +41,6 @@ export function useReliableMultiStepForm(
   const form = useForm({
     defaultValues: getInitialFormData(),
     onSubmit: async ({ value }) => {
-      console.log('🚀 Form submitting with values:', value)
       if (onSubmit) {
         await onSubmit(value)
       }
@@ -50,22 +49,20 @@ export function useReliableMultiStepForm(
 
   // Navigation functions
   const goToNextStep = useCallback(() => {
-    console.log('📝 Current form values before next:', form.state.values)
     if (currentStep < TOTAL_STEPS) {
       setCurrentStep((currentStep + 1) as FormStepType)
       return true
     }
     return false
-  }, [currentStep, form.state.values])
+  }, [currentStep])
 
   const goToPreviousStep = useCallback(() => {
-    console.log('📝 Current form values before back:', form.state.values)
     if (currentStep > 1) {
       setCurrentStep((currentStep - 1) as FormStepType)
       return true
     }
     return false
-  }, [currentStep, form.state.values])
+  }, [currentStep])
 
   // Navigation state
   const navigationState = {

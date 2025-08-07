@@ -8,9 +8,9 @@ export const organizationInfoSchema = z.object({
     .min(2, 'Organization name must be at least 2 characters')
     .max(100, 'Organization name must be less than 100 characters'),
   organizationNumber: z
-    .number()
-    .min(9, 'Organization number is required')
-    .max(9, 'Organization number must be less than 50 characters'),
+    .string()
+    .min(1, 'Organization number is required')
+    .max(50, 'Organization number must be less than 50 characters'),
   contactPerson: z
     .string()
     .min(2, 'Contact person name must be at least 2 characters')
@@ -116,7 +116,7 @@ export const sustainabilityInitiativesSchema = z.object({
   initiatives: z.record(z.string(), initiativeSchema).refine(
     (initiatives) => {
       // Validate that all active initiatives have complete data
-      return Object.entries(initiatives).every(([key, initiative]) => {
+      return Object.entries(initiatives).every(([, initiative]) => {
         if (initiative.isActive) {
           return (
             initiative.description &&

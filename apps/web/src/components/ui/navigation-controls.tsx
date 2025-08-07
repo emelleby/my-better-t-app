@@ -33,7 +33,7 @@ export function NavigationControls({
   submitLabel = 'Submit',
   className,
 }: NavigationControlsProps) {
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleNextKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && event.ctrlKey) {
       event.preventDefault()
       if (isLastStep && onSubmit) {
@@ -45,10 +45,7 @@ export function NavigationControls({
   }
 
   return (
-    <div
-      className={cn('flex justify-between pt-4', className)}
-      onKeyDown={handleKeyDown}
-    >
+    <div className={cn('flex justify-between pt-4', className)}>
       <Button
         aria-label={`Go to previous step${canGoBack ? '' : ' (disabled)'}`}
         className={cn(isFirstStep && 'invisible')}
@@ -66,6 +63,7 @@ export function NavigationControls({
           aria-label={isSubmitting ? 'Submitting form...' : 'Submit form'}
           disabled={isSubmitting}
           onClick={onSubmit}
+          onKeyDown={handleNextKeyDown}
           type="submit"
         >
           {isSubmitting ? 'Submitting...' : submitLabel}
@@ -75,6 +73,7 @@ export function NavigationControls({
           aria-label={`Go to next step${canGoNext ? '' : ' (complete current step first)'}`}
           disabled={!canGoNext || isSubmitting}
           onClick={onNext}
+          onKeyDown={handleNextKeyDown}
           type="button"
         >
           {nextLabel}

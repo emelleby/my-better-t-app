@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/suspicious/noConsole: <explanation> */
 'use client'
 
 import {
@@ -116,8 +115,7 @@ export default function MultiStepPage() {
     goToNextStep,
     goToPreviousStep,
   } = useReliableMultiStepForm((data) => {
-    console.log('✅ Form submitted successfully:', data)
-    alert('🎉 Form submitted! Check console for data.')
+    alert('🎉 Form submitted successfully!')
   })
 
   const renderStepContent = () => {
@@ -136,26 +134,17 @@ export default function MultiStepPage() {
 
             <div className="space-y-4">
               <form.Field name="organizationName">
-                {(field) => {
-                  console.log(
-                    '🔍 organizationName field state:',
-                    field.state.value
-                  )
-                  return (
-                    <FormField
-                      error={field.state.meta.errors?.[0]}
-                      id="organizationName"
-                      label="Organization Name"
-                      onChange={(value) => {
-                        console.log('📝 organizationName changing to:', value)
-                        field.handleChange(value)
-                      }}
-                      placeholder="Enter your organization name"
-                      required
-                      value={String(field.state.value || '')}
-                    />
-                  )
-                }}
+                {(field) => (
+                  <FormField
+                    error={field.state.meta.errors?.[0]}
+                    id="organizationName"
+                    label="Organization Name"
+                    onChange={(value) => field.handleChange(value)}
+                    placeholder="Enter your organization name"
+                    required
+                    value={String(field.state.value || '')}
+                  />
+                )}
               </form.Field>
 
               <form.Field name="organizationNumber">

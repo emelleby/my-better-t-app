@@ -45,7 +45,7 @@
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 5.1, 5.2, 7.1, 7.3_
 
 - [ ] 3.1 Build organization information form fields
-  - Create input fields for organization name, number, contact person, email, and phone
+  - Create input fields for organization name, Registration number, Nace code(string) Industry(string), Revenue(number), Number of Employees(number)contact person, email,
   - Implement real-time validation for email format and required fields
   - Add proper ARIA labels and error announcements for accessibility
   - Style fields consistently with existing design system
