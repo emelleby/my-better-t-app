@@ -19,7 +19,6 @@ import {
   saveFormData,
   loadFormData,
   clearFormData,
-  createDebouncedSave,
   markFormAsSubmitted,
   FORM_STORAGE_KEY,
 } from '@/lib/form-utils'
@@ -58,143 +57,69 @@ export function EnhancedMultiStepForm({
   onSubmit,
   initialData,
 }: EnhancedMultiStepFormProps) {
-  const [currentStep, setCurrentStep] = useState<FormStepType>(
-    FormStep.ORGANIZATION_INFO
-  )
-  const [isComplete, setIsComplete] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const [validationError, setValidationError] = useState<string | null>(null)
-  const [completion, setCompletion] = useState({
-    orgInfo: false,
-    businessModel: false,
-    initiatives: false,
-  })
   const [currentStepValid, setCurrentStepValid] = useState(false)
 
-  // Create debounced save function
-  const debouncedSave = createDebouncedSave(1000)
+  // Get current form data from localStorage
+  const getStoredData = () => {
+    const stored = loadFormData()
+    return stored ? stored.formData as FormData : { ...getDefaultFormData(), ...initialData } as FormData
+  }
+
+  // Get current step from localStorage
+  const getCurrentStep = () => {
+    const stored = loadFormData()
+    return stored ? stored.currentStep as FormStepType : FormStep.ORGANIZATION_INFO
+  }
+
+  // Check if form was submitted
+  const isFormSubmitted = () => {
+    const stored = loadFormData()
+    return stored ? stored.submitted === true : false
+  }
+
+  // Initialize form with localStorage data
+  const [currentStep, setCurrentStep] = useState<FormStepType>(getCurrentStep())
+  const [isComplete, setIsComplete] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(isFormSubmitted())
 
   // Initialize form with TanStack Form
-  const form = useForm({
-    defaultValues: { ...getDefaultFormData(), ...initialData } as FormData,
-    onSubmit: async ({ value }) => {
+  const form = useForm<FormData>({
+    defaultValues: getStoredData(),
+    onSubmit: async ({ value }: { value: FormData }) => {
       try {
+        // Save final data to localStorage before submitting
+        saveFormData(value, currentStep)
+        markFormAsSubmitted()
+        
         if (onSubmit) {
           await onSubmit(value)
         }
         setIsComplete(true)
-        markFormAsSubmitted() // Mark as submitted but keep data
       } catch (error) {
         console.error('Form submission error:', error)
-        // Handle submission error (could add error state here)
       }
     },
   })
 
-  // Load persisted data on mount
-  useEffect(() => {
-    if (!initialData) {
-      const savedData = loadFormData()
-      if (savedData) {
-        form.reset(savedData.formData as FormData)
-        setCurrentStep(savedData.currentStep as FormStepType)
-        
-        // Check if form was previously submitted
-        if (savedData.submitted) {
-          setIsSubmitted(true)
-        }
-      }
-    }
-    // Initialize completion state from form values
-    const formCompletion = form.state.values.completion
-    if (formCompletion) {
-      setCompletion(formCompletion)
-    }
-  }, [initialData, form])
-
-  // Retro-compute completion flags for already valid steps on recovered data
-  useEffect(() => {
-    const validateAndMarkCompleted = async () => {
-      const formData = form.state.values
-      const newCompletion = { ...completion }
-      let hasChanges = false
-
-      // Check each step's validation and mark complete if valid
-      const stepMappings: Array<[number, 'orgInfo' | 'businessModel' | 'initiatives']> = [
-        [1, 'orgInfo'],
-        [2, 'businessModel'],
-        [3, 'initiatives'],
-      ]
-      
-      for (const [stepNum, stepId] of stepMappings) {
-        if (!completion[stepId]) {
-          const stepSchema = stepValidationSchemas[stepNum as keyof typeof stepValidationSchemas]
-          if (stepSchema) {
-            const result = await stepSchema.safeParseAsync(formData)
-            if (result.success) {
-              newCompletion[stepId] = true
-              form.setFieldValue(`completion.${stepId}`, true)
-              hasChanges = true
-            }
-          }
-        }
-      }
-
-      if (hasChanges) {
-        setCompletion(newCompletion)
-      }
-    }
-
-    // Only run validation check if we have form data (either from recovery or initial data)
-    if (form.state.values.organizationName || form.state.values.businessModel || Object.values(form.state.values.initiatives || {}).some(i => i.isActive)) {
-      validateAndMarkCompleted()
-    }
-  }, [form.state.values, completion])
-
-  // Auto-save form data on changes
+  // Save to localStorage whenever form data changes
   useEffect(() => {
     const subscription = form.store.subscribe(() => {
       const formState = form.state.values
-      debouncedSave(formState, currentStep)
+      // Immediate save on every change - localStorage is our source of truth
+      saveFormData(formState, currentStep)
     })
 
     return () => subscription()
-  }, [form, currentStep, debouncedSave])
+  }, [form, currentStep])
 
-  // Calculate progress based on completed steps
-  const completedStepsCount = Object.values(completion).filter(Boolean).length
-  const progressPercentage = Math.round((completedStepsCount / STEPS.length) * 100)
-  
-  // Real-time validation for current step
+  // Save step changes to localStorage
   useEffect(() => {
-    const validateRealTime = async () => {
-      const validation = await validateCurrentStep()
-      setCurrentStepValid(validation.success)
-    }
-    
-    // Debounce validation to avoid excessive calls
-    const timeoutId = setTimeout(validateRealTime, 300)
-    return () => clearTimeout(timeoutId)
-  }, [form.state.values, currentStep])
+    const formData = form.state.values
+    saveFormData(formData, currentStep)
+  }, [currentStep, form.state.values])
 
-  // Navigation state
-  const canGoNext = currentStep < STEPS.length
-  const canGoPrevious = currentStep > 1
-  const isFirstStep = currentStep === 1
-  const isLastStep = currentStep === STEPS.length
-
-  // Get current step data
-  const currentStepData = STEPS[currentStep - 1]
-
-  // Helper function to mark a step as complete
-  const markStepComplete = (
-    stepId: 'orgInfo' | 'businessModel' | 'initiatives'
-  ) => {
-    setCompletion((prev) => ({ ...prev, [stepId]: true }))
-    form.setFieldValue(`completion.${stepId}`, true)
-  }
-
-  // Validate current step
+  // Validate current step and update localStorage completion flags
   const validateCurrentStep = async () => {
     const currentStepSchema =
       stepValidationSchemas[currentStep as keyof typeof stepValidationSchemas]
@@ -205,13 +130,84 @@ export function EnhancedMultiStepForm({
     try {
       const formData = form.state.values
       const result = await currentStepSchema.safeParseAsync(formData)
+      
+      // If validation passes, mark step as complete in form data and localStorage
+      if (result.success) {
+        const stepMapping: Record<number, keyof FormData['completion']> = {
+          1: 'orgInfo',
+          2: 'businessModel', 
+          3: 'initiatives'
+        }
+        const stepKey = stepMapping[currentStep]
+        if (stepKey) {
+          const updatedData = {
+            ...formData,
+            completion: {
+              ...formData.completion,
+              [stepKey]: true
+            }
+          }
+          form.setFieldValue(`completion.${stepKey}`, true)
+          saveFormData(updatedData, currentStep)
+        }
+      }
+      
       return result
-    } catch {
+    } catch (error) {
+      console.error('Validation error:', error)
       return {
         success: false,
         error: { issues: [{ message: 'Validation error occurred' }] },
       }
     }
+  }
+
+  // Real-time validation for current step
+  useEffect(() => {
+    const validateRealTime = async () => {
+      const validation = await validateCurrentStep()
+      const hasFieldErrors = form.state.fieldMeta && Object.values(form.state.fieldMeta).some(field => field.errors?.length > 0)
+      const isValid = validation.success && !hasFieldErrors
+      console.log('🔍 Validation result:', validation.success, 'Field errors:', hasFieldErrors, 'Final valid:', isValid)
+      setCurrentStepValid(isValid)
+    }
+    
+    const timeoutId = setTimeout(validateRealTime, 300)
+    return () => clearTimeout(timeoutId)
+  }, [form.state.values, form.state.fieldMeta, currentStep])
+
+  // Navigation state
+  const canGoNext = currentStep < STEPS.length
+  const canGoPrevious = currentStep > 1
+  const isFirstStep = currentStep === 1
+  const isLastStep = currentStep === STEPS.length
+
+  // Get current step data
+  const currentStepData = STEPS[currentStep - 1]
+
+  // Get completion flags from form data (which comes from localStorage)
+  const completion = form.state.values.completion || {
+    orgInfo: false,
+    businessModel: false,
+    initiatives: false,
+  }
+
+  // Calculate progress based on completed steps
+  const completedStepsCount = Object.values(completion).filter(Boolean).length
+  const progressPercentage = Math.round((completedStepsCount / STEPS.length) * 100)
+
+  // Helper function to mark a step as complete in localStorage
+  const markStepComplete = (stepId: 'orgInfo' | 'businessModel' | 'initiatives') => {
+    const currentData = form.state.values
+    const updatedData = {
+      ...currentData,
+      completion: {
+        ...currentData.completion,
+        [stepId]: true
+      }
+    }
+    form.setFieldValue(`completion.${stepId}`, true)
+    saveFormData(updatedData, currentStep)
   }
 
   // Handle next step
@@ -225,15 +221,7 @@ export function EnhancedMultiStepForm({
 
     const validation = await validateCurrentStep()
     if (validation.success) {
-      // Mark current step as complete before moving to next step
-      if (currentStep === FormStep.ORGANIZATION_INFO) {
-        markStepComplete('orgInfo')
-      } else if (currentStep === FormStep.BUSINESS_MODEL) {
-        markStepComplete('businessModel')
-      } else if (currentStep === FormStep.SUSTAINABILITY_INITIATIVES) {
-        markStepComplete('initiatives')
-      }
-
+      // Step completion is already handled in validateCurrentStep
       setCurrentStep((currentStep + 1) as FormStepType)
     } else {
       // Show validation error to user

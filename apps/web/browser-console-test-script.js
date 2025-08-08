@@ -150,6 +150,58 @@ const QATest = {
     generateTestData
 };
 
+// Test 8: Real-time localStorage monitoring
+function startStorageMonitor() {
+    console.log("\n=== Starting Real-Time Storage Monitor ===");
+    
+    let lastData = null;
+    
+    const monitor = setInterval(() => {
+        const currentData = localStorage.getItem('enhanced-multi-step-form-data');
+        
+        if (currentData !== lastData) {
+            console.log("\n🔄 localStorage CHANGED!");
+            
+            if (currentData) {
+                const parsed = JSON.parse(currentData);
+                console.log("📊 New data:", parsed);
+                console.log("⏱️  Step:", parsed.currentStep);
+                console.log("🎯 Completion:", parsed.formData?.completion || 'none');
+            } else {
+                console.log("🗑️ localStorage CLEARED");
+            }
+            
+            lastData = currentData;
+        }
+    }, 500); // Check every 500ms
+    
+    console.log("👀 Monitoring localStorage changes... Use QATest.stopStorageMonitor() to stop.");
+    window.storageMonitorId = monitor;
+}
+
+function stopStorageMonitor() {
+    if (window.storageMonitorId) {
+        clearInterval(window.storageMonitorId);
+        window.storageMonitorId = null;
+        console.log("⏹️ Storage monitor stopped.");
+    } else {
+        console.log("❌ No storage monitor running.");
+    }
+}
+
+// Enhanced utility functions object
+const QATest = {
+    checkFormData,
+    clearFormData,
+    simulateVersionBump,
+    simulateExpiredData,
+    markAsSubmitted,
+    inspectFormState,
+    generateTestData,
+    startStorageMonitor,
+    stopStorageMonitor
+};
+
 // Make functions available globally
 window.QATest = QATest;
 
@@ -161,5 +213,8 @@ console.log("• QATest.simulateExpiredData() - Test data expiration");
 console.log("• QATest.markAsSubmitted() - Mark form as submitted");
 console.log("• QATest.inspectFormState() - Detailed form state inspection");
 console.log("• QATest.generateTestData() - Generate test data for form filling");
+console.log("• QATest.startStorageMonitor() - Monitor localStorage changes in real-time");
+console.log("• QATest.stopStorageMonitor() - Stop storage monitor");
 
 console.log("\n🚀 Ready for QA testing!");
+console.log("💡 TIP: Run QATest.startStorageMonitor() to see localStorage changes in real-time!");

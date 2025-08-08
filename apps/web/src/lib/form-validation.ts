@@ -25,7 +25,7 @@ export const organizationInfoSchema = z.object({
       required_error: 'Revenue is required',
       invalid_type_error: 'Revenue must be a valid number',
     })
-    .min(0, 'Revenue must be a positive number')
+    .min(1, 'Revenue must be a positive number')
     .max(1000000000000, 'Revenue value is too large'),
   numberOfEmployees: z
     .number({
