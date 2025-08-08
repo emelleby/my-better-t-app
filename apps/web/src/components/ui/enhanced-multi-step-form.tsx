@@ -58,7 +58,6 @@ export function EnhancedMultiStepForm({
   initialData,
 }: EnhancedMultiStepFormProps) {
   const [validationError, setValidationError] = useState<string | null>(null)
-  const [currentStepValid, setCurrentStepValid] = useState(false)
 
   // Get current form data from localStorage
   const getStoredData = () => {
@@ -119,8 +118,8 @@ export function EnhancedMultiStepForm({
     saveFormData(formData, currentStep)
   }, [currentStep, form.state.values])
 
-  // Validate current step and update localStorage completion flags
-  const validateCurrentStep = async () => {
+  // Pure validation function without side effects
+  const validateCurrentStepPure = async () => {
     const currentStepSchema =
       stepValidationSchemas[currentStep as keyof typeof stepValidationSchemas]
     if (!currentStepSchema) {
@@ -130,28 +129,6 @@ export function EnhancedMultiStepForm({
     try {
       const formData = form.state.values
       const result = await currentStepSchema.safeParseAsync(formData)
-      
-      // If validation passes, mark step as complete in form data and localStorage
-      if (result.success) {
-        const stepMapping: Record<number, keyof FormData['completion']> = {
-          1: 'orgInfo',
-          2: 'businessModel', 
-          3: 'initiatives'
-        }
-        const stepKey = stepMapping[currentStep]
-        if (stepKey) {
-          const updatedData = {
-            ...formData,
-            completion: {
-              ...formData.completion,
-              [stepKey]: true
-            }
-          }
-          form.setFieldValue(`completion.${stepKey}`, true)
-          saveFormData(updatedData, currentStep)
-        }
-      }
-      
       return result
     } catch (error) {
       console.error('Validation error:', error)
@@ -162,19 +139,49 @@ export function EnhancedMultiStepForm({
     }
   }
 
-  // Real-time validation for current step
-  useEffect(() => {
-    const validateRealTime = async () => {
-      const validation = await validateCurrentStep()
-      const hasFieldErrors = form.state.fieldMeta && Object.values(form.state.fieldMeta).some(field => field.errors?.length > 0)
-      const isValid = validation.success && !hasFieldErrors
-      console.log('🔍 Validation result:', validation.success, 'Field errors:', hasFieldErrors, 'Final valid:', isValid)
-      setCurrentStepValid(isValid)
+  // Validate current step and update localStorage completion flags
+  const validateCurrentStep = async () => {
+    const result = await validateCurrentStepPure()
+    
+    // If validation passes, mark step as complete in form data and localStorage
+    if (result.success) {
+      const stepMapping: Record<number, keyof FormData['completion']> = {
+        1: 'orgInfo',
+        2: 'businessModel', 
+        3: 'initiatives'
+      }
+      const stepKey = stepMapping[currentStep]
+      if (stepKey) {
+        const formData = form.state.values
+        const updatedData = {
+          ...formData,
+          completion: {
+            ...formData.completion,
+            [stepKey]: true
+          }
+        }
+        form.setFieldValue(`completion.${stepKey}`, true)
+        saveFormData(updatedData, currentStep)
+      }
     }
     
-    const timeoutId = setTimeout(validateRealTime, 300)
-    return () => clearTimeout(timeoutId)
-  }, [form.state.values, form.state.fieldMeta, currentStep])
+    return result
+  }
+
+  // No real-time validation - only validate on button press
+  // This is simpler and more reliable
+
+  // Auto-save form data as user types (debounced)
+  useEffect(() => {
+    const saveTimeout = setTimeout(() => {
+      if (form.state.values && Object.keys(form.state.values).length > 0) {
+        console.log('💾 Auto-saving form data...')
+        saveFormData(form.state.values, currentStep)
+      }
+    }, 1000) // Save after 1 second of inactivity
+
+    return () => clearTimeout(saveTimeout)
+  }, [form.state.values, currentStep])
 
   // Navigation state
   const canGoNext = currentStep < STEPS.length
@@ -402,6 +409,8 @@ export function EnhancedMultiStepForm({
               {currentStepData.description}
             </p>
 
+            {/* No real-time validation indicator */}
+
             {/* Validation Error Display */}
             {validationError && (
               <div className="mt-4 p-4 border border-destructive/20 bg-destructive/10 rounded-md">
@@ -441,7 +450,7 @@ export function EnhancedMultiStepForm({
         <Button
           type="button"
           onClick={handleSubmit}
-          disabled={form.state.isSubmitting || !currentStepValid}
+          disabled={form.state.isSubmitting}
           className="min-w-[100px]"
         >
           {form.state.isSubmitting ? (

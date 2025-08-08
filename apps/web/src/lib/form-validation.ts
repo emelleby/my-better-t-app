@@ -230,7 +230,7 @@ export function getDefaultFormData(): Partial<CompleteFormData> {
 
     // Step 2 defaults
     businessModel: '',
-    hasSubsidiaries: 'no',
+    hasSubsidiaries: null,
     subsidiaries: [],
 
     // Step 3 defaults

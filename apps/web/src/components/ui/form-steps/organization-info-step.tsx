@@ -129,15 +129,19 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
               id="revenue"
               label="Annual Revenue (USD)"
               type="number"
-              placeholder="0"
-              value={field.state.value ?? 0}
+              placeholder="Enter annual revenue"
+              value={field.state.value === 0 ? '' : field.state.value ?? ''}
               error={field.state.meta.errors?.[0]}
               required
-              min={0}
+              min={1}
               step={1000}
-              onChange={(value) => {
-                const numValue = typeof value === 'string' ? parseFloat(value) || 0 : value;
-                field.handleChange(numValue);
+              onChange={(value: any) => {
+                if (value === '' || value === null || value === undefined) {
+                  field.handleChange(0);
+                } else {
+                  const numValue = typeof value === 'string' ? parseFloat(value) : value;
+                  field.handleChange(isNaN(numValue) ? 0 : numValue);
+                }
               }}
               onBlur={field.handleBlur}
             />
@@ -159,15 +163,19 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
               id="numberOfEmployees"
               label="Number of Employees"
               type="number"
-              placeholder="1"
-              value={field.state.value ?? 1}
+              placeholder="Enter number of employees"
+              value={field.state.value === 1 ? '' : field.state.value ?? ''}
               error={field.state.meta.errors?.[0]}
               required
               min={1}
               step={1}
-              onChange={(value) => {
-                const numValue = typeof value === 'string' ? parseInt(value) || 1 : value;
-                field.handleChange(numValue);
+              onChange={(value: any) => {
+                if (value === '' || value === null || value === undefined) {
+                  field.handleChange(1);
+                } else {
+                  const numValue = typeof value === 'string' ? parseInt(value) : value;
+                  field.handleChange(isNaN(numValue) ? 1 : numValue);
+                }
               }}
               onBlur={field.handleBlur}
             />

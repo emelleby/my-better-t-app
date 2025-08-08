@@ -53,9 +53,13 @@ const FormField = forwardRef<
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
       if (type === 'number') {
-        const numValue = parseFloat(e.target.value)
-        // Handle empty string as 0 for required number fields
-        onChange?.(e.target.value === '' ? '' : (isNaN(numValue) ? 0 : numValue))
+        const inputValue = e.target.value
+        if (inputValue === '') {
+          onChange?.('')
+        } else {
+          const numValue = parseFloat(inputValue)
+          onChange?.(isNaN(numValue) ? '' : numValue)
+        }
       } else {
         onChange?.(e.target.value)
       }
