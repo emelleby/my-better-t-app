@@ -1,13 +1,12 @@
 "use client";
 
 import React from "react";
-import type { FormApi } from "@tanstack/react-form";
 import { FormField } from "@/components/ui/form-field";
 import { organizationInfoSchema } from "@/lib/form-validation";
 import type { FormData } from "@/types/form";
 
 interface OrganizationInfoStepProps {
-  form: FormApi<FormData>;
+  form: any; // TanStack Form instance
 }
 
 export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
@@ -18,13 +17,13 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
         <form.Field
           name="organizationName"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = organizationInfoSchema.shape.organizationName.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <FormField
               id="organizationName"
               label="Organization Name"
@@ -43,13 +42,13 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
         <form.Field
           name="organizationNumber"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = organizationInfoSchema.shape.organizationNumber.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <FormField
               id="organizationNumber"
               label="Organization Number"
@@ -64,42 +63,18 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
           )}
         </form.Field>
 
-        {/* Registration Number */}
-        <form.Field
-          name="registrationNumber"
-          validators={{
-            onChange: ({ value }) => {
-              const result = organizationInfoSchema.shape.registrationNumber.safeParse(value);
-              return result.success ? undefined : result.error.issues[0]?.message;
-            },
-          }}
-        >
-          {(field) => (
-            <FormField
-              id="registrationNumber"
-              label="Registration Number"
-              type="text"
-              placeholder="Enter registration number"
-              value={field.state.value || ''}
-              error={field.state.meta.errors?.[0]}
-              required
-              onChange={(value) => field.handleChange(value as string)}
-              onBlur={field.handleBlur}
-            />
-          )}
-        </form.Field>
 
         {/* NACE Code */}
         <form.Field
           name="naceCode"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = organizationInfoSchema.shape.naceCode.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <FormField
               id="naceCode"
               label="NACE Code"
@@ -118,13 +93,13 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
         <form.Field
           name="industry"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = organizationInfoSchema.shape.industry.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <FormField
               id="industry"
               label="Industry"
@@ -143,13 +118,13 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
         <form.Field
           name="revenue"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = organizationInfoSchema.shape.revenue.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <FormField
               id="revenue"
               label="Annual Revenue (USD)"
@@ -173,13 +148,13 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
         <form.Field
           name="numberOfEmployees"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = organizationInfoSchema.shape.numberOfEmployees.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <FormField
               id="numberOfEmployees"
               label="Number of Employees"
@@ -203,13 +178,13 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
         <form.Field
           name="contactPerson"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = organizationInfoSchema.shape.contactPerson.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <FormField
               id="contactPerson"
               label="Contact Person"
@@ -228,13 +203,13 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
         <form.Field
           name="email"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = organizationInfoSchema.shape.email.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <FormField
               id="email"
               label="Email Address"
@@ -253,13 +228,13 @@ export function OrganizationInfoStep({ form }: OrganizationInfoStepProps) {
         <form.Field
           name="phoneNumber"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = organizationInfoSchema.shape.phoneNumber.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <FormField
               id="phoneNumber"
               label="Phone Number"

@@ -47,7 +47,7 @@ export const organizationInfoSchema = z.object({
     .min(8, 'Please enter a valid phone number')
     .max(20, 'Phone number must be less than 20 characters')
     .regex(/^[+]?[0-9\s\-()]+$/, 'Please enter a valid phone number format'),
-})
+}).passthrough()
 
 // Subsidiary validation schema
 export const subsidiarySchema = z.object({
@@ -84,6 +84,7 @@ export const businessModelSchema = z
       }),
     subsidiaries: z.array(subsidiarySchema).optional(),
   })
+  .passthrough()
   .refine(
     (data) => {
       // If hasSubsidiaries is 'yes', subsidiaries array must have at least one item
@@ -155,7 +156,7 @@ export const sustainabilityInitiativesSchema = z.object({
       message: 'Please complete all fields for active initiatives',
     }
   ),
-})
+}).passthrough()
 
 // Complete form validation schema
 export const completeFormSchema = z.object({
@@ -165,7 +166,7 @@ export const completeFormSchema = z.object({
   ...businessModelSchema.shape,
   // Step 3 fields
   ...sustainabilityInitiativesSchema.shape,
-})
+}).passthrough()
 
 // Type inference from schemas
 export type OrganizationInfoData = z.infer<typeof organizationInfoSchema>
@@ -219,7 +220,6 @@ export function getDefaultFormData(): Partial<CompleteFormData> {
     // Step 1 defaults
     organizationName: '',
     organizationNumber: '',
-    registrationNumber: '',
     naceCode: '',
     industry: '',
     revenue: 0,
@@ -235,5 +235,12 @@ export function getDefaultFormData(): Partial<CompleteFormData> {
 
     // Step 3 defaults
     initiatives: defaultInitiatives,
+
+    // Completion tracking defaults
+    completion: {
+      orgInfo: false,
+      businessModel: false,
+      initiatives: false,
+    },
   }
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import type { FormApi } from "@tanstack/react-form";
 import { FormField } from "@/components/ui/form-field";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -12,7 +11,7 @@ import { businessModelSchema, subsidiarySchema } from "@/lib/form-validation";
 import type { FormData, Subsidiary } from "@/types/form";
 
 interface BusinessModelStepProps {
-  form: FormApi<FormData>;
+  form: any; // TanStack Form instance
 }
 
 export function BusinessModelStep({ form }: BusinessModelStepProps) {
@@ -30,13 +29,13 @@ export function BusinessModelStep({ form }: BusinessModelStepProps) {
         <form.Field
           name="businessModel"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = businessModelSchema.shape.businessModel.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <div className="space-y-2">
               <FormField
                 id="businessModel"
@@ -71,13 +70,13 @@ export function BusinessModelStep({ form }: BusinessModelStepProps) {
         <form.Field
           name="hasSubsidiaries"
           validators={{
-            onChange: ({ value }) => {
+            onChange: ({ value }: { value: any }) => {
               const result = businessModelSchema.shape.hasSubsidiaries.safeParse(value);
               return result.success ? undefined : result.error.issues[0]?.message;
             },
           }}
         >
-          {(field) => (
+          {(field: any) => (
             <div className="space-y-3">
               <Label className="text-sm font-medium">
                 Does your organization have subsidiaries? *
@@ -118,11 +117,11 @@ export function BusinessModelStep({ form }: BusinessModelStepProps) {
 
         {/* Conditional Subsidiaries Management */}
         <form.Field name="hasSubsidiaries">
-          {(hasSubsidiariesField) => {
+        {(hasSubsidiariesField: any) => {
             if (hasSubsidiariesField.state.value === 'yes') {
               return (
                 <form.Field name="subsidiaries">
-                  {(subsidiariesField) => {
+                  {(subsidiariesField: any) => {
                     const subsidiaries = (subsidiariesField.state.value as Subsidiary[]) || [];
 
                     const addSubsidiary = () => {

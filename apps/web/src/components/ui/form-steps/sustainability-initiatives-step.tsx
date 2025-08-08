@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import type { FormApi } from "@tanstack/react-form";
 import { FormField } from "@/components/ui/form-field";
 // import { Checkbox } from "@/components/ui/checkbox";
 import { initiativeSchema } from "@/lib/form-validation";
@@ -12,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SustainabilityInitiativesStepProps {
-  form: FormApi<FormData>;
+  form: any; // TanStack Form instance
 }
 
 export function SustainabilityInitiativesStep({ form }: SustainabilityInitiativesStepProps) {
@@ -33,7 +32,7 @@ export function SustainabilityInitiativesStep({ form }: SustainabilityInitiative
   const renderInitiativeCard = (type: InitiativeType) => {
     return (
       <form.Field key={type} name={`initiatives.${type}`}>
-        {(initiativeField) => {
+        {(initiativeField: any) => {
           const initiative = (initiativeField.state.value as Initiative) || { isActive: false };
           const isActive = initiative.isActive;
           const isComplete = isActive && initiative.description && initiative.goal && initiative.responsiblePerson;
@@ -243,7 +242,7 @@ export function SustainabilityInitiativesStep({ form }: SustainabilityInitiative
 
       {/* Active Initiatives Summary */}
       <form.Field name="initiatives">
-        {(initiativesField) => {
+        {(initiativesField: any) => {
           const initiatives = (initiativesField.state.value as Record<InitiativeType, Initiative>) || {};
           const activeCount = Object.values(initiatives).filter(init => init?.isActive).length;
           const completeCount = Object.values(initiatives).filter(init => 

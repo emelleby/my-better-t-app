@@ -3,7 +3,6 @@ export interface FormData extends Record<string, unknown> {
   // Step 1: Organization Information
   organizationName: string
   organizationNumber: string
-  registrationNumber: string
   naceCode: string
   industry: string
   revenue: number
@@ -19,6 +18,13 @@ export interface FormData extends Record<string, unknown> {
 
   // Step 3: Sustainability Initiatives
   initiatives: Record<InitiativeType, Initiative>
+
+  // Step completion tracking
+  completion: {
+    orgInfo: boolean
+    businessModel: boolean
+    initiatives: boolean
+  }
 }
 
 export interface Subsidiary {

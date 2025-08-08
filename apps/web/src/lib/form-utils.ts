@@ -8,6 +8,7 @@ export interface PersistedFormData {
   currentStep: number
   timestamp: number
   version: string
+  submitted?: boolean
 }
 
 /**
@@ -22,7 +23,7 @@ export function saveFormData(
       formData: data,
       currentStep,
       timestamp: Date.now(),
-      version: '1.0.0',
+      version: '1.1.0',
     }
     localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(persistedData))
   } catch {
@@ -53,6 +54,24 @@ export function loadFormData(): PersistedFormData | null {
   } catch {
     clearFormData()
     return null
+  }
+}
+
+/**
+ * Mark form as submitted in localStorage
+ */
+export function markFormAsSubmitted(): void {
+  try {
+    const existing = loadFormData()
+    if (existing) {
+      const updatedData: PersistedFormData = {
+        ...existing,
+        submitted: true,
+      }
+      localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(updatedData))
+    }
+  } catch {
+    // Silent fail for localStorage issues
   }
 }
 

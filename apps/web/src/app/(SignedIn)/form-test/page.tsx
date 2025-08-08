@@ -43,27 +43,27 @@ export default function FormTestPage() {
             <form.Field name="organizationName">
               {(field) => (
                 <FormField
-                  error={field.state.meta.errors?.[0] as string}
+                  error={field.state.meta.errors?.[0] || ''}
                   id="organizationName"
                   label="Organization Name"
                   onChange={(value) => field.handleChange(value)}
                   placeholder="Enter organization name"
                   required
-                  value={field.state.value || ''}
+                  value={String(field.state.value || '')}
                 />
               )}
             </form.Field>
             <form.Field name="email">
               {(field) => (
                 <FormField
-                  error={field.state.meta.errors?.[0] as string}
+                  error={field.state.meta.errors?.[0] || ''}
                   id="email"
                   label="Email"
                   onChange={(value) => field.handleChange(value)}
                   placeholder="Enter email address"
                   required
                   type="email"
-                  value={field.state.value || ''}
+                  value={String(field.state.value || '')}
                 />
               )}
             </form.Field>
@@ -76,14 +76,14 @@ export default function FormTestPage() {
             <form.Field name="businessModel">
               {(field) => (
                 <FormField
-                  error={field.state.meta.errors?.[0] as string}
+                  error={field.state.meta.errors?.[0] || ''}
                   id="businessModel"
                   label="Business Model"
                   onChange={(value) => field.handleChange(value)}
                   placeholder="Describe your business model"
                   required
                   type="textarea"
-                  value={field.state.value || ''}
+                  value={String(field.state.value || '')}
                 />
               )}
             </form.Field>

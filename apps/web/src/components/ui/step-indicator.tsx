@@ -15,6 +15,19 @@ interface StepIndicatorProps {
   className?: string
   showTitles?: boolean
   onStepClick?: (stepIndex: number) => void
+  // Optional completion status - when provided, uses true completion instead of positional logic
+  completion?: Record<string, boolean>
+}
+
+interface StepItemProps {
+  step: Step
+  stepNumber: number
+  isCompleted: boolean
+  isCurrent: boolean
+  isClickable: boolean
+  showTitle: boolean
+  onStepClick?: (stepIndex: number) => void
+  stepIndex: number
 }
 
 function StepItem({
@@ -104,14 +117,25 @@ export function StepIndicator({
   className,
   showTitles = true,
   onStepClick,
+  completion,
 }: StepIndicatorProps) {
   return (
     <div className={cn('mb-8 flex justify-between', className)}>
       {steps.map((step, index) => {
         const stepNumber = index + 1
-        const isCompleted = stepNumber < currentStep
         const isCurrent = stepNumber === currentStep
-        const isClickable = onStepClick && isCompleted
+        
+        // Use completion flags if provided, otherwise fall back to positional logic
+        let isCompleted: boolean
+        if (completion) {
+          // True completion status based on validation
+          isCompleted = completion[step.id] || false
+        } else {
+          // Fallback to positional logic for backwards compatibility
+          isCompleted = stepNumber < currentStep
+        }
+        
+        const isClickable = !!(onStepClick && isCompleted)
 
         return (
           <StepItem
