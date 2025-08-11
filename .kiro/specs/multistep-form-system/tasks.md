@@ -21,7 +21,7 @@ This implementation plan converts the multi-step form system design into a serie
   - Write unit tests for storage operations including edge cases
   - _Requirements: 7.1, 7.2, 7.4_
 
-- [ ] 3. Create Zod validation schemas for sustainability form
+- [x] 3. Create Zod validation schemas for sustainability form
   - Define the complete `OrganizationFormData` interface matching the design
   - Create Zod schemas for organization information step with all required fields
   - Implement business model and subsidiaries schema with conditional validation
