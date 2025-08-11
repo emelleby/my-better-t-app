@@ -7,6 +7,19 @@ import { cn } from '@/lib/utils'
 import type { TextFieldProps } from './types'
 
 /**
+ * Extracts error message from TanStack Forms field error
+ */
+function getErrorMessage(error: unknown): string {
+  if (typeof error === 'string') {
+    return error
+  }
+  if (error && typeof error === 'object' && 'message' in error) {
+    return String(error.message)
+  }
+  return 'Validation error'
+}
+
+/**
  * TextField component with TanStack Forms integration and Zod validation
  *
  * Features:
@@ -33,7 +46,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const { name, label, placeholder, required = false } = definition
 
     const hasError = field.state.meta.errors.length > 0
-    const errorMessage = field.state.meta.errors[0]
+    const errorMessage = hasError
+      ? getErrorMessage(field.state.meta.errors[0])
+      : ''
 
     return (
       <div className={cn('space-y-2', className)}>

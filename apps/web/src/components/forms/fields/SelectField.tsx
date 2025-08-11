@@ -13,6 +13,19 @@ import { cn } from '@/lib/utils'
 import type { SelectFieldProps } from './types'
 
 /**
+ * Extracts error message from TanStack Forms field error
+ */
+function getErrorMessage(error: unknown): string {
+  if (typeof error === 'string') {
+    return error
+  }
+  if (error && typeof error === 'object' && 'message' in error) {
+    return String(error.message)
+  }
+  return 'Validation error'
+}
+
+/**
  * SelectField component for industry and other dropdown selections
  *
  * Features:
@@ -44,7 +57,9 @@ export const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(
     } = definition
 
     const hasError = field.state.meta.errors.length > 0
-    const errorMessage = field.state.meta.errors[0]
+    const errorMessage = hasError
+      ? getErrorMessage(field.state.meta.errors[0])
+      : ''
     const placeholder =
       customPlaceholder ||
       definitionPlaceholder ||
