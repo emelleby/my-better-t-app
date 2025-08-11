@@ -82,7 +82,52 @@ interface FieldDefinition {
 }
 ```
 
-### 2. TanStack Forms Integration
+### 2. Sustainability Initiative Types
+
+The system will use predefined initiative categories and labels:
+
+```typescript
+// Initiative types
+type InitiativeType = 
+  | 'WorkforceDevelopment'
+  | 'Biodiversity'
+  | 'ClimateAction'
+  | 'WasteReduction'
+  | 'EnergyEfficiency'
+  | 'WaterConservation'
+  | 'CommunityEngagement'
+  | 'SupplyChainSustainability'
+
+// Initiative categories for UI grouping
+export const INITIATIVE_CATEGORIES = {
+  environmental: [
+    'Biodiversity',
+    'ClimateAction',
+    'WasteReduction',
+    'EnergyEfficiency',
+    'WaterConservation',
+  ] as InitiativeType[],
+  social: [
+    'WorkforceDevelopment',
+    'CommunityEngagement',
+    'SupplyChainSustainability',
+  ] as InitiativeType[],
+} as const
+
+// Initiative display names
+export const INITIATIVE_LABELS: Record<InitiativeType, string> = {
+  WorkforceDevelopment: 'Workforce Development',
+  Biodiversity: 'Biodiversity Conservation',
+  ClimateAction: 'Climate Action',
+  WasteReduction: 'Waste Reduction',
+  EnergyEfficiency: 'Energy Efficiency',
+  WaterConservation: 'Water Conservation',
+  CommunityEngagement: 'Community Engagement',
+  SupplyChainSustainability: 'Supply Chain Sustainability',
+}
+```
+
+### 3. TanStack Forms Integration
 
 The system will leverage TanStack Forms' native capabilities for handling complex data structures:
 
@@ -117,7 +162,7 @@ interface OrganizationFormData {
   // Step 3: Sustainability initiatives
   sustainability: {
     initiatives: Array<{
-      category: string
+      type: InitiativeType
       selected: boolean
       description?: string
       goal?: string
@@ -125,9 +170,12 @@ interface OrganizationFormData {
     }>
   }
 }
+}
+
+
 ```
 
-### 3. Field Type System
+### 4. Field Type System
 
 ```typescript
 type FieldType = 
@@ -154,7 +202,7 @@ interface FieldProps {
 }
 ```
 
-### 4. Storage Abstraction Layer
+### 5. Storage Abstraction Layer
 
 ```typescript
 interface StorageProvider {
