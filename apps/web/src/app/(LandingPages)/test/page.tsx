@@ -1,4 +1,4 @@
-import { FieldDemo } from '@/components/forms/fields'
+import { FieldArrayDemo, FieldDemo } from '@/components/forms/fields'
 
 export default function TestPage() {
   return (
@@ -13,7 +13,16 @@ export default function TestPage() {
           </p>
         </div>
 
-        <FieldDemo />
+        <div className="space-y-8">
+          <FieldDemo />
+
+          <div className="border-t pt-8">
+            <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-gray-100">
+              FieldArray Demo - Dynamic Subsidiaries
+            </h2>
+            <FieldArrayDemo />
+          </div>
+        </div>
       </div>
     </div>
   )

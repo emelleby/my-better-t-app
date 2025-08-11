@@ -83,7 +83,7 @@ export interface FieldArrayItemProps<T = unknown> {
   item: T
   onRemove: (index: number) => void
   onUpdate: (index: number, data: Partial<T>) => void
-  schema: z.ZodSchema<T>
+  schema?: z.ZodSchema<T>
   disabled?: boolean
 }
 

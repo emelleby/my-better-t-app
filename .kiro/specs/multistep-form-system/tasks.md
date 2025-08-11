@@ -37,7 +37,7 @@ This implementation plan converts the multi-step form system design into a serie
   - Add proper TypeScript typing, error display, and accessibility attributes
   - _Requirements: 1.3, 6.1, 6.2, 8.1_
 
-- [ ] 5. Implement dynamic field array components
+- [x] 5. Implement dynamic field array components
   - Create `FieldArray` component using TanStack Forms array field capabilities
   - Implement add/remove functionality for subsidiaries with proper state management
   - Build subsidiary form fields (name, organization number, address) as a reusable component

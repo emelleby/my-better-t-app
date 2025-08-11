@@ -1,4 +1,8 @@
-import type { FieldRegistry, FieldType, FieldTypeRenderer } from './types'
+import type {
+  FieldRegistry,
+  FieldType,
+  FieldTypeRenderer,
+} from './types/field-types'
 
 /**
  * Field registry implementation for managing field type renderers
@@ -36,5 +40,7 @@ export const fieldRegistry = new FieldRegistryImpl()
  * Helper function to register multiple field renderers at once
  */
 export function registerFieldRenderers(renderers: FieldTypeRenderer[]): void {
-  renderers.forEach((renderer) => fieldRegistry.register(renderer))
+  for (const renderer of renderers) {
+    fieldRegistry.register(renderer)
+  }
 }
