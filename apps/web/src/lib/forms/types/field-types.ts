@@ -27,7 +27,7 @@ export interface ConditionalRule {
     | 'notContains'
     | 'greaterThan'
     | 'lessThan'
-  value: any
+  value: unknown
   logic?: 'and' | 'or'
 }
 
@@ -40,38 +40,18 @@ export interface FieldDefinition {
   label: string
   placeholder?: string
   required?: boolean
-  validation?: z.ZodSchema<any>
+  validation?: z.ZodSchema<unknown>
   conditionalDisplay?: ConditionalRule
-  fieldProps?: Record<string, any>
-  options?: Array<{ label: string; value: any }> // For select, radio fields
-  arrayItemSchema?: z.ZodSchema<any> // For fieldArray type
+  fieldProps?: Record<string, unknown>
+  options?: Array<{ label: string; value: unknown; disabled?: boolean }> // For select, radio fields
+  arrayItemSchema?: z.ZodSchema<unknown> // For fieldArray type
 }
 
 /**
  * Props passed to field components
  */
-export interface FieldProps<T = any> {
-  field: FieldApi<
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any
-  >
+export interface FieldProps {
+  field: any // FieldApi type from TanStack Forms - using any for simplicity
   definition: FieldDefinition
   disabled?: boolean
   className?: string
@@ -83,7 +63,7 @@ export interface FieldProps<T = any> {
 export interface FieldTypeRenderer {
   type: FieldType
   component: React.ComponentType<FieldProps>
-  validator?: (value: any) => boolean
+  validator?: (value: unknown) => boolean
 }
 
 /**
@@ -98,7 +78,7 @@ export interface FieldRegistry {
 /**
  * Field array item props for dynamic arrays
  */
-export interface FieldArrayItemProps<T = any> {
+export interface FieldArrayItemProps<T = unknown> {
   index: number
   item: T
   onRemove: (index: number) => void
@@ -112,7 +92,7 @@ export interface FieldArrayItemProps<T = any> {
  */
 export interface ConditionalGroupProps {
   condition: ConditionalRule
-  formData: any
+  formData: unknown
   children: React.ReactNode
   animationDuration?: number
 }

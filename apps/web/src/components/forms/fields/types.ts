@@ -2,7 +2,7 @@ import type {
   ConditionalGroupProps,
   FieldArrayItemProps,
   FieldProps,
-} from '../../../lib/forms/types'
+} from '../../../lib/forms/types/field-types'
 
 /**
  * Props for text-based field components (TextField, TextareaField)
@@ -26,7 +26,7 @@ export interface TextareaFieldProps extends FieldProps {
  * Props for the SelectField component
  */
 export interface SelectFieldProps extends FieldProps {
-  options: Array<{ label: string; value: any; disabled?: boolean }>
+  options: Array<{ label: string; value: unknown; disabled?: boolean }>
   placeholder?: string
   searchable?: boolean
   multiple?: boolean
@@ -42,7 +42,7 @@ export interface CheckboxFieldProps extends FieldProps {
 /**
  * Props for the FieldArray component
  */
-export interface FieldArrayProps<T = any> extends FieldProps {
+export interface FieldArrayProps<T = unknown> extends FieldProps {
   itemComponent: React.ComponentType<FieldArrayItemProps<T>>
   addButtonLabel?: string
   removeButtonLabel?: string

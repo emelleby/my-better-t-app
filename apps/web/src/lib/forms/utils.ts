@@ -1,4 +1,5 @@
-import type { ConditionalRule, FormState, ProgressData } from './types'
+import type { ConditionalRule } from './types/field-types'
+import type { FormState, ProgressData } from './types/form-types'
 
 /**
  * Evaluates a conditional rule against form data
@@ -15,13 +16,19 @@ export function evaluateConditionalRule(
     case 'notEquals':
       return fieldValue !== rule.value
     case 'contains':
-      return typeof fieldValue === 'string' && fieldValue.includes(rule.value)
+      return (
+        typeof fieldValue === 'string' &&
+        fieldValue.includes(String(rule.value))
+      )
     case 'notContains':
-      return typeof fieldValue === 'string' && !fieldValue.includes(rule.value)
+      return (
+        typeof fieldValue === 'string' &&
+        !fieldValue.includes(String(rule.value))
+      )
     case 'greaterThan':
-      return typeof fieldValue === 'number' && fieldValue > rule.value
+      return typeof fieldValue === 'number' && fieldValue > Number(rule.value)
     case 'lessThan':
-      return typeof fieldValue === 'number' && fieldValue < rule.value
+      return typeof fieldValue === 'number' && fieldValue < Number(rule.value)
     default:
       return false
   }
