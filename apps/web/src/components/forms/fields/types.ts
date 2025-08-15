@@ -56,4 +56,6 @@ export interface FieldArrayProps<T = unknown> extends FieldProps {
  */
 export interface ConditionalGroupComponentProps extends ConditionalGroupProps {
   className?: string
+  fieldsToCleanup?: string[]
+  onDataCleanup?: (cleanedData: Record<string, unknown>) => void
 }

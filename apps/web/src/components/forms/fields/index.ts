@@ -6,6 +6,8 @@
  */
 
 export { default as CheckboxField } from './CheckboxField'
+export { default as ConditionalGroup } from './ConditionalGroup'
+export { default as ConditionalGroupDemo } from './ConditionalGroupDemo'
 export { default as FieldArray } from './FieldArray'
 export { default as FieldArrayDemo } from './FieldArrayDemo'
 export { default as FieldDemo } from './FieldDemo'

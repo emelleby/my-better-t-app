@@ -1,6 +1,18 @@
 import '@testing-library/jest-dom'
 import { beforeEach, vi } from 'vitest'
 
+// Mock framer-motion globally for all tests
+vi.mock('framer-motion', async () => {
+  const actual = await vi.importActual('framer-motion')
+  return {
+    ...actual,
+    motion: {
+      div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    },
+    AnimatePresence: ({ children }: any) => children,
+  }
+})
+
 // Mock localStorage for testing
 const localStorageMock = {
   getItem: vi.fn(),

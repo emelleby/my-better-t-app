@@ -1,4 +1,8 @@
-import { FieldArrayDemo, FieldDemo } from '@/components/forms/fields'
+import {
+  ConditionalGroupDemo,
+  FieldArrayDemo,
+  FieldDemo,
+} from '@/components/forms/fields'
 
 export default function TestPage() {
   return (
@@ -21,6 +25,13 @@ export default function TestPage() {
               FieldArray Demo - Dynamic Subsidiaries
             </h2>
             <FieldArrayDemo />
+          </div>
+
+          <div className="border-t pt-8">
+            <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-gray-100">
+              ConditionalGroup Demo - Conditional Field Rendering
+            </h2>
+            <ConditionalGroupDemo />
           </div>
         </div>
       </div>
