@@ -3,6 +3,7 @@ import {
   FieldArrayDemo,
   FieldDemo,
 } from '@/components/forms/fields'
+import { ProgressNavigationDemo } from '@/components/forms/multi-step'
 
 export default function TestPage() {
   return (
@@ -32,6 +33,13 @@ export default function TestPage() {
               ConditionalGroup Demo - Conditional Field Rendering
             </h2>
             <ConditionalGroupDemo />
+          </div>
+
+          <div className="border-t pt-8">
+            <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-gray-100">
+              Progress & Navigation Demo - Multi-Step Form Controls
+            </h2>
+            <ProgressNavigationDemo />
           </div>
         </div>
       </div>

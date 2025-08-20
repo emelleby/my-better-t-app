@@ -1,7 +1,7 @@
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import type { ConditionalGroupComponentProps } from './types'
 
@@ -159,11 +159,14 @@ export function ConditionalGroup({
 }: ConditionalGroupComponentProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [shouldRender, setShouldRender] = useState(false)
+  const previousVisibleRef = useRef(false)
 
   // Evaluate condition whenever formData changes
   useEffect(() => {
     const newIsVisible = evaluateCondition(condition, formData)
-    const wasVisible = isVisible
+    const wasVisible = previousVisibleRef.current
+
+    // Update visibility state
     setIsVisible(newIsVisible)
 
     // If becoming visible, render immediately
@@ -185,7 +188,10 @@ export function ConditionalGroup({
       )
       onDataCleanup(cleanedData)
     }
-  }, [condition, formData, isVisible, fieldsToCleanup, onDataCleanup])
+
+    // Update the ref for next render
+    previousVisibleRef.current = newIsVisible
+  }, [condition, formData, fieldsToCleanup, onDataCleanup])
 
   // Handle animation completion
   const handleAnimationComplete = () => {

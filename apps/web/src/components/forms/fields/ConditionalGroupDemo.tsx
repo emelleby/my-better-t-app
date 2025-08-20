@@ -166,8 +166,8 @@ export default function ConditionalGroupDemo() {
                   formData={formData}
                   onDataCleanup={(cleanedData) => {
                     console.log('Cleaning up subsidiary data:', cleanedData)
-                    // In a real form, you would update the form state here
-                    // form.setFieldValue('businessModel.subsidiaries', [])
+                    // Actually update the form state to clear the subsidiaries
+                    form.setFieldValue('businessModel.subsidiaries', [])
                   }}
                 >
                   <div className="space-y-4 rounded-lg border p-4">
@@ -250,6 +250,23 @@ export default function ConditionalGroupDemo() {
                               console.log(
                                 `Cleaning up ${INITIATIVE_LABELS[initiativeType]} data:`,
                                 cleanedData
+                              )
+                              // Actually update the form state to clear the initiative fields
+                              const initiativeIndex =
+                                Object.keys(INITIATIVE_LABELS).indexOf(
+                                  initiativeType
+                                )
+                              form.setFieldValue(
+                                `sustainability.initiatives.${initiativeIndex}.description`,
+                                ''
+                              )
+                              form.setFieldValue(
+                                `sustainability.initiatives.${initiativeIndex}.goal`,
+                                ''
+                              )
+                              form.setFieldValue(
+                                `sustainability.initiatives.${initiativeIndex}.responsiblePerson`,
+                                ''
                               )
                             }}
                           >
@@ -350,7 +367,31 @@ export default function ConditionalGroupDemo() {
                               operator: 'equals',
                               value: true,
                             }}
+                            fieldsToCleanup={[
+                              `sustainability.initiatives.${globalIndex}.description`,
+                              `sustainability.initiatives.${globalIndex}.goal`,
+                              `sustainability.initiatives.${globalIndex}.responsiblePerson`,
+                            ]}
                             formData={formData}
+                            onDataCleanup={(cleanedData) => {
+                              console.log(
+                                `Cleaning up ${INITIATIVE_LABELS[initiativeType]} data:`,
+                                cleanedData
+                              )
+                              // Actually update the form state to clear the initiative fields
+                              form.setFieldValue(
+                                `sustainability.initiatives.${globalIndex}.description`,
+                                ''
+                              )
+                              form.setFieldValue(
+                                `sustainability.initiatives.${globalIndex}.goal`,
+                                ''
+                              )
+                              form.setFieldValue(
+                                `sustainability.initiatives.${globalIndex}.responsiblePerson`,
+                                ''
+                              )
+                            }}
                           >
                             <div className="ml-6 space-y-3 rounded border-blue-200 border-l-2 bg-blue-50 p-3 dark:border-blue-800 dark:bg-blue-950/20">
                               <form.Field
