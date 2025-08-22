@@ -34,6 +34,12 @@ This project will be developed and delivered in the following sequence of Epics.
 - **Dependencies:** Epic 3 (Core UI)
 - **Value:** Core reporting data collection
 
+### Epic 4.1: Multistep Form System
+- **Focus:** Reusable multi-step form architecture for sustainability reporting
+- **Scope:** TanStack Forms integration, Zod validation, accessibility compliance
+- **Dependencies:** Epic 3 (Core UI), existing UI components
+- **Value:** Enhanced user experience and form infrastructure foundation
+
 ### Epic 5: Environment Module
 - **Focus:** Environmental impact and sustainability metrics
 - **Scope:** Basic Module (B3-B7) + Comprehensive Module (C3, C4)
@@ -73,6 +79,8 @@ This project will be developed and delivered in the following sequence of Epics.
 
 ```
 Epic 1 (Auth) → Epic 2 (Onboarding) → Epic 3 (UI) → Epic 4 (General)
+                                    ↓                    ↓
+                              Epic 4.1 (Forms)      Epic 5 (Environment)
                                                            ↓
 Epic 7 (Governance) ← Epic 6 (Social) ← Epic 5 (Environment)
 ```

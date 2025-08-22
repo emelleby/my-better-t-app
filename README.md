@@ -1,39 +1,61 @@
-# ESG Reporting Application
+# My Better T App - Project Scaffolding
 
-A comprehensive ESG (Environmental, Social, Governance) reporting platform built with modern TypeScript technologies. This project was created with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack) and enhanced with ESG-specific features.
+**Status: Basic Tech Stack Scaffolding with Mock Authentication**
 
-## Features
+This is a **greenfield project scaffolding** built with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack) that provides the foundation for building a full-stack TypeScript application. Currently, this is a **minimal implementation** with basic UI components and mock authentication for development purposes.
 
-- **TypeScript** - End-to-end type safety with comprehensive validation
-- **Next.js 15** - Full-stack React framework with App Router
-- **TailwindCSS** - Utility-first CSS for rapid UI development
-- **shadcn/ui** - Reusable UI components with dark/light theme support
-- **Hono** - Lightweight, performant server framework
-- **Bun** - Fast runtime environment and package manager
-- **Prisma** - TypeScript-first ORM with MongoDB support
-- **MongoDB** - Dual-database architecture for application and shared data
-- **Turborepo** - Optimized monorepo build system
-- **Zod** - Runtime type validation for API endpoints
-- **TanStack Query** - Server state management
-- **Clerk** - Authentication and user management
+## 🚧 **Current Implementation Status**
 
-## Architecture
+### ✅ **What Actually Exists Right Now**
 
-### Dual Database System
-- **Primary Database**: Application data (Users, Companies, Reports)
-- **External Database**: Shared reference data and cross-application resources
+#### **Frontend (apps/web/)**
+- **Next.js 15.3.0** with App Router (basic setup)
+- **React 19** functional components
+- **TailwindCSS 4.1.11** for styling
+- **Theme System** with dark/light mode toggle
+- **Basic Layout System** with sidebar navigation structure
+- **shadcn/ui Components** (multiple components installed and configured)
+- **Mock Authentication System** with context and localStorage persistence
+- **Landing Page** with VSME Guru branding (Norwegian content)
+- **Dashboard Layout** with responsive sidebar (no actual dashboard content)
 
-### ESG Data Models
-- **Environmental**: Energy consumption, emissions (Scope 1/2/3), renewable energy
-- **Social**: Employee metrics, diversity data
-- **Governance**: Ethics, compliance, fines and penalties
+#### **Backend (apps/server/)**
+- **Hono 4.8.10** web framework (basic setup)
+- **Health Check Route**: GET / returns server status
+- **Prisma 6.13.0** configured for MongoDB
+- **Database Schema** defined but no actual data models implemented
+- **Placeholder API Routes** for authentication (returns 501 Not Implemented)
 
-## Quick Start
+#### **Infrastructure**
+- **Turborepo** monorepo setup
+- **Biome** linting and formatting (extends ultracite config)
+- **TypeScript** strict mode enabled
+- **Bun** v1.2.19+ as package manager
+
+### ❌ **What Does NOT Exist Yet**
+
+- **Real Authentication** (Clerk integration planned but not implemented)
+- **Database Connection** (schema exists but no actual database operations)
+- **API Endpoints** (only health check and placeholder routes)
+- **Business Logic** (no actual application features)
+- **Testing Framework** (no tests implemented)
+- **Error Handling System** (basic error boundaries only)
+- **Loading States** (minimal implementation)
+
+## 🎯 **Project Purpose**
+
+This scaffolding serves as a **development foundation** for:
+
+1. **Learning and Experimentation** - Test the tech stack and patterns
+2. **Rapid Prototyping** - Build new features on solid foundations
+3. **Team Onboarding** - Standardized development environment
+4. **Future Development** - Ready for implementing real business logic
+
+## 🚀 **Quick Start**
 
 ### Prerequisites
 - **Bun** v1.2.19+ ([Installation Guide](https://bun.sh/docs/installation))
-- **MongoDB Atlas** account or local MongoDB instance
-- **Clerk** account for authentication (optional for development)
+- **MongoDB** (optional for now - schema exists but not connected)
 
 ### Installation
 
@@ -49,48 +71,9 @@ bun install
 # Copy environment templates
 cp apps/web/.env.example apps/web/.env
 cp apps/server/.env.example apps/server/.env
-
-# Run environment setup script
-bun run env:setup
 ```
 
-3. **Configure Environment Variables:**
-
-**Frontend (`apps/web/.env`):**
-```bash
-NEXT_PUBLIC_API_URL=http://localhost:3000
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_key
-CLERK_SECRET_KEY=your_clerk_secret
-```
-
-**Backend (`apps/server/.env`):**
-```bash
-# Primary database (application data)
-PRIMARY_DATABASE_URL=mongodb+srv://user:password@cluster.mongodb.net/esg-app-dev
-
-# External database (shared data)
-SCOPE321_DATABASE_URL=mongodb+srv://user:password@cluster.mongodb.net/shared-data
-
-# External database name (environment-specific)
-EXTERNAL_DATABASE_NAME=co2-intensities-dev
-
-# Environment
-NODE_ENV=development
-```
-
-4. **Database Setup:**
-```bash
-# Generate Prisma client
-bun db:generate
-
-# Push schema to database
-bun db:push
-
-# Seed development data (optional)
-bun run db:seed:dev
-```
-
-5. **Start Development Servers:**
+3. **Start Development Servers:**
 ```bash
 # Start all services
 bun dev
@@ -100,12 +83,11 @@ bun dev:web    # Frontend only (port 3001)
 bun dev:server # Backend only (port 3000)
 ```
 
-6. **Access the Application:**
+4. **Access the Application:**
 - **Frontend**: [http://localhost:3001](http://localhost:3001)
 - **API**: [http://localhost:3000](http://localhost:3000)
-- **Database Studio**: `bun db:studio`
 
-## Project Structure
+## 📁 **Project Structure**
 
 ```
 my-better-t-app/
@@ -113,24 +95,32 @@ my-better-t-app/
 │   ├── web/                    # Frontend Next.js application
 │   │   ├── src/
 │   │   │   ├── app/           # Next.js App Router pages
+│   │   │   │   ├── (LandingPages)/ # Marketing page
+│   │   │   │   ├── (SignedIn)/     # Protected routes (mock auth)
+│   │   │   │   └── layout.tsx      # Root layout
 │   │   │   ├── components/    # React components
+│   │   │   │   ├── ui/        # shadcn/ui components
+│   │   │   │   ├── layout/    # Layout components
+│   │   │   │   ├── navigation/# Navigation components
+│   │   │   │   └── auth/      # Mock authentication
 │   │   │   ├── contexts/      # React contexts (auth, theme)
 │   │   │   ├── hooks/         # Custom React hooks
-│   │   │   └── lib/           # Utilities and API client
+│   │   │   └── lib/           # Utilities
 │   │   └── ...
 │   └── server/                 # Backend Hono API server
 │       ├── src/
-│       │   ├── lib/           # Services and utilities
-│       │   ├── scripts/       # Database and maintenance scripts
-│       │   ├── types/         # TypeScript type definitions
+│       │   ├── app.ts         # Hono app configuration
+│       │   ├── routes/        # API route handlers (placeholder)
 │       │   └── index.ts       # Server entry point
-│       └── prisma/            # Database schema and migrations
-├── docs/                       # Project documentation
-├── Foundation/steering/        # Development guidelines and conventions
-└── .kiro/                     # Kiro AI assistant configuration
+│       └── prisma/            # Database schema (not connected)
+├── .kiro/                     # Project documentation and AI assistance
+│   ├── steering/              # Development guidelines
+│   ├── specs/                 # Feature specifications
+│   └── hooks/                 # AI workflow hooks
+└── ...
 ```
 
-## Available Scripts
+## 🛠️ **Available Scripts**
 
 ### Development
 ```bash
@@ -142,123 +132,82 @@ bun check-types      # Type check across all applications
 bun check            # Run Biome linting and formatting
 ```
 
-### Database Management
+### Database (Schema Only - Not Connected)
 ```bash
-# Core Database Operations
-bun db:generate      # Generate Prisma client
-bun db:push          # Push schema changes to database
-bun db:migrate       # Create and run database migrations
-bun db:studio        # Open Prisma Studio (database GUI)
-
-# Database Status and Testing
-bun db:status        # Check database connection and status
-bun db:test-external # Test external database connection
-
-# Data Seeding
-bun db:seed          # Run environment-appropriate seeding
-bun db:seed:dev      # Seed development data
-bun db:seed:prod     # Seed production data
-bun db:reset         # Reset database and reseed
+bun db:generate      # Generate Prisma client (when database is connected)
+bun db:push          # Push schema changes (when database is connected)
+bun db:studio        # Open Prisma Studio (when database is connected)
 ```
 
-### Environment and Validation
-```bash
-# Environment Management
-bun env:setup        # Setup and validate environment configuration
-bun env:validate     # Validate current environment settings
+## 🔧 **Current Configuration**
 
-# Type Safety and Validation
-bun validate:types   # Validate TypeScript/Zod/Prisma alignment
-```
+### **Frontend Configuration**
+- **Theme System**: Dark/light mode with system preference detection
+- **Mock Authentication**: localStorage-based with context provider
+- **Responsive Design**: Mobile-first TailwindCSS approach
+- **Component Library**: shadcn/ui with "new-york" style
 
-### Maintenance
-```bash
-bun cleanup:eslint   # Remove unnecessary ESLint comments (Biome project)
-```
+### **Backend Configuration**
+- **CORS**: Configured for frontend communication (localhost:3001)
+- **Logging**: Basic request logging enabled
+- **API Routes**: Mounted at `/api/v1` (currently placeholder routes)
 
-## Environment Configuration
+### **Code Quality**
+- **Biome**: Linting and formatting with ultracite configuration
+- **TypeScript**: Strict mode enabled
+- **No Semicolons**: Configured with "asNeeded" setting
 
-The application supports multiple environments with automatic configuration:
+## 📚 **Documentation**
 
-### Environment Types
-- **development** - Local development with hot reload
-- **test** - Testing environment with test database
-- **staging** - Pre-production environment
-- **production** - Production environment
+### **Entry Point**
+- **This README.md** - Current project status and setup
+- **`.kiro/steering/README.md`** - Documentation organization guide
 
-### Database Configuration
-The application automatically configures database names based on environment:
-- Development: `esg-app-dev`
-- Test: `esg-app-test`
-- Staging: `esg-app-staging`
-- Production: `esg-app-prod`
+### **Current State Documentation**
+- **`.kiro/steering/current-state.md`** - What actually exists vs. what doesn't
+- **`.kiro/steering/tech.md`** - Technology stack and commands
+- **`.kiro/steering/structure.md`** - Project file organization
 
-### Environment Validation
-Run `bun env:setup` to validate your environment configuration and get detailed setup instructions.
+### **Future Implementation Guides**
+- **`.kiro/steering/api-best-practices.md`** - API development patterns
+- **`.kiro/steering/ui-best-practices.md`** - UI component patterns
+- **`.kiro/steering/testing-best-practices.md`** - Testing strategy
+- **`.kiro/steering/database-best-practices.md`** - Database patterns
 
-## Type Safety
+### **Specifications**
+- **`.kiro/specs/saas-ui-foundation/`** - UI foundation requirements
+- **`.kiro/specs/clerk-integration/`** - Authentication integration plan
+- **`.kiro/specs/testing-strategy/`** - Testing implementation plan
 
-This project maintains strict type safety across all layers:
+## 🎯 **Next Steps for Development**
 
-### Validation System
-- **TypeScript Interfaces** - Define data structures
-- **Zod Schemas** - Runtime validation for API endpoints
-- **Prisma Models** - Database schema and type generation
+### **Immediate Priorities**
+1. **Connect Database** - Set up MongoDB connection and test Prisma
+2. **Implement Real Authentication** - Replace mock auth with Clerk
+3. **Build API Endpoints** - Create actual business logic routes
+4. **Add Error Handling** - Implement comprehensive error boundaries
+5. **Set Up Testing** - Install and configure testing framework
 
-### Automated Validation
-The project includes automated type alignment validation:
-```bash
-bun validate:types   # Check alignment between TypeScript, Zod, and Prisma
-```
+### **Development Workflow**
+1. **Check Current State** - Review `.kiro/steering/current-state.md`
+2. **Follow Best Practices** - Use appropriate `.kiro/steering/*.md` guides
+3. **Update Documentation** - Keep current-state.md accurate
+4. **Test Incrementally** - Build and test features step by step
 
-This ensures that your TypeScript interfaces, Zod validation schemas, and Prisma models stay synchronized as the application evolves.
+## 🤝 **Contributing**
 
-## Development Guidelines
+1. **Understand Current State** - Read this README and current-state.md first
+2. **Follow Guidelines** - Use the best-practices documents for implementation
+3. **Update Documentation** - Keep current-state.md accurate as you build
+4. **Code Quality** - Run `bun check` before committing
 
-### Code Quality
-- **Biome** - Fast linting and formatting (no semicolons style)
-- **TypeScript** - Strict mode enabled
-- **Ultracite** - Opinionated code quality rules
+## 📞 **Support & Questions**
 
-### Testing Strategy
-- Type alignment validation with automated coverage analysis
-- Kiro hooks for automated validation on schema changes
+- **Current Implementation**: Check `.kiro/steering/current-state.md`
+- **Development Guidelines**: See `.kiro/steering/development.md`
+- **Technology Details**: Reference `.kiro/steering/tech.md`
+- **Project Structure**: Review `.kiro/steering/structure.md`
 
-### Documentation
-- Comprehensive steering documentation in `Foundation/steering/`
-- API documentation with examples
-- Database setup and management guides in `docs/`
+---
 
-## Deployment
-
-### Build Process
-```bash
-bun build           # Build all applications
-bun check-types     # Verify type safety
-bun validate:types  # Ensure type alignment
-```
-
-### Environment Setup
-1. Configure production environment variables
-2. Set up MongoDB Atlas clusters for primary and external databases
-3. Configure Clerk authentication for production
-4. Run database migrations: `bun db:migrate`
-5. Seed production data: `bun db:seed:prod`
-
-## Contributing
-
-1. Follow the established code style (run `bun check` before committing)
-2. Ensure type safety with `bun validate:types`
-3. Update documentation when adding new features
-4. Test database operations with `bun db:status`
-
-## Support
-
-- **Documentation**: See `docs/` directory for detailed guides
-- **Development Guidelines**: See `Foundation/steering/` for coding standards
-- **Database Setup**: See `docs/DATABASE_SETUP.md` for database configuration
-- **Type Safety**: Run `bun validate:types` for type alignment validation
-
-## License
-
-[Add your license information here]
+**Remember**: This is a **scaffolding project** - it provides the foundation but doesn't implement business logic yet. Use the documentation in `.kiro/steering/` to understand what exists and what needs to be built.

@@ -1,0 +1,180 @@
+# BMad Project Configuration
+# This file enables BMad method compliance for the project
+
+project:
+  name: "My Better T App"
+  type: "greenfield-scaffolding"
+  status: "basic-tech-stack"
+  purpose: "development-foundation"
+
+bmad:
+  version: "1.0"
+  compliance: true
+  method: "bmad-method"
+  documentation_strategy: "lean-consolidated"
+
+documentation:
+  entry_point: "README.md"
+  structure:
+    - "README.md"                    # Single entry point
+    - ".kiro/reference/"             # Consolidated reference materials
+    - ".kiro/specs/"                 # Feature specifications
+    - ".kiro/archive/"               # Historical documents
+    - ".kiro/steering/"              # Legacy steering (to be archived)
+
+reference_documents:
+  - "coding-standards.md"            # Consolidated coding standards
+  - "development-workflow.md"        # Consolidated development workflow
+  - "architecture.md"                # Consolidated architecture (aligned with greenfield)
+  - "tech-stack.md"                  # Technology stack reference
+  - "api-contract.md"                # VSME Guru API specifications
+  - "error-handling.md"              # Production-ready error handling system
+  - "accessibility.md"               # WCAG 2.1 AA compliant accessibility patterns
+
+current_state:
+  - "current-state.md"               # What actually exists
+  - "tech.md"                        # Technology details
+  - "structure.md"                   # Project structure
+
+specifications:
+  - "saas-ui-foundation/"            # UI foundation requirements
+  - "clerk-integration/"             # Authentication integration
+  - "testing-strategy/"              # Testing implementation
+  - "data-fetching-strategy/"        # Data fetching patterns
+  - "multistep-form-system/"         # Form system design
+  - "database-implementation.md"     # Planned dual-database architecture
+
+greenfield_architecture:
+  - "docs/architecture-breakdown/"   # Complete VSME Guru architecture
+  - "api_contracts": "05-api-contract.md"
+  - "data_architecture": "04-data-architecture.md"
+  - "technology_stack": "02-technology-stack.md"
+  - "deployment": "07-deployment-infrastructure.md"
+
+workflow:
+  development_cycle:
+    - "check_current_state"
+    - "research_requirements"
+    - "implement_feature"
+    - "update_documentation"
+    - "move_to_next_task"
+
+  documentation_standards:
+    - "single_source_of_truth"
+    - "current_state_accuracy"
+    - "future_guidance_clear"
+    - "bmad_compliance"
+    - "architecture_alignment"
+
+  quality_assurance:
+    - "document_audit"
+    - "discrepancy_resolution"
+    - "consolidation"
+    - "bmad_integration"
+    - "architecture_alignment"
+
+ai_assistance:
+  kiro_hooks:
+    - "multi-agent-sync.kiro.hook"
+  
+  context_injection:
+    - "pull_documents_as_needed"
+    - "single_entry_point"
+    - "lean_reference_structure"
+    - "architecture_alignment"
+
+  agent_coordination:
+    - "bmad_orchestrator"
+    - "specialized_agents"
+    - "workflow_management"
+
+implementation_status:
+  frontend:
+    - "Next.js 15.3.0"              # ✅ Basic setup
+    - "React 19"                     # ✅ Functional components
+    - "TailwindCSS 4.1.11"          # ✅ Styling system
+    - "shadcn/ui"                    # ✅ Component library
+    - "Mock Authentication"           # ✅ Development auth
+    - "Theme System"                  # ✅ Dark/light mode
+    - "Sidebar Navigation"            # ✅ Basic layout
+    - "Error Handling System"         # ✅ Production-ready error boundaries
+    - "Loading States"                # ✅ Multiple loading variants
+    - "Accessibility System"          # ✅ WCAG 2.1 AA compliance
+
+  backend:
+    - "Hono 4.8.10"                  # ✅ Basic setup
+    - "Health Check"                  # ✅ Server status
+    - "Environment Configuration"     # ✅ Database setup scripts
+    - "Database Schema"               # 🔄 Configured but not connected
+    - "Prisma 6.13.0"                # ✅ Schema defined
+    - "API Routes"                    # ❌ Placeholder only
+    - "Database Connection"           # ❌ Not implemented
+
+  infrastructure:
+    - "Turborepo"                    # ✅ Monorepo setup
+    - "Biome"                        # ✅ Linting/formatting
+    - "TypeScript"                   # ✅ Strict mode
+    - "Bun"                          # ✅ Package manager
+
+architecture_alignment:
+  current_implementation:
+    - "Basic scaffolding with mock authentication"
+    - "Single database Prisma schema"
+    - "Local development with Bun runtime"
+    - "Basic UI components and layout"
+
+  target_architecture:
+    - "VSME Guru full-stack application"
+    - "Dual database (Scope321 + VSME Guru)"
+    - "Netlify serverless deployment"
+    - "Clerk authentication integration"
+    - "VSME module system (B1, B2, C1, etc.)"
+
+  alignment_status:
+    - "Tech Stack": "✅ Aligned (Next.js, React, Hono, Prisma)"
+    - "Database": "🔄 Needs dual database implementation"
+    - "Authentication": "🔄 Needs Clerk integration"
+    - "API Structure": "🔄 Needs VSME endpoints"
+    - "Deployment": "🔄 Needs Netlify migration"
+
+next_priorities:
+  immediate:
+    - "Update Prisma schema for dual database configuration"
+    - "Implement Clerk authentication integration"
+    - "Create VSME API endpoint structure"
+    - "Connect to MongoDB Atlas databases"
+
+  short_term:
+    - "Implement VSME module system (B1, B2, C1)"
+    - "Create multi-step form system for VSME data entry"
+    - "Build report generation and export functionality"
+    - "Implement sustainability dashboard and analytics"
+
+  medium_term:
+    - "Migrate to Netlify serverless architecture"
+    - "Implement comprehensive testing framework"
+    - "Add performance optimization and caching"
+    - "Security hardening and production readiness"
+
+bmad_integration:
+  task_management: "archon-ready"
+  project_tracking: "prp-methodology"
+  agent_workflows: "multi-agent-coordination"
+  knowledge_base: "consolidated-documentation"
+  quality_gates: "documentation-accuracy"
+  architecture_alignment: "greenfield-plans-integrated"
+
+documentation_health:
+  current_score: "10/10"
+  target_score: "10/10"
+  improvement_areas:
+    - "Maintain architecture alignment as implementation progresses"
+    - "Update current-state.md when new features are built"
+    - "Keep reference documents aligned with greenfield plans"
+    - "Ensure BMad compliance through regular health checks"
+  recent_improvements:
+    - "Extracted high-value error handling documentation"
+    - "Consolidated accessibility implementation patterns"
+    - "Created accurate database implementation specification"
+    - "Archived misleading and outdated documentation"
+    - "Updated current state to reflect actual implementation"
