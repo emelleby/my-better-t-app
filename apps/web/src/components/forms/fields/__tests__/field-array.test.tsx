@@ -63,12 +63,11 @@ describe('FieldArray', () => {
     const addButton = screen.getByRole('button', { name: /add subsidiary/i })
     fireEvent.click(addButton)
 
-    await waitFor(() => {
-      expect(screen.getByText('Subsidiaries 1')).toBeInTheDocument()
-      expect(screen.getByLabelText('Subsidiary Name')).toBeInTheDocument()
-      expect(screen.getByLabelText('Organization Number')).toBeInTheDocument()
-      expect(screen.getByLabelText('Address')).toBeInTheDocument()
-    })
+    // Wait for the new item to be added - using findBy which has built-in waitFor
+    expect(await screen.findByText('Subsidiaries 1')).toBeInTheDocument()
+    expect(screen.getByLabelText('Subsidiary Name')).toBeInTheDocument()
+    expect(screen.getByLabelText('Organization Number')).toBeInTheDocument()
+    expect(screen.getByLabelText('Address')).toBeInTheDocument()
   })
 
   it('removes items when remove button is clicked', async () => {
@@ -78,9 +77,8 @@ describe('FieldArray', () => {
     const addButton = screen.getByRole('button', { name: /add subsidiary/i })
     fireEvent.click(addButton)
 
-    await waitFor(() => {
-      expect(screen.getByText('Subsidiaries 1')).toBeInTheDocument()
-    })
+    // Wait for item to be added
+    expect(await screen.findByText('Subsidiaries 1')).toBeInTheDocument()
 
     // Remove the item
     const removeButton = screen.getByRole('button', {
@@ -88,10 +86,9 @@ describe('FieldArray', () => {
     })
     fireEvent.click(removeButton)
 
-    await waitFor(() => {
-      expect(screen.queryByText('Subsidiaries 1')).not.toBeInTheDocument()
-      expect(screen.getByText('No subsidiaries added yet.')).toBeInTheDocument()
-    })
+    // Check that item is removed and empty message appears
+    expect(screen.queryByText('Subsidiaries 1')).not.toBeInTheDocument()
+    expect(await screen.findByText('No subsidiaries added yet.')).toBeInTheDocument()
   })
 
   it('respects maxItems limit', async () => {
@@ -104,9 +101,8 @@ describe('FieldArray', () => {
       fireEvent.click(addButton)
     }
 
-    await waitFor(() => {
-      expect(screen.getByText('Subsidiaries 5')).toBeInTheDocument()
-    })
+    // Wait for the last item to be added
+    expect(await screen.findByText('Subsidiaries 5')).toBeInTheDocument()
 
     // Add button should be disabled
     expect(addButton).toBeDisabled()

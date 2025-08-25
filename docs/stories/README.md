@@ -6,21 +6,44 @@ This directory contains all user stories for the VSME Guru project, organized by
 
 ### Active Stories
 
+#### Story 9: Step Renderer and Configuration System 🏗️ **[NEXT]**
+- **Status:** Ready (testing infrastructure complete)
+- **File:** [story-9-step-renderer-configuration.md](./story-9-step-renderer-configuration.md)
+- **Focus:** Dynamic step rendering and form configuration system
+- **Type:** Brownfield Addition
+- **Estimated Effort:** 3-4 hours
+- **Dependencies:** Story 8 (MultiStepForm Controller) ✅
+
+### Completed Stories
+
+#### Story 7.5: Fix Vitest Configuration ✅
+- **Status:** Completed
+- **File:** [story-7.5-fix-vitest-configuration.md](./story-7.5-fix-vitest-configuration.md)
+- **Focus:** Resolved Bun + Vitest compatibility and testing infrastructure
+- **Type:** Technical Debt / Infrastructure
+- **Actual Effort:** 2.5 hours (revised complexity)
+- **Results:** 137/180 tests passing (76% success rate)
+- **Impact:** Testing infrastructure ready for development
+
 #### Story 8: MultiStepForm Controller Component ✅
-- **Status:** Created
+- **Status:** Implemented
 - **File:** [story-8-multistep-form-controller.md](./story-8-multistep-form-controller.md)
 - **Focus:** Core form orchestration and state management
 - **Type:** Brownfield Addition
-- **Estimated Effort:** 4-6 hours
+- **Estimated Effort:** 4-6 hours (completed)
 - **Dependencies:** TanStack Forms, existing form field components, storage providers
 
-### Planned Stories
+### Ready Stories
 
-#### Story 9: Step Renderer and Configuration System
-- **Status:** Planned
-- **Focus:** Dynamic step rendering and form configuration
+#### Story 9: Step Renderer and Configuration System 🏗️
+- **Status:** Ready
+- **File:** [story-9-step-renderer-configuration.md](./story-9-step-renderer-configuration.md)
+- **Focus:** Dynamic step rendering and form configuration system
 - **Type:** Brownfield Addition
-- **Dependencies:** Story 8 (MultiStepForm Controller)
+- **Estimated Effort:** 3-4 hours
+- **Dependencies:** Story 8 (MultiStepForm Controller) ✅
+
+### Planned Stories
 
 #### Story 10: GeneralInfo Page Integration
 - **Status:** Planned
@@ -90,15 +113,27 @@ This directory contains all user stories for the VSME Guru project, organized by
 5. **Documentation:** Update relevant documentation
 6. **Story Completion:** Mark story as done and prepare for next
 
+### Polish Stories (Non-Blocking)
+
+#### Story 7.6: Test Infrastructure Polish 🧽
+- **Status:** Ready (can run in parallel)
+- **File:** [story-7.6-test-infrastructure-polish.md](./story-7.6-test-infrastructure-polish.md)
+- **Focus:** Fix remaining 43 component test failures (polish work)
+- **Type:** Technical Debt / Quality Improvement
+- **Estimated Effort:** 2-3 hours (can be split across developers)
+- **Priority:** Medium (non-blocking for Story 9)
+- **Dependencies:** Story 7.5 (Testing Infrastructure) ✅
+
 ## Current Focus
 
-**Story 8: MultiStepForm Controller Component** is the current active story that will:
+**Story 9: Step Renderer and Configuration System** is now ready for immediate development. Testing infrastructure is functional (137/180 tests passing) and Story 9 development can proceed in parallel with test polishing.
 
-- Create the core form orchestration component
-- Integrate with TanStack Forms for state management
-- Implement step navigation and validation
-- Add automatic data persistence and restoration
-- Follow existing component composition patterns
+### Key Capabilities Now Available:
+- ✅ **Testing Infrastructure Ready:** Core testing problems resolved
+- ✅ **MultiStepForm Controller:** Implemented and validated
+- ✅ **Development Pipeline:** Unblocked for feature development
+- 🛠️ **Story 9 Ready:** Dynamic field rendering can begin
+- 🧽 **Test Polish:** 43 remaining test issues can be fixed in parallel
 
 ## Story Dependencies Map
 

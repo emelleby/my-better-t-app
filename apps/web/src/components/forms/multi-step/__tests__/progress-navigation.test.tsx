@@ -22,14 +22,14 @@ describe('ProgressIndicator', () => {
       />
     )
 
-    // Check that all steps are rendered
-    expect(screen.getByText('Step 1')).toBeInTheDocument()
-    expect(screen.getByText('Step 2')).toBeInTheDocument()
+    // Check that all steps are rendered - use getAllByText to handle multiple elements
+    expect(screen.getAllByText('Step 1')).toHaveLength(2) // Once in step list, once in current step info
+    expect(screen.getAllByText('Step 2')).toHaveLength(2) // Once in step list, once in current step info
     expect(screen.getByText('Step 3')).toBeInTheDocument()
 
     // Check step descriptions
     expect(screen.getByText('First step')).toBeInTheDocument()
-    expect(screen.getByText('Second step')).toBeInTheDocument()
+    expect(screen.getAllByText('Second step')).toHaveLength(2) // Once in step list, once in current step info
     expect(screen.getByText('Third step')).toBeInTheDocument()
   })
 
@@ -55,8 +55,8 @@ describe('ProgressIndicator', () => {
       />
     )
 
-    // Should show current step title prominently
-    expect(screen.getByText('Step 2')).toBeInTheDocument()
+    // Should show current step title prominently (appears in both step list and current step info)
+    expect(screen.getAllByText('Step 2')).toHaveLength(2)
     expect(screen.getByText('Step 2 of 3')).toBeInTheDocument()
   })
 

@@ -12,9 +12,16 @@ export default defineConfig({
     setupFiles: ['./src/test-setup.ts'],
     globals: true,
   },
+  esbuild: {
+    jsx: 'automatic',
+    jsxImportSource: 'react',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  define: {
+    global: 'globalThis',
   },
 })

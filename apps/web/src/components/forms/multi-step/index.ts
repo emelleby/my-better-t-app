@@ -6,16 +6,24 @@
  * and form state persistence.
  */
 
+// Main controller component
+export type { MultiStepFormProps } from './MultiStepForm'
+export { default as MultiStepForm, MultiStepForm as MultiStepFormComponent } from './MultiStepForm'
+
+// Navigation components
 export type { NavigationControlsProps } from './NavigationControls'
 export {
   CompactNavigationControls,
   default as NavigationControls,
 } from './NavigationControls'
+
+// Progress components
 export type { ProgressIndicatorProps } from './ProgressIndicator'
-// Export components
 export { default as ProgressIndicator } from './ProgressIndicator'
 
+// Demo components
 export { default as ProgressNavigationDemo } from './ProgressNavigationDemo'
+export { default as MultiStepFormDemo } from './MultiStepFormDemo'
 
 // Export types
 export * from './types'

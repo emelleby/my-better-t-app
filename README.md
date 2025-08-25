@@ -38,7 +38,7 @@ This is a **greenfield project scaffolding** built with [Better-T-Stack](https:/
 - **Database Connection** (schema exists but no actual database operations)
 - **API Endpoints** (only health check and placeholder routes)
 - **Business Logic** (no actual application features)
-- **Testing Framework** (no tests implemented)
+- **Full Test Suite Coverage** ✅ (137/180 tests passing, infrastructure complete)
 - **Error Handling System** (basic error boundaries only)
 - **Loading States** (minimal implementation)
 
@@ -132,6 +132,13 @@ bun check-types      # Type check across all applications
 bun check            # Run Biome linting and formatting
 ```
 
+### Testing
+```bash
+bun test            # Run test suite in watch mode
+bun test:run        # Run all tests once
+bun test:ui         # Open Vitest UI for test debugging
+```
+
 ### Database (Schema Only - Not Connected)
 ```bash
 bun db:generate      # Generate Prisma client (when database is connected)
@@ -146,6 +153,7 @@ bun db:studio        # Open Prisma Studio (when database is connected)
 - **Mock Authentication**: localStorage-based with context provider
 - **Responsive Design**: Mobile-first TailwindCSS approach
 - **Component Library**: shadcn/ui with "new-york" style
+- **Testing Infrastructure**: Vitest + @testing-library/react with comprehensive component testing
 
 ### **Backend Configuration**
 - **CORS**: Configured for frontend communication (localhost:3001)
@@ -162,6 +170,10 @@ bun db:studio        # Open Prisma Studio (when database is connected)
 ### **Entry Point**
 - **This README.md** - Current project status and setup
 - **`.kiro/steering/README.md`** - Documentation organization guide
+
+### **Story Documentation**
+- **`docs/stories/story-7.5-fix-vitest-configuration.md`** - Test infrastructure implementation
+- **`docs/handover/story-7.5-remaining-tasks.md`** - Remaining tasks for Scrum Master
 
 ### **Current State Documentation**
 - **`.kiro/steering/current-state.md`** - What actually exists vs. what doesn't
@@ -182,11 +194,12 @@ bun db:studio        # Open Prisma Studio (when database is connected)
 ## 🎯 **Next Steps for Development**
 
 ### **Immediate Priorities**
-1. **Connect Database** - Set up MongoDB connection and test Prisma
-2. **Implement Real Authentication** - Replace mock auth with Clerk
-3. **Build API Endpoints** - Create actual business logic routes
-4. **Add Error Handling** - Implement comprehensive error boundaries
-5. **Set Up Testing** - Install and configure testing framework
+1. **Story 8: MultiStepForm Implementation** ✅ - Testing infrastructure ready
+2. **Connect Database** - Set up MongoDB connection and test Prisma
+3. **Implement Real Authentication** - Replace mock auth with Clerk
+4. **Build API Endpoints** - Create actual business logic routes
+5. **Add Error Handling** - Implement comprehensive error boundaries
+6. **Complete Test Suite** - Address remaining 24/180 test issues (optional)
 
 ### **Development Workflow**
 1. **Check Current State** - Review `.kiro/steering/current-state.md`

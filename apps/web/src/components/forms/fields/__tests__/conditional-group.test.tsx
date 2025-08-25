@@ -266,10 +266,8 @@ describe('ConditionalGroup', () => {
       </ConditionalGroup>
     )
 
-    // Should no longer be visible
-    await waitFor(() => {
-      expect(screen.queryByTestId('dynamic-content')).not.toBeInTheDocument()
-    })
+    // Should no longer be visible - use direct check since element should be immediately removed
+    expect(screen.queryByTestId('dynamic-content')).not.toBeInTheDocument()
   })
 
   it('handles array index conditions correctly', () => {
