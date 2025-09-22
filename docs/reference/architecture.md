@@ -1,399 +1,168 @@
-# Project Architecture & Technical Decisions
+# Architecture Context for AI Agents
 
-**📚 REFERENCE DOCUMENT - Consolidated architectural information**
+**📚 AI AGENT REFERENCE - Concise architectural context for efficient AI assistance**
 
-_This document consolidates architectural decisions, current implementation status, and future plans into a single reference. It combines information from decision-log.md, current-state.md, and the greenfield architecture plans._
+_This document provides essential architectural context optimized for AI agents. For detailed implementation guidance, refer to `docs/architecture-breakdown/` folder._
 
-## 🏗️ **Current Architecture Overview**
+**Last Updated:** September 22, 2025
+**Status:** ✅ Aligned with Current Implementation
 
-### **Project Type**
-- **Status**: Basic Tech Stack Scaffolding with Mock Authentication
-- **Purpose**: Development foundation for building full-stack TypeScript applications
-- **Maturity**: Minimal implementation with basic UI components
+## 🏗️ **Current Implementation Status**
 
-### **Architecture Pattern**
-- **Monorepo Structure**: Turborepo-based with apps/web and apps/server
-- **Frontend**: Next.js 15 with App Router and React 19
-- **Backend**: Hono 4.8.10 with Prisma ORM
-- **Database**: MongoDB with Prisma schema (not yet connected)
+### **Project Reality Check**
+- **Status**: ✅ Solid foundation with UI framework and development infrastructure
+- **What Works**: Layout system, navigation, theming, mock auth, form components
+- **What's Missing**: Database connection, real authentication, business logic, VSME modules
+- **Development Stage**: Ready for feature implementation
 
-## 🎯 **Target Architecture (Greenfield Plans)**
+### **Technology Stack (Actual Versions)**
+- **Monorepo**: Turborepo with apps/web and apps/server
+- **Frontend**: Next.js 15.3.0 + React 19.1.1 + TailwindCSS 4.1.11
+- **Backend**: Hono 4.8.10 + Prisma 6.13.0 (MongoDB provider)
+- **Database**: Schema defined, connection not established
+- **Forms**: React Hook Form 7.62.0 + Zod 4.1.3 (working)
+- **UI**: shadcn/ui components + Lucide icons (extensive implementation)
 
-### **VSME Guru Full-Stack Architecture**
-- **Style**: Decoupled frontend/backend with Turborepo monorepo
-- **Platform**: Netlify (serverless-first)
-- **Frontend**: Next.js 14+ with App Router
-- **Backend**: Hono API on Netlify Functions
-- **Database**: MongoDB Atlas (dual-database approach)
+## 🎯 **Target Architecture (VSME Guru Vision)**
 
-### **Key Architectural Decisions**
-- **Monorepo**: Turborepo for code sharing and type safety
-- **Serverless**: Netlify Functions for backend scalability
-- **Dual Database**: Scope321 for company data, VSME Guru for reporting
-- **Type Safety**: Prisma-generated types across full stack
+### **Planned Implementation**
+- **Platform**: Netlify serverless (currently local Bun development)
+- **Authentication**: Clerk JWT (currently mock system)
+- **Database**: Dual MongoDB Atlas (Scope321 + VSME Guru) - currently single schema
+- **API**: RESTful endpoints with business logic (currently health check only)
+- **Features**: VSME sustainability reporting modules (not implemented)
 
-## 🏢 **Monorepo Structure**
+### **Key Implementation Gaps**
+- **Database Connection**: Schema exists, no active connection
+- **Real Authentication**: Mock system works, Clerk integration needed
+- **Business Logic**: API structure ready, endpoints need implementation
+- **VSME Modules**: UI foundation ready, sustainability logic needed
+- **Deployment**: Local development only, Netlify configuration needed
 
-### **Current Structure**
+## 🏢 **Project Structure (Current Reality)**
+
+### **What Actually Exists**
 ```
-my-better-t-app/
+vsme-app/
 ├── apps/
-│   ├── web/                    # Frontend Next.js application
-│   │   ├── src/
-│   │   │   ├── app/           # Next.js App Router pages
-│   │   │   │   ├── (LandingPages)/ # Marketing page
-│   │   │   │   ├── (SignedIn)/     # Protected routes (mock auth)
-│   │   │   │   └── layout.tsx      # Root layout
-│   │   │   ├── components/    # React components
-│   │   │   │   ├── ui/        # shadcn/ui components
-│   │   │   │   ├── layout/    # Layout components
-│   │   │   │   ├── navigation/# Navigation components
-│   │   │   │   └── auth/      # Mock authentication
-│   │   │   ├── contexts/      # React contexts (auth, theme)
-│   │   │   ├── hooks/         # Custom React hooks
-│   │   │   └── lib/           # Utilities
-│   │   └── ...
-│   └── server/                 # Backend Hono API server
-│       ├── src/
-│       │   ├── app.ts         # Hono app configuration
-│       │   ├── routes/        # API route handlers (placeholder)
-│       │   └── index.ts       # Server entry point
-│       └── prisma/            # Database schema (not connected)
-├── .kiro/                     # Project documentation and AI assistance
-│   ├── steering/              # Development guidelines
-│   ├── specs/                 # Feature specifications
-│   └── hooks/                 # AI workflow hooks
-└── ...
+│   ├── web/                    # ✅ Next.js 15.3.0 frontend
+│   │   ├── src/app/           # ✅ App Router with (LandingPages) and (SignedIn)
+│   │   ├── src/components/    # ✅ Complete UI system (layout, navigation, forms)
+│   │   ├── src/contexts/      # ✅ Mock auth + theme contexts
+│   │   └── src/hooks/         # ✅ Custom hooks (auth, async, forms)
+│   └── server/                 # ✅ Hono 4.8.10 backend
+│       ├── src/app.ts         # ✅ CORS, logging, health check
+│       ├── src/routes/        # ✅ Basic routing structure
+│       └── prisma/            # ✅ ESG schema (User, Company, Report)
+├── docs/                      # ✅ Comprehensive documentation
+│   ├── architecture-breakdown/ # ✅ Detailed architecture guidance
+│   ├── reference/             # ✅ Current state documentation
+│   └── epics/                 # ✅ Feature specifications
+└── package.json               # ✅ Turborepo + Bun configuration
 ```
 
-### **Target Structure (Netlify Deployment)**
-```
-my-better-t-app/
-├── apps/
-│   ├── web/                    # Next.js Frontend (Netlify)
-│   │   ├── src/
-│   │   │   ├── app/           # App Router with VSME modules
-│   │   │   ├── components/    # VSME-specific components
-│   │   │   ├── lib/           # VSME utilities and API client
-│   │   │   └── types/         # Shared type definitions
-│   │   └── ...
-│   └── api/                    # Hono API (Netlify Functions)
-│       ├── src/
-│       │   ├── functions/     # Netlify function handlers
-│       │   ├── lib/           # API utilities and services
-│       │   ├── middleware/    # Authentication and validation
-│       │   └── types/         # API type definitions
-│       └── prisma/            # Dual database schema
-├── packages/                   # Shared packages
-│   ├── types/                 # Shared TypeScript types
-│   ├── utils/                 # Shared utility functions
-│   └── validation/            # Shared Zod schemas
-└── ...
+## 🚀 **Development Commands (Working)**
+
+### **Available Commands**
+```bash
+# Development (all working)
+bun dev          # Starts both apps (web:3001, server:3000)
+bun dev:web      # Frontend only
+bun dev:server   # Backend only
+bun check        # Biome formatting/linting
+
+# Database (needs setup)
+bun db:push      # Requires DATABASE_URL
+bun db:studio    # Requires DATABASE_URL
+bun db:generate  # Works (generates from schema)
+
+# Testing (configured)
+bun test         # Vitest setup ready
+bun test:run     # Run tests once
 ```
 
-## 🌐 **Frontend Architecture**
+## 🎯 **Development Roadmap & Migration Path**
 
-### **Current Implementation**
-- **Next.js 15.3.0** with App Router (basic setup)
-- **React 19** functional components
-- **Theme System** with dark/light mode toggle
-- **Mock Authentication** with context and localStorage persistence
-- **Basic Layout** with sidebar navigation structure
+### **Phase 1: Foundation Connectivity (Weeks 1-2)**
+1. **Database Connection**: MongoDB Atlas setup and first CRUD operations
+2. **Clerk Authentication**: Replace mock auth with production JWT authentication
+3. **API Development**: First business logic endpoints with validation
+4. **Environment Setup**: Production-ready configuration management
 
-### **Target Implementation (VSME Guru)**
-- **Next.js 14+** with App Router and VSME modules
-- **VSME-Specific Components** for sustainability reporting
-- **Clerk Authentication** integration
-- **TanStack Query** for server state management
-- **React Hook Form** for complex form handling
-- **Zod** for form validation
-- **VSME Module System** (B1, B2, C1, etc.)
+### **Phase 2: Dual Database Architecture (Weeks 3-5)**
+1. **Scope321 Integration**: Connect to existing company database
+2. **VSME Database**: Create dedicated sustainability reporting database
+3. **Data Migration**: Implement dual database strategy with proper linking
+4. **API Expansion**: Company management and basic reporting endpoints
 
-### **VSME Module Structure**
-```
-src/
-├── app/
-│   ├── (auth)/                # Authentication routes
-│   ├── (dashboard)/           # Dashboard and reporting
-│   │   ├── modules/           # VSME reporting modules
-│   │   │   ├── b1/            # Business model and strategy
-│   │   │   ├── b2/            # Policies and due diligence
-│   │   │   ├── c1/            # Climate change
-│   │   │   └── ...            # Additional modules
-│   │   └── reports/           # Report management
-│   └── (marketing)/           # Public marketing pages
-├── components/
-│   ├── vsme/                  # VSME-specific components
-│   ├── forms/                 # Complex form components
-│   └── reports/               # Report generation components
-└── lib/
-    ├── vsme/                  # VSME calculation utilities
-    ├── api/                   # API client with Clerk auth
-    └── validation/            # VSME data validation
-```
+### **Phase 3: VSME Module Implementation (Weeks 6-10)**
+1. **Sustainability Modules**: B1, B2, C1 modules with business logic
+2. **Advanced Forms**: Multi-step VSME data entry with complex validation
+3. **Report Generation**: PDF export and sustainability analytics
+4. **Dashboard System**: Comprehensive sustainability metrics visualization
 
-## 🔧 **Backend Architecture**
+### **Phase 4: Production Deployment (Weeks 11-12)**
+1. **Netlify Migration**: Serverless deployment with global CDN
+2. **Performance Optimization**: Caching, monitoring, and scaling
+3. **Security Hardening**: Production security and compliance measures
+4. **Testing & QA**: Comprehensive testing and quality assurance
 
-### **Current Implementation**
-- **Hono 4.8.10** web framework (basic setup)
-- **Health Check Route**: GET / returns server status
-- **Placeholder API Routes** for authentication (returns 501 Not Implemented)
-- **Prisma 6.13.0** configured for MongoDB
+## 📚 **Key Documentation References**
 
-### **Target Implementation (Netlify Functions)**
-- **Hono API** running on Netlify Functions
-- **Serverless-first** approach for scalability
-- **JWT Authentication** via Clerk
-- **Dual Database** integration (Scope321 + VSME Guru)
-- **External API Integration** (brreg.no for company data)
+### **For Detailed Implementation**
+- **`docs/architecture-breakdown/`**: Complete architectural guidance (14 focused documents)
+- **`docs/architecture-breakdown/MIGRATION-ROADMAP.md`**: Detailed migration path from current to target
+- **`docs/reference/current-state.md`**: Accurate audit of what exists vs. planned
+- **`docs/reference/tech-stack.md`**: Technology versions and command reference
+- **`docs/reference/coding-standards.md`**: Code quality and style guidelines
 
-### **API Architecture**
-```typescript
-// Target API structure
-src/
-├── functions/
-│   ├── company.ts             # Company management endpoints
-│   ├── reports.ts             # VSME reporting endpoints
-│   ├── auth.ts                # Authentication middleware
-│   └── index.ts               # Function aggregation
-├── lib/
-│   ├── prisma/                # Dual database clients
-│   ├── clerk/                 # Clerk authentication
-│   ├── brreg/                 # brreg.no API integration
-│   └── validation/            # Request validation
-└── types/
-    ├── api.ts                 # API request/response types
-    ├── vsme.ts                # VSME data types
-    └── company.ts             # Company data types
-```
+### **For Feature Development**
+- **`docs/epics/`**: Feature specifications and user stories
+- **`docs/reference/development-workflow.md`**: Development process and patterns
+- **`docs/reference/testing-quick-start-guide.md`**: Testing setup and patterns
 
-## 🗄️ **Database Architecture**
+### **For Current State Validation**
+- **`apps/web/src/components/`**: Actual implemented UI components
+- **`apps/server/prisma/schema/schema.prisma`**: Current database models
+- **`package.json` files**: Actual dependency versions and scripts
 
-### **Current Schema (Single Database)**
-- **Single MongoDB** connection with ESG models
-- **Basic Models**: User, Company, Report with ESG data types
-- **Prisma Schema**: Defined but not connected
+## ⚠️ **Critical Implementation Gaps**
 
-### **Target Schema (Dual Database)**
-- **Scope321 Database**: Company and user profile data (existing)
-- **VSME Guru Database**: VSME-specific reporting data (new)
-- **Unified Company Directory Model** with clear separation
+### **Database Layer**
+- **Current**: ESG schema defined (User, Company, Report), no connection
+- **Needed**: MongoDB Atlas setup, environment variables, first connection test
+- **Priority**: High - required for any data operations
 
-### **Dual Database Strategy**
-```prisma
-// Target schema.prisma structure
-datasource scope321 {
-  provider = "mongodb"
-  url      = env("SCOPE321_DATABASE_URL")
-}
+### **Authentication Layer**
+- **Current**: Mock system with React context (fully functional for UI development)
+- **Needed**: Clerk integration, JWT handling, organization support
+- **Priority**: Medium - mock system sufficient for continued development
 
-datasource vsmeGuru {
-  provider = "mongodb"
-  url      = env("VSME_GURU_DATABASE_URL")
-}
+### **API Layer**
+- **Current**: Health check endpoint only, Hono framework ready
+- **Needed**: Business logic endpoints, data validation, error handling
+- **Priority**: High - required for frontend-backend integration
 
-generator client {
-  provider = "prisma-client-js"
-}
+## 🎯 **AI Agent Quick Reference**
 
-// Scope321 Models (Company Profiles)
-model Company {
-  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
-  name               String
-  organizationNumber String   @unique
-  address            Address
-  contactPerson      ContactPerson
-  legalForm          String
-  naceCodes         String[]
-  balanceSheetSize   number
-  turnover          number
-  employeeCount     number
-  primaryCountry    String
-  siteLocations     GeoLocation[]
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+### **When Working on Features**
+1. **Check Current State**: Always reference `docs/reference/current-state.md` first
+2. **Understand Architecture**: Use `docs/architecture-breakdown/` for detailed guidance
+3. **Validate Against Code**: Cross-reference claims with actual implementation
+4. **Follow Patterns**: Use existing component and code patterns as templates
 
-  @@map("companies")
-}
+### **Common Development Tasks**
+- **Adding Components**: Follow existing patterns in `apps/web/src/components/`
+- **Database Work**: Start with connection setup, then expand schema
+- **API Development**: Build on existing Hono structure in `apps/server/src/`
+- **Form Implementation**: Use multi-step form pattern already established
 
-// VSME Guru Models (Reporting Data)
-model VSMEReport {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  companyId    String   @db.ObjectId
-  reportingYear Int
-  module       String   // B1, B2, C1, etc.
-  data         Json     // Module-specific data
-  status       String   // draft, submitted, approved
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@map("vsme_reports")
-}
-```
-
-### **Data Flow Architecture**
-1. **Company Onboarding**: brreg.no API → Scope321 database
-2. **VSME Reporting**: VSME Guru UI → VSME Guru database
-3. **Data Linking**: Company ID references between databases
-4. **Unified Access**: Single Prisma client managing both connections
-
-## 🔐 **Authentication Architecture**
-
-### **Current Implementation**
-- **Mock System**: React context with localStorage persistence
-- **Route Protection**: Next.js middleware for protected routes
-- **User Context**: Authentication state management throughout the app
-
-### **Target Implementation (Clerk)**
-- **Clerk Integration**: Third-party authentication service
-- **JWT Tokens**: Secure token-based authentication
-- **Organization Support**: Multi-tenant authentication system
-- **Role-based Access**: User permissions and access control
-
-### **Authentication Flow**
-```typescript
-// Target authentication flow
-1. User Login → Clerk authentication
-2. JWT Token → VSME Guru API
-3. Token Validation → Clerk verification
-4. User Context → Company association
-5. Authorization → Role-based access control
-```
-
-## 🎨 **UI/UX Architecture**
-
-### **Current Design System**
-- **Color Palette**: Blue primary, emerald/teal secondary
-- **Typography**: Geist font family (sans and mono variants)
-- **Component Library**: shadcn/ui with "new-york" style
-- **Theme System**: Dark/light mode with system preference detection
-
-### **Target VSME Design System**
-- **VSME Branding**: EU sustainability compliance focus
-- **Module-based UI**: Clear navigation between VSME modules
-- **Form Complexity**: Multi-step forms for VSME data entry
-- **Report Generation**: PDF generation and export capabilities
-- **Dashboard Analytics**: Sustainability metrics visualization
-
-### **VSME Component Architecture**
-```typescript
-// Target VSME component structure
-components/
-├── vsme/
-│   ├── ModuleNavigator.tsx    # VSME module navigation
-│   ├── DataEntryForm.tsx      # Multi-step data entry
-│   ├── ReportGenerator.tsx    # PDF report generation
-│   └── SustainabilityChart.tsx # Metrics visualization
-├── forms/
-│   ├── MultiStepForm.tsx      # Complex form handling
-│   ├── FieldValidation.tsx    # Real-time validation
-│   └── ProgressIndicator.tsx  # Form progress tracking
-└── reports/
-    ├── ReportViewer.tsx       # Report display
-    ├── ExportOptions.tsx      # Export functionality
-    └── ComplianceChecker.tsx  # VSME compliance validation
-```
-
-## 🚀 **Performance Architecture**
-
-### **Current Performance**
-- **Next.js Optimization**: App Router with automatic code splitting
-- **Bundle Optimization**: Turborepo for build optimization
-- **Basic Caching**: No advanced caching implemented
-
-### **Target Performance (Netlify)**
-- **Serverless Functions**: Automatic scaling and optimization
-- **Edge Functions**: Global performance optimization
-- **CDN Integration**: Netlify CDN for static assets
-- **Database Optimization**: Strategic indexing and query optimization
-
-## 🔒 **Security Architecture**
-
-### **Current Security**
-- **CORS Configuration**: Proper cross-origin setup
-- **Type Safety**: TypeScript strict mode
-- **Basic Validation**: No input validation implemented
-
-### **Target Security**
-- **JWT Authentication**: Clerk-based secure authentication
-- **Input Validation**: Zod schema validation throughout
-- **Rate Limiting**: API abuse prevention
-- **Data Encryption**: Encrypted data transmission
-- **Role-based Access**: Granular permission system
-
-## 🧪 **Testing Architecture**
-
-### **Current Testing**
-- **No Testing Framework**: No tests implemented
-- **No Test Infrastructure**: No testing setup
-
-### **Target Testing**
-- **Vitest**: Fast unit and integration testing
-- **Testing Library**: React component testing
-- **MSW**: API mocking for frontend tests
-- **Playwright**: End-to-end testing
-- **Test Coverage**: Comprehensive VSME module testing
-
-## 📊 **Monitoring & Observability**
-
-### **Current Monitoring**
-- **Basic Logging**: Hono logger middleware
-- **Health Checks**: Server health endpoint
-- **Error Boundaries**: React error boundary components
-
-### **Target Monitoring**
-- **Netlify Analytics**: Built-in performance monitoring
-- **Error Tracking**: Comprehensive error logging
-- **User Analytics**: VSME usage and compliance tracking
-- **Performance Metrics**: Real-time sustainability metrics
-
-## 🔄 **Deployment Architecture**
-
-### **Current Deployment**
-- **Local Development**: Bun runtime for development
-- **No Production**: No deployment configuration
-
-### **Target Deployment (Netlify)**
-- **Unified Platform**: Frontend and backend on Netlify
-- **Serverless Functions**: Hono API on Netlify Functions
-- **Automatic Scaling**: Serverless-first approach
-- **Global CDN**: Netlify edge network
-- **CI/CD Integration**: Automated deployment pipeline
-
-## 🎯 **Implementation Roadmap**
-
-### **Phase 1: Foundation Alignment**
-1. **Update Prisma Schema**: Implement dual database configuration
-2. **Clerk Integration**: Replace mock authentication
-3. **API Structure**: Implement VSME API endpoints
-4. **Database Connection**: Connect to MongoDB Atlas
-
-### **Phase 2: VSME Implementation**
-1. **VSME Modules**: Implement B1, B2, C1 modules
-2. **Form System**: Multi-step VSME data entry
-3. **Report Generation**: PDF export functionality
-4. **Dashboard**: Sustainability metrics visualization
-
-### **Phase 3: Production Readiness**
-1. **Netlify Migration**: Move to serverless architecture
-2. **Testing Coverage**: Comprehensive testing implementation
-3. **Performance Optimization**: Caching and optimization
-4. **Security Hardening**: Production security measures
-
-## 📚 **Architecture Documentation**
-
-### **Greenfield Architecture Plans**
-- **`docs/architecture-breakdown/`**: Complete VSME Guru architecture
-- **API Contracts**: Detailed endpoint specifications
-- **Data Models**: Dual database schema design
-- **Deployment Strategy**: Netlify serverless approach
-
-### **Current Implementation Status**
-- **Basic Scaffolding**: Tech stack foundation ready
-- **Mock Authentication**: Development authentication system
-- **Basic UI Components**: Layout and navigation structure
-- **Prisma Schema**: ESG models defined but not connected
+### **Key Files to Reference**
+- **`apps/server/prisma/schema/schema.prisma`**: Current database models
+- **`apps/web/src/components/common/multi-step-form.tsx`**: Form pattern template
+- **`apps/web/src/contexts/mock-auth-context.tsx`**: Authentication pattern
+- **`docs/reference/coding-standards.md`**: Code quality guidelines
 
 ---
 
-**Note**: This document consolidates architectural information from multiple sources and aligns current implementation with greenfield architecture plans. When implementing new features, refer to the appropriate sections and ensure alignment with the overall VSME Guru architecture goals.
+**🚀 This document provides essential architectural context for AI agents. For detailed implementation guidance, always refer to the comprehensive documentation in `docs/architecture-breakdown/` folder.**

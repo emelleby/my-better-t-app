@@ -1,13 +1,17 @@
 # VSME Guru Architecture - Data Architecture
 
-**Source:** Architecture Document Section 5  
-**Version:** 1.0  
-**Date:** August 19, 2025  
+**Source:** Architecture Document Section 5
+**Version:** 1.1 (Migration Roadmap)
+**Date:** September 22, 2025
 **Author:** Winston, Architect
 
 ## Overview
 
 The project will use a **Unified Company Directory Model** that leverages existing infrastructure while maintaining clear separation of concerns. This approach provides data consistency, leverages team expertise, and ensures scalability for future growth.
+
+**🔄 Current State**: Single MongoDB schema with ESG models defined but not connected
+**🎯 Target State**: Dual database strategy with Scope321 + VSME Guru databases
+**📋 Migration Path**: Clearly defined steps from current single database to dual database architecture
 
 ## Dual Database Strategy
 
@@ -282,22 +286,42 @@ interface EnvironmentModuleData {
 - **Capacity Alerts:** Warn when approaching storage limits
 - **Security Alerts:** Alert on suspicious access patterns
 
+## Migration Roadmap: Single → Dual Database
+
+### Phase 1: Current State Validation (Week 1)
+1. **✅ Schema Review**: Current ESG models (User, Company, Report) defined
+2. **🔄 Connection Setup**: Establish first MongoDB connection with existing schema
+3. **🔄 Basic CRUD**: Implement basic database operations with current models
+4. **🔄 Data Validation**: Test Prisma client generation and basic queries
+
+### Phase 2: Dual Database Preparation (Week 2-3)
+1. **🔄 Scope321 Database**: Set up connection to existing Scope321 database
+2. **🔄 VSME Guru Database**: Create new dedicated VSME reporting database
+3. **🔄 Schema Migration**: Split current schema into dual database structure
+4. **🔄 Connection Management**: Configure Prisma for dual database access
+
+### Phase 3: Data Architecture Implementation (Week 4-6)
+1. **🔄 Company Data Migration**: Move company profiles to Scope321 database
+2. **🔄 VSME Data Structure**: Implement VSME-specific reporting models
+3. **🔄 Data Linking**: Establish company ID references between databases
+4. **🔄 API Integration**: Update API endpoints for dual database access
+
+### Phase 4: Production Readiness (Week 7-8)
+1. **❌ Performance Optimization**: Database indexing and query optimization
+2. **❌ Backup Strategy**: Implement comprehensive backup and recovery
+3. **❌ Monitoring Setup**: Establish monitoring and alerting systems
+4. **❌ Security Hardening**: Production security measures and access controls
+
 ## Next Steps
 
-### Immediate Actions
-1. **Database Setup:** Create VSME Guru MongoDB Atlas database
-2. **Prisma Configuration:** Set up dual-database Prisma configuration
-3. **Schema Design:** Design detailed database schema
-4. **Connection Setup:** Configure database connections
+### Immediate Actions (This Week)
+1. **Database Connection**: Set up first MongoDB Atlas connection
+2. **Environment Setup**: Configure DATABASE_URL environment variable
+3. **Prisma Test**: Run `bun db:push` to test schema deployment
+4. **Basic Operations**: Implement first CRUD operations
 
-### Development Preparation
-1. **Data Models:** Create TypeScript interfaces for all data models
-2. **Validation Schemas:** Implement Zod validation schemas
-3. **Migration Scripts:** Prepare database migration scripts
-4. **Testing Data:** Create test data for development
-
-### Long-term Planning
-1. **Performance Optimization:** Plan for database performance tuning
-2. **Scaling Strategy:** Plan for future growth and scaling
-3. **Backup Strategy:** Implement comprehensive backup and recovery
-4. **Monitoring Setup:** Establish monitoring and alerting systems 
+### Short-term Goals (Next 2-4 Weeks)
+1. **Dual Database Setup**: Configure Scope321 + VSME Guru databases
+2. **Schema Evolution**: Migrate from single to dual database architecture
+3. **API Development**: Build endpoints that leverage dual database strategy
+4. **Data Validation**: Comprehensive testing of data operations

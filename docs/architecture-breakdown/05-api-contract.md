@@ -1,13 +1,17 @@
 # VSME Guru Architecture - API Contract
 
-**Source:** Architecture Document Section 6  
-**Version:** 1.0  
-**Date:** August 19, 2025  
+**Source:** Architecture Document Section 6
+**Version:** 1.1 (Implementation Roadmap)
+**Date:** September 22, 2025
 **Author:** Winston, Architect
 
 ## Overview
 
 The Hono backend will expose a **RESTful API** that provides all necessary endpoints for the VSME Guru application. All endpoints are authenticated via a Clerk JWT sent in the `Authorization: Bearer <token>` header.
+
+**🔄 Current State**: Health check endpoint only (`GET /` returns server status)
+**🎯 Target State**: Full RESTful API with authentication, company management, and VSME reporting
+**📋 Implementation Status**: API framework ready, endpoints need implementation
 
 ## Authentication & Security
 
@@ -25,10 +29,16 @@ The Hono backend will expose a **RESTful API** that provides all necessary endpo
 
 ## API Endpoints
 
+**📋 Implementation Legend:**
+- ✅ **Implemented**: Endpoint exists and works
+- 🔄 **Planned**: Endpoint designed, needs implementation
+- ❌ **Future**: Endpoint planned for later phases
+
 ### Company Management Endpoints
 
-#### GET /api/company
+#### 🔄 GET /api/company
 **Purpose:** Fetches the company profile from the Scope321 database
+**Status:** Planned - requires database connection and Clerk auth
 
 **Request:**
 ```http

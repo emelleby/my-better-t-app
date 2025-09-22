@@ -2,7 +2,7 @@
 
 This document provides a comprehensive listing of all files and directories in the project structure, organized hierarchically.
 
-Generated on: 2025-09-08T09:56:00Z
+Generated on: 2025-09-22T09:56:00Z
 
 ## Root Level Files
 
@@ -326,7 +326,6 @@ apps/web/
 ### docs/
 ```
 docs/
-├── architecture.md
 ├── prd.md
 ├── TESTING-STATUS.md
 ├── adr/
@@ -335,7 +334,10 @@ docs/
 │   └── README.md
 ├── analysis/
 │   └── testing-documentation-assessment.md
-├── architecture-breakdown/
+├── archive/
+│   ├── original-architecture.md  # Archived from docs/architecture.md
+│   └── README.md
+├── architecture-breakdown/       # ✅ Primary architecture documentation
 │   ├── 00-index.md
 │   ├── 01-introduction-architecture.md
 │   ├── 02-technology-stack.md
@@ -346,6 +348,7 @@ docs/
 │   ├── 07-deployment-infrastructure.md
 │   ├── 08-next-steps-implementation.md
 │   ├── ARCHITECTURE-ALIGNMENT-SUMMARY.md
+│   ├── ARCHITECTURE-CONSOLIDATION-SUMMARY.md
 │   ├── database-implementation.md
 │   ├── DOCUMENTATION-CONSOLIDATION-SUMMARY.md
 │   └── README.md

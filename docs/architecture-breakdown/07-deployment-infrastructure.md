@@ -1,13 +1,17 @@
 # VSME Guru Architecture - Deployment & Infrastructure
 
-**Source:** Architecture Document Section 8  
-**Version:** 1.0  
-**Date:** August 19, 2025  
+**Source:** Architecture Document Section 8
+**Version:** 1.1 (Migration Strategy)
+**Date:** September 22, 2025
 **Author:** Winston, Architect
 
 ## Overview
 
 The entire VSME Guru application will be deployed to **Netlify**, providing a unified hosting platform that consolidates with existing applications. This approach offers serverless scalability, global CDN distribution, and seamless integration with our technology stack.
+
+**🔄 Current State**: Local development with Bun runtime (apps run on localhost:3001 and localhost:3000)
+**🎯 Target State**: Netlify serverless deployment with global CDN and automatic scaling
+**📋 Migration Path**: Phased migration from local development to production Netlify deployment
 
 ## Platform Choice: Netlify
 
