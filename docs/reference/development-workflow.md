@@ -181,7 +181,7 @@ if (!user) {
 ## 🎨 **UI Development Guidelines**
 
 ### **shadcn/ui Integration**
-This project is configured for shadcn/ui v4 with "new-york" style:
+This project is configured for shadcn/ui v4 with "new-york" style. Check wheter there is a Shadcn MCP server available to help install the right components:
 
 ```json
 {

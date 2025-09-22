@@ -256,12 +256,78 @@ _This document consolidates all coding standards, best practices, and developmen
 - Don't use the `delete` operator
 - Don't use spread (`...`) syntax on accumulators
 
-## 📚 **Next.js Specific Rules**
+## 🚀 **Next.js Best Practices**
 
-- Don't use `<img>` elements in Next.js projects
-- Don't use `<head>` elements in Next.js projects
-- Don't import next/document outside of pages/_document.jsx in Next.js projects
-- Don't use the next/head module in pages/_document.js on Next.js projects
+### **📁 Project Structure**
+- **Use App Router directory structure** - Place route files in [`app`](apps/web/src/app/) directory following Next.js 13+ conventions
+- **Route-specific components** - Place components specific to routes in [`app`](apps/web/src/app/) directory structure
+- **Shared components** - Place reusable components in [`components`](apps/web/src/components/) directory
+- **Utilities and helpers** - Place shared logic in [`lib`](apps/web/src/lib/) directory
+- **Directory naming** - Use lowercase with dashes for directories (e.g., [`components/auth-wizard`](apps/web/src/components/auth/))
+
+### **⚛️ Components**
+- **Server Components by default** - Use Server Components unless client interactivity is required
+- **Explicit client components** - Mark client components with [`'use client'`](apps/web/src/components/common/mode-toggle.tsx:3) directive at file top
+- **Suspense boundaries** - Wrap client components in [`Suspense`](apps/web/src/components/layout/app-layout.tsx) with fallback UI
+- **Dynamic loading** - Use [`dynamic()`](apps/web/src/components/) loading for non-critical components
+- **Error boundaries** - Implement proper [`ErrorBoundary`](apps/web/src/components/common/error-boundary.tsx) components for error handling
+- **File organization** - Place static content and interfaces at file end
+
+### **🚀 Performance**
+- **Image optimization** - Use [`next/image`](apps/web/src/app/) component instead of `<img>` elements
+  - Prefer WebP format for images
+  - Include size data for proper layout
+  - Enable lazy loading by default
+- **Minimize client-side effects** - Reduce use of [`useEffect`](apps/web/src/hooks/) and [`setState`](apps/web/src/hooks/)
+- **Favor Server Components** - Use RSC (React Server Components) where possible for better performance
+- **Dynamic imports** - Use [`dynamic()`](apps/web/src/components/) loading for non-critical components
+- **Caching strategies** - Implement proper caching with App Router conventions
+
+### **🔄 Data Fetching**
+- **Server Components for data** - Use Server Components for data fetching when possible
+- **Error handling** - Implement proper error handling for all data fetching operations
+- **Loading states** - Handle loading and error states appropriately with [`loading.tsx`](apps/web/src/components/common/loading.tsx) and [`error.tsx`](apps/web/src/app/error.tsx)
+- **Caching strategies** - Use appropriate caching strategies based on data freshness requirements
+
+### **🛣️ Routing**
+- **App Router conventions** - Follow Next.js App Router file-based routing patterns
+- **Loading states** - Implement proper [`loading.tsx`](apps/web/src/components/layout/dashboard-loading.tsx) files for routes
+- **Error states** - Use [`error.tsx`](apps/web/src/app/error.tsx) files for route-level error handling
+- **Dynamic routes** - Use dynamic routes appropriately with proper parameter validation
+- **Parallel routes** - Handle parallel routes when needed for complex layouts
+
+### **📝 Forms and Validation**
+- **Zod validation** - Use [`Zod`](apps/web/src/components/forms/multi-step/schemas/) for all form validation schemas
+- **Server-side validation** - Implement proper server-side validation for security
+- **Error handling** - Handle form errors appropriately with user-friendly messages
+- **Loading states** - Show loading states during form submission to improve UX
+- **React Hook Form** - Use [`react-hook-form`](apps/web/src/components/forms/) for form state management
+
+### **🏪 State Management**
+- **Minimize client state** - Reduce client-side state management when possible
+- **Context sparingly** - Use [`React Context`](apps/web/src/contexts/) sparingly, prefer prop drilling for simple cases
+- **Server state preference** - Prefer server state over client state when possible
+- **Loading states** - Implement proper loading states for all async operations
+
+### **🚫 Next.js Restrictions**
+- **Don't use `<img>` elements** - Use [`next/image`](apps/web/src/app/) component instead
+- **Don't use `<head>` elements** - Use [`Metadata API`](apps/web/src/app/layout.tsx) or [`generateMetadata`](apps/web/src/app/) instead
+- **Don't import next/document** - Avoid importing [`next/document`](apps/web/src/app/) outside of pages/_document.jsx
+- **Don't use next/head in _document** - Avoid using [`next/head`](apps/web/src/app/) module in pages/_document.js
+
+### **🔧 App Router Specific**
+- **Layout files** - Use [`layout.tsx`](apps/web/src/app/layout.tsx) files for shared layouts
+- **Page files** - Use [`page.tsx`](apps/web/src/app/(SignedIn)/dashboard/page.tsx) files for route components
+- **Template files** - Use [`template.tsx`](apps/web/src/app/) files when state reset is needed
+- **Route groups** - Use route groups [`(groupName)`](apps/web/src/app/(SignedIn)/) for organization without affecting URL structure
+- **Metadata** - Define metadata using [`generateMetadata`](apps/web/src/app/) or static metadata objects
+
+### **⚡ Optimization Guidelines**
+- **Code splitting** - Leverage automatic code splitting with App Router
+- **Static generation** - Use static generation when possible for better performance
+- **Streaming** - Implement streaming with [`Suspense`](apps/web/src/components/layout/app-layout.tsx) for progressive loading
+- **Bundle analysis** - Regularly analyze bundle size and optimize imports
+- **Font optimization** - Use [`next/font`](apps/web/src/app/layout.tsx) for font optimization
 
 ## 🔍 **Code Validation**
 

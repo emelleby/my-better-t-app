@@ -22,6 +22,8 @@ This directory contains essential reference documentation for the My Better T Ap
 
 - **[tech-stack.md](./tech-stack.md)** - Technology stack reference documenting all technologies, versions, dependencies, build systems, frontend/backend stacks, database configurations, UI components, code quality tools, and development commands.
 
+- **[source-tree.md](./source-tree.md)** - Comprehensive source tree documentation providing hierarchical listing of all project files and directories, organized by application code, documentation, configuration, and testing components.
+
 ### Testing Documentation
 
 - **[testing-quick-start-guide.md](./testing-quick-start-guide.md)** - Rapid onboarding guide for writing tests with copy-paste patterns, covering component testing, utility testing, hook testing, API testing, and integration testing.
