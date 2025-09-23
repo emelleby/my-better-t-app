@@ -20,13 +20,14 @@ This document establishes the workflow for Augment Agent when working on the vsm
 
    - Read `Docs/reference/tdd-process-guide.md` for TDD methodology
    - Read `Docs/reference/testing-quick-start-guide.md` for practical implementation
-   - Read `Docs/reference/testing-patterns.md` for pattern library
+   - Read `Docs/reference/testing-patterns/` for pattern library
 
 3. **Current State Assessment**
 
    - Read `Docs/reference/current-state.md` to understand what actually exists
    - Read `Docs/reference/coding-standards.md`, and `Docs/reference/clean-code.md` for core principles and coding standards
    - Read `Docs/reference/tech-stack.md` for technology stack and commands
+   - Read `Docs/reference/architecture.md` for project architecture
 
 4. **Epic Context (If Working on Specific Features)**
 

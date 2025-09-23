@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --max-old-space-size=8192 ./node_modules/vitest/vitest.mjs --config vitest.config.mjs",
-    "test:run": "node --max-old-space-size=8192 ./node_modules/vitest/vitest.mjs --run --config vitest.config.mjs"
+    "test": "node --max-old-space-size=8192 ./node_modules/vitest/vitest.mjs --config vitest.config.ts",
+    "test:run": "node --max-old-space-size=8192 ./node_modules/vitest/vitest.mjs --run --config vitest.config.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
